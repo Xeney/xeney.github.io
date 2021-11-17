@@ -1,0 +1,211 @@
+/* ЗАГОТОВКА ГЛАВНЫХ ЭЛЕМЕНТОВ */
+:root {
+    --color-1: #142F43;
+    --color-1-op: #142f43c7;
+    --color-2: #FFCE45;
+    --color-2-op: #ffcd45c7;
+    --color-3: #E8E1D9;
+    --color-4: #B2EA70;
+    background-color: var(--color-3);
+}
+h1, h2, h3 {
+    font-family: title-1;
+}
+h4, h5, h6 {
+    font-family: title-2;
+}
+p {
+    font-family: title-3;
+    word-wrap: break-word;
+}
+
+/* ЭКСПОРТ ШРИФТОВ */
+@font-face {
+    font-family: "title-1";
+    src: url('../fonts/SonderSlab-BlackRough.otf');
+}
+@font-face {
+    font-family: "title-2";
+    src: url('../fonts/SonderSans-BlackRough.otf');
+}
+@font-face {
+    font-family: "title-3";
+    src: url('../fonts/SonderSans-Black.otf');
+}
+@font-face {
+    font-family: "title-4";
+    src: url('../fonts/SonderSlab-Black.otf');
+}
+
+/* ПОВОТРЯЮЩИЕСЯ КЛАССЫ */
+.container {
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;
+}
+.between {
+    display: flex;
+    justify-content: space-between;
+}
+.d-flex {
+    display: flex;
+}
+.block-icon {
+    display: grid;
+    grid-template-columns: 0.1fr 0.1fr;
+    align-items: center;
+    grid-gap: 5px;
+}
+.icon {
+    width: 35px;
+    height: 35px;
+}
+.icon-up {
+    width: 50px;
+    height: 50px;
+}
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+.marg {
+    margin: 50px auto;
+}
+
+/* ВСЕ СТИЛИ ШАПКИ САЙТА */
+.header {
+    background-color: var(--color-2);
+}
+/* Блок для представления */
+.header-title {
+    margin: 50px 10px;
+    color: var(--color-1);
+}
+.header-title h1 {
+    font-size: 34px;
+    font-family: title-2;
+    font-weight: 900;
+    margin: 0;
+}
+.header-title small {
+    font-weight: 100;
+    font-size: 15px;
+    color: var(--color-1-op);
+    margin: 0px 20px 0px 20px;
+    font-family: title-3;
+    animation: text 0.3s alternate-reverse infinite ease-in-out;
+}
+@keyframes text {
+    0%, 50% {
+        color: var(--color-1);
+    }
+    50%, 100% {
+        color: #ea7070;
+    }
+}
+/* Блок основной информации шапки */
+/* Является списком карточек с информацией */
+.header-info {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+    margin: 20px 10px 20px 10px;
+    grid-gap: 10px;
+}
+.card-small {
+    border: 5px dashed white;
+    padding: 5px 10px;
+    color: var(--color-1);
+}
+.card-small h2 {
+    margin: 5px;
+}
+.card-small p {
+    font-size: 15px;
+}
+
+/* РАЗРАБОТКА ЧАСТИ ОСНОВНОГО КОНТЕНТА MAIN */
+/* Начну с меню сайта */
+.menu ul {
+    color:var(--color-1);
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    font-family: title-3;
+    column-gap: 15px;
+}
+.menu ul .but {
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    max-width: 200px;
+    box-shadow: 0 0 0 0 var(--color-1);
+    background-color: var(--color-2-op);
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    color: var(--color-1);
+}
+.menu ul .but:hover {
+    box-shadow: 5px 5px 0 0 var(--color-1);
+    transform: translate(-5px, -5px);
+}
+.menu ul .but:active {
+    background-color: var(--color-4);
+}
+/* Карточки с индивидуальной информацией */
+/* Можно красиво указывать пункты */
+.card-list {
+    display: flex;
+    flex-direction: column;
+    border: 5px dashed white;
+    padding: 10px 40px;
+    row-gap: 10px;
+}
+.card-list h2 {text-align: center;}
+.card-list > p {
+    padding: 10px 20px;
+    margin: 0;
+    background-color: var(--color-2);
+    color: var(--color-1);
+}
+/* Просто чёрная кнопка */
+.but-black {
+    background-color: var(--color-1);
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--color-3);
+    font-family: title-3;
+    padding: 10px 30px;
+    transition: all 0.2s ease-in-out;
+}
+.but-black:hover {
+    color: var(--color-2);
+}
+.but-black:active {
+    color: var(--color-4);
+}
+/* Настройка положения кнопок контактов */
+.contacts {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+/* мои работы */
+.works {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.work {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 40px;
+    row-gap: 10px;
+}
+.work img {
+    border-radius: 10px;
+    width: 100%;
+}
