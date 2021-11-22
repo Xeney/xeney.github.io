@@ -197,7 +197,11 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
-.list-work > * {
+.list-work_1 {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+}
+.list-work > *, .list-work_1 > * {
     display: flex;
     justify-content: center;
 }
@@ -286,6 +290,10 @@ footer .between {
         grid-template-columns: 1fr;
     }
     .list-work {
+        grid-template-columns: 1fr;
+        align-self: center;
+    }
+    .list-work_1 {
         grid-template-columns: 1fr;
         align-self: center;
     }
