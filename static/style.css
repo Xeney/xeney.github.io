@@ -112,6 +112,7 @@ main .container {
     row-gap: 150px;
 }
 main .bio-block {
+    line-height: 30px;
     font-size: 18px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.01) 29.17%, rgba(255, 255, 255, 0.01) 59.37%, rgba(255, 255, 255, 0.15) 100%);
     box-shadow: -5px 5px 17px rgba(0, 0, 0, 0.5);
@@ -119,7 +120,9 @@ main .bio-block {
     padding: 20px 60px;
     color: white;
     text-shadow: 2px 2px 2px #000;
-    line-height: 40px;
+}
+main .bio-block > p {
+    padding: 10px;
 }
 main .card-work {
     display: grid;
@@ -277,8 +280,20 @@ footer .info {
     }
 }
 @media screen and (max-width: 1000px) {
+    main .bio-block {
+        padding: 10px;
+    }
     main .card-work {
         grid-template-columns: 1fr;
+    }
+    main .card-present .card {
+        margin: 10px 0;
+    }
+    main .card-work .card {
+        margin: 10px 0;
+    }
+    main .bio-block > p {
+        padding: 20px;
     }
 }
 @media screen and (max-width: 870px) {
