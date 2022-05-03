@@ -1,0 +1,564 @@
+$medium: "Poppins Medium";
+$extraBold: "Poppins ExtraBold";
+$black: #000;
+$blue: #5d32f9;
+$white: #ffffff;
+$gray: #707070;
+$color-none: rgba(0, 0, 0, 0);
+
+@font-face {
+    font-family: "Poppins ExtraBold";
+    src: url('../fonts/Poppins-ExtraBold.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Medium";
+    src: url('../fonts/Poppins-Medium.ttf');
+}
+
+body {
+    background-color: $black;
+    &::-webkit-scrollbar {
+        width: 20px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: $gray;
+        border-radius: 100px;
+        margin: 10px auto;
+    }
+    &::-webkit-scrollbar-thumb {
+        &:active {
+            background-color: $blue;
+        }
+        border-radius: 100px;
+        background-color: $white;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: $medium;
+    scroll-behavior: smooth;
+    &::selection {
+        background-color: $blue;
+        color: $white;
+    }
+}
+
+a {
+    display: block;
+    color: $gray;
+    text-decoration: none;
+    transition: 0.3s;
+    &:hover, &:active {
+        color: $blue;
+    }
+}
+
+@mixin flex {
+    display: flex;
+    align-items: center;
+    grid-gap: 10px;
+}
+
+.list-flex {
+    list-style: none;
+    display: flex;
+    grid-gap: 10px;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+@media screen and (max-width: 1500px) {
+    .container {
+        max-width: 80%;
+    }
+}
+
+.header {
+    @include flex();
+    justify-content: space-between;
+    padding: 20px 10px;
+    .logo {
+        @include flex();
+        color: $white;
+        font-size: 11px;
+        font-family: $extraBold;
+        img {
+            width: 100%;
+            max-width: 130px;
+        }
+    }
+    .menu {
+        ul {
+            list-style: none;
+            display: flex;
+            grid-gap: 20px;
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        justify-content: start;
+        grid-gap: 20px;
+        flex-direction: column;
+    }
+}
+
+.content {
+    padding: 40px 0 20px;
+    .hello {
+        .logo {
+            padding-top: 50px;
+            color: $white;
+            text-align: center;
+            font-size: 70px;
+            font-family: $extraBold;
+            span {
+                font-family: $extraBold;
+            }
+            .gardient {
+                background-color: #2AA5A0;
+                background-image: linear-gradient(90deg, #FE6783 1.9%, #FFBF84 97.1%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+        @media screen and (max-width: 1060px) {
+            .logo {
+                font-size: 65px;
+            }
+        }
+        @media screen and (max-width: 900px) {
+            .logo {
+                font-size: 50px;
+            }
+        }
+        @media screen and (max-width: 700px) {
+            .logo {
+                font-size: 40px;
+            }
+        }
+    }
+    .why {
+        .logo {
+            padding-top: 150px;
+            color: $white;
+            text-align: center;
+            font-size: 60px;
+            font-family: $medium;
+        }
+        .card-list {
+            // @include flex();
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding-top: 50px;
+            grid-gap: 20px;
+            padding-bottom: 50px;
+            justify-content: space-between;
+            text-align: center;
+            h1 {
+                font-size: 30px;
+                color: $white;
+            }
+            p {
+                font-size: 20px;
+                color: $gray;
+            }
+        }
+        @media screen and (max-width: 1060px) {
+            .card-list {
+                display: flex;
+                flex-direction: column;
+                grid-gap: 50px;
+            }
+        }
+    }
+    .step-1 {
+        padding-bottom: 50px;
+        .logo {
+            text-align: center;
+            h1 {
+                font-size: 60px;
+                color: $white;
+            }
+            p {
+                font-size: 20px;
+                color: $gray;
+                margin: 0px auto 30px auto;
+            }
+        }
+        .card-list {
+            @include flex();
+            flex-direction: column;
+            margin-top: 150px;
+            grid-gap: 150px;
+            .card {
+                @include flex();
+                justify-content: space-between;
+                width: 100%;
+                color: $white;
+                small {
+                    color: $white;
+                    font-size: 30px;
+                    display: block;
+                    padding-bottom: 50px;
+                }
+                h1 {
+                    font-size: 75px;
+                }
+                p {
+                    font-size: 23px;
+                    margin-bottom: 50px;
+                }
+                img {
+                    border: 2px solid $blue;
+                    border-radius: 5px;
+                    width: 100%;
+                    max-width: 700px;
+                }
+            }
+        }
+        @media screen and (max-width: 1600px) {
+            .card-list .card {
+                display: flex;
+                flex-direction: column;
+                small {
+                    font-size: 25px;
+                }
+                h1 {
+                    font-size: 50px;
+                }
+                img {
+                    order: -1;
+                    max-width: 1000px;
+                }
+                & > * {
+                    width: 100%;
+                    max-width: 1000px;
+                }
+            }
+        }
+        @media screen and (max-width: 900px) {
+            .card-list .card {
+                small {
+                    font-size: 20px;
+                }
+                h1 {
+                    font-size: 40px;
+                }
+            }
+        }
+        @media screen and (max-width: 700px) {
+            .card-list .card {
+                small {
+                    font-size: 18px;
+                }
+                h1 {
+                    font-size: 35px;
+                }
+            }
+        }
+        @media screen and (max-width: 500px) {
+            .card-list .card {
+                text-align: center;
+                small, h1 {
+                    padding-bottom: 20px;
+                }
+                p {
+                    margin-bottom: 20px;
+                }
+                img {
+                    display: none;
+                }
+                & > * {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+            }
+        }
+    }
+    .step-2 {
+        padding-bottom: 50px;
+        .logo {
+            text-align: center;
+            h1 {
+                font-size: 60px;
+                color: $white;
+            }
+            p {
+                font-size: 20px;
+                color: $gray;
+                margin: 0px auto 30px auto;
+            }
+        }
+        .skills {
+            margin-top: 70px;
+            display: flex;
+            justify-content: space-around;
+            color: $white;
+            font-size: 24px;
+            text-align: center;
+            h1 {
+                font-size: 30px;
+            }
+            small {
+                color: $gray;
+                font-size: 14px;
+                display: block;
+                margin-bottom: 20px;
+            }
+        }
+        @media screen and (max-width: 1600px) {
+            .skills {
+                flex-direction: column;
+                grid-gap: 50px;
+            }
+        }
+    }
+    .step-3 {
+        padding-bottom: 50px;
+        .logo {
+            text-align: center;
+            h1 {
+                font-size: 60px;
+                color: $white;
+            }
+            p {
+                font-size: 20px;
+                color: $gray;
+                margin: 0px auto 30px auto;
+            }
+        }
+        .rewards {
+            @include flex();
+            flex-direction: column;
+            margin-top: 150px;
+            grid-gap: 150px;
+            .reward {
+                @include flex();
+                justify-content: space-between;
+                width: 100%;
+                color: $white;
+                small {
+                    color: $white;
+                    font-size: 30px;
+                    display: block;
+                    padding-bottom: 50px;;
+                }
+                h1 {
+                    font-size: 75px;
+                }
+                p {
+                    font-size: 23px;
+                    margin-bottom: 50px;
+                }
+                img {
+                    border: 2px solid $blue;
+                    border-radius: 5px;
+                    width: 100%;
+                    max-width: 700px;
+                }
+            }
+        }
+        @media screen and (max-width: 1600px) {
+            .rewards .reward {
+                display: flex;
+                flex-direction: column;
+                small {
+                    font-size: 25px;
+                }
+                h1 {
+                    font-size: 50px;
+                }
+                img {
+                    display: none;
+                }
+                & > * {
+                    width: 100%;
+                    max-width: 1000px;
+                }
+            }
+        }
+        @media screen and (max-width: 900px) {
+            .rewards .reward {
+                small {
+                    font-size: 20px;
+                }
+                h1 {
+                    font-size: 40px;
+                }
+            }
+        }
+        @media screen and (max-width: 700px) {
+            .rewards .reward {
+                small {
+                    font-size: 18px;
+                }
+                h1 {
+                    font-size: 35px;
+                }
+            }
+        }
+        @media screen and (max-width: 500px) {
+            .rewards .reward {
+                text-align: center;
+                small, h1 {
+                    padding-bottom: 20px;
+                }
+                p {
+                    margin-bottom: 20px;
+                }
+                & > * {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+            }
+        }
+    }
+    .step {
+        color: $blue;
+        text-transform: uppercase;
+        font-size: 20px;
+        text-align: center;
+        margin: 120px auto 10px auto;
+    }
+    .post {
+        padding-top: 70px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: white;
+        grid-gap: 10px;
+        .one-text {
+            font-size: 24px;
+        }
+        .list-flex {
+            padding-top: 20px;
+        }
+        @media screen and (max-width: 1060px) {
+            .one-text {
+                font-size: 30px;
+            }
+        }
+        @media screen and (max-width: 900px) {
+            .one-text {
+                font-size: 25px;
+            }
+        }
+        @media screen and (max-width: 700px) {
+            .one-text {
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+.footer {
+    @include flex();
+    justify-content: space-between;
+    padding: 50px 10px 20px;
+    .logo-1 {
+        @include flex();
+        color: $white;
+        font-size: 11px;
+        font-family: $extraBold;
+        img {
+            width: 100%;
+            max-width: 100px;
+        }
+    }
+    .logo-2 {
+        color: $gray;
+    }
+    .menu {
+        ul {
+            list-style: none;
+            display: flex;
+            grid-gap: 20px;
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        .logo-1 {
+            justify-content: center;
+        }
+        text-align: center;
+        justify-content: center;
+        grid-gap: 20px;
+        flex-direction: column;
+    }
+}
+
+.but {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+    width: max-content;
+    &.blue {
+        color: $white;
+        background-color: $blue;
+    }
+    &.none {
+        background-color: $color-none;
+        color: $gray;
+        border: 1px solid $gray;
+        &:hover {
+            box-shadow: 0 0 10px 2px $gray;
+        }
+    }
+    &:hover, &:active {
+        transform: scale(1.07);
+        box-shadow: 0 0 10px 2px $blue;
+    }
+}
+
+.description {
+    display: block;
+    margin: 20px auto;
+    color: $gray;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.blue-text {
+    color: $blue;
+}
+.green-text-anim {
+    color: greenyellow;
+    text-shadow: 0 0 10px greenyellow;
+    animation: anim 1s infinite alternate-reverse ease-in;
+    @keyframes anim {
+        0% {
+            text-shadow: 0 0 10px $gray;
+            color: $gray;
+        }
+        100% {
+            text-shadow: 0 0 10px greenyellow;
+            color: greenyellow;
+        }
+    }
+}
+.but-nav {
+    display: flex; flex-direction: column; grid-gap: 10px;
+    position: fixed;
+    bottom: 10px; left: 10px;
+    min-width: 100px;
+    text-align: center;
+    .but {
+        color: $black;
+        background-color: $white;
+        opacity: 0.5;
+        &:hover, &:active {
+            opacity: 1;
+            box-shadow: 0 0 10px 2px $gray;
+        }
+    }
+}
