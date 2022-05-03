@@ -8,9 +8,12 @@
 
 
 ```
-static/fonts - шрифты сайта
-static/icon - иконки сайта
-static/img - фото работ, фон и тд.
-index.html - Входная точка
-logo.png - Логотип сайта
+fonts - шрифты сайта
+img - фото работ, фон и тд.
+img/icon - иконки сайта
+img/rewards - мои награды
+img/works - мои работы
+style.css - стили сайта
+index.html - главная страница
+logo.png - логотип сайта
 ```
