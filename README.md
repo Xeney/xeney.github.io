@@ -4,7 +4,7 @@
 
 Я постарался изложить максимум информации о себе
 
-<img src="./static/img/works/4.png"></img>
+<img src="./img/works/4.png"></img>
 
 
 ```
