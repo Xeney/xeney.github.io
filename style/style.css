@@ -486,6 +486,19 @@ a:hover, a:active {
   display: flex;
   grid-gap: 20px;
 }
+@media screen and (max-width: 500px) {
+  .footer .menu ul {
+    display: flex;
+    grid-gap: 10px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .footer .menu ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+  }
+}
 @media screen and (max-width: 1000px) {
   .footer {
     text-align: center;
