@@ -103,7 +103,7 @@ a:hover, a:active {
   padding-top: 50px;
   color: #ffffff;
   text-align: center;
-  font-size: 70px;
+  font-size: 5rem;
   font-family: "Tektur";
   font-weight: 900;
 }
@@ -118,24 +118,24 @@ a:hover, a:active {
 }
 @media screen and (max-width: 1060px) {
   .content .hello .logo {
-    font-size: 65px;
+    font-size: 3rem;
   }
 }
 @media screen and (max-width: 900px) {
   .content .hello .logo {
-    font-size: 50px;
+    font-size: 3rem;
   }
 }
 @media screen and (max-width: 700px) {
   .content .hello .logo {
-    font-size: 40px;
+    font-size: 2rem;
   }
 }
 .content .why .logo {
   padding-top: 150px;
   color: #ffffff;
   text-align: center;
-  font-size: 60px;
+  font-size: 3rem;
   font-family: "Tektur";
   font-weight: 500;
 }
@@ -170,7 +170,7 @@ a:hover, a:active {
   text-align: center;
 }
 .content .step-1 .logo h1 {
-  font-size: 60px;
+  font-size: 3rem;
   color: #ffffff;
 }
 .content .step-1 .logo p {
@@ -275,7 +275,7 @@ a:hover, a:active {
   text-align: center;
 }
 .content .step-2 .logo h1 {
-  font-size: 60px;
+  font-size: 3rem;
   color: #ffffff;
 }
 .content .step-2 .logo p {
@@ -313,7 +313,7 @@ a:hover, a:active {
   text-align: center;
 }
 .content .step-3 .logo h1 {
-  font-size: 60px;
+  font-size: 3rem;
   color: #ffffff;
 }
 .content .step-3 .logo p {
@@ -354,7 +354,7 @@ a:hover, a:active {
   border: 2px solid #5d32f9;
   border-radius: 5px;
   width: 100%;
-  max-width: 500px;
+  max-width: 700px;
 }
 @media screen and (max-width: 1600px) {
   .content .step-3 .rewards .reward {

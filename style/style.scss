@@ -109,7 +109,7 @@ a {
             padding-top: 50px;
             color: $white;
             text-align: center;
-            font-size: 70px;
+            font-size: 5rem;
             font-family: $font;
             font-weight: 900;
             span {
@@ -124,17 +124,17 @@ a {
         }
         @media screen and (max-width: 1060px) {
             .logo {
-                font-size: 65px;
+                font-size: 3rem;
             }
         }
         @media screen and (max-width: 900px) {
             .logo {
-                font-size: 50px;
+                font-size: 3rem;
             }
         }
         @media screen and (max-width: 700px) {
             .logo {
-                font-size: 40px;
+                font-size: 2rem;
             }
         }
     }
@@ -143,7 +143,7 @@ a {
             padding-top: 150px;
             color: $white;
             text-align: center;
-            font-size: 60px;
+            font-size: 3rem;
             font-family: $font;
             font-weight: 500;
         }
@@ -178,7 +178,7 @@ a {
         .logo {
             text-align: center;
             h1 {
-                font-size: 60px;
+                font-size: 3rem;
                 color: $white;
             }
             p {
@@ -283,7 +283,7 @@ a {
         .logo {
             text-align: center;
             h1 {
-                font-size: 60px;
+                font-size: 3rem;
                 color: $white;
             }
             p {
@@ -321,7 +321,7 @@ a {
         .logo {
             text-align: center;
             h1 {
-                font-size: 60px;
+                font-size: 3rem;
                 color: $white;
             }
             p {
@@ -357,7 +357,7 @@ a {
                     border: 2px solid $blue;
                     border-radius: 5px;
                     width: 100%;
-                    max-width: 500px;
+                    max-width: 700px;
                 }
             }
         }
@@ -369,8 +369,7 @@ a {
                     font-size: 25px;
                 }
                 h1 {
-                    font-size: 100%;
-                    // font-size: 50px;
+                    font-size: 50px;
                 }
                 img {
                     display: none;
@@ -387,8 +386,7 @@ a {
                     font-size: 20px;
                 }
                 h1 {
-                    font-size: 100%;
-                    // font-size: 40px;
+                    font-size: 40px;
                 }
             }
         }
@@ -398,8 +396,7 @@ a {
                     font-size: 18px;
                 }
                 h1 {
-                    font-size: 100%;
-                    // font-size: 35px;
+                    font-size: 35px;
                 }
             }
         }
