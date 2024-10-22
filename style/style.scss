@@ -1,20 +1,11 @@
-$medium: "Poppins Medium";
-$extraBold: "Poppins ExtraBold";
+@import url('https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap');
+
+$font: "Tektur";
 $black: #000;
 $blue: #5d32f9;
 $white: #ffffff;
 $gray: #707070;
 $color-none: rgba(0, 0, 0, 0);
-
-@font-face {
-    font-family: "Poppins ExtraBold";
-    src: url('../fonts/Poppins-ExtraBold.ttf');
-}
-
-@font-face {
-    font-family: "Poppins Medium";
-    src: url('../fonts/Poppins-Medium.ttf');
-}
 
 body {
     background-color: $black;
@@ -39,7 +30,8 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: $medium;
+    font-family: $font;
+    font-weight: 500;
     scroll-behavior: smooth;
     &::selection {
         background-color: $blue;
@@ -89,7 +81,8 @@ a {
         @include flex();
         color: $white;
         font-size: 11px;
-        font-family: $extraBold;
+        font-family: $font;
+        font-weight: 900;
         img {
             width: 100%;
             max-width: 130px;
@@ -117,9 +110,10 @@ a {
             color: $white;
             text-align: center;
             font-size: 70px;
-            font-family: $extraBold;
+            font-family: $font;
+            font-weight: 900;
             span {
-                font-family: $extraBold;
+                font-family: $font;
             }
             .gardient {
                 background-color: #2AA5A0;
@@ -150,7 +144,8 @@ a {
             color: $white;
             text-align: center;
             font-size: 60px;
-            font-family: $medium;
+            font-family: $font;
+            font-weight: 500;
         }
         .card-list {
             // @include flex();
@@ -362,7 +357,7 @@ a {
                     border: 2px solid $blue;
                     border-radius: 5px;
                     width: 100%;
-                    max-width: 700px;
+                    max-width: 500px;
                 }
             }
         }
@@ -469,7 +464,8 @@ a {
         @include flex();
         color: $white;
         font-size: 11px;
-        font-family: $extraBold;
+        font-family: $font;
+        font-weight: 900;
         img {
             width: 100%;
             max-width: 100px;
