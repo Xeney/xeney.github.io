@@ -367,7 +367,7 @@ a:hover, a:active {
   border: 2px solid #5d32f9;
   border-radius: 5px;
   width: 100%;
-  max-width: 700px;
+  max-width: 500px;
 }
 @media screen and (max-width: 1600px) {
   .content .step-3 .rewards .reward {
