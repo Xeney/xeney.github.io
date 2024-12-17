@@ -310,8 +310,10 @@ a {
             display: flex;
             justify-content: space-around;
             color: $white;
-            font-size: 24px;
-            text-align: center;
+            font-size: 20px;
+            p {
+                margin-bottom: 5px;
+            }
             h1 {
                 font-size: 30px;
             }
