@@ -41,26 +41,10 @@ body {
         left: -15%;
         animation: moveOrb1 8s ease-in-out infinite alternate;
     }
-
-    &::after {
-        width: 700px;
-        height: 700px;
-        background: $accent;
-        bottom: 60%;
-        right: -20%;
-        animation: moveOrb2 10s ease-in-out infinite alternate;
-    }
-
     @keyframes moveOrb1 {
         0% { transform: translate(0, 0) scale(1); filter: blur(120px); }
         50% { transform: translate(150px, 80px) scale(1.2); filter: blur(150px); }
         100% { transform: translate(50px, -50px) scale(0.9); filter: blur(100px); }
-    }
-
-    @keyframes moveOrb2 {
-        0% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(-200px, -100px) scale(1.3); }
-        100% { transform: translate(-100px, 100px) scale(0.8); }
     }
 }
 
@@ -158,6 +142,8 @@ a {
 .content {
     padding: 40px 0 20px;
     .hello {
+        margin-top: 100px;
+        min-height: 70vh;
         .logo {
             padding-top: 50px;
             color: $white;
@@ -756,3 +742,268 @@ a {
         to { transform: scale(1); opacity: 1; }
     }
 }
+
+.about-dev {
+    margin: 4rem 0;
+    color: #f2f2f2;
+  
+    .dev-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 8px 20px rgba(2, 6, 23, 0.35);
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+      overflow: hidden;
+  
+      /* ======= Верхняя часть ======= */
+      .dev-header {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+  
+        .dev-photo {
+          width: 130px;
+          height: 130px;
+          border-radius: 16px;
+          overflow: hidden;
+          flex-shrink: 0;
+          box-shadow: 0 0 20px rgba(93, 50, 249, 0.3);
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+          }
+        }
+  
+        .dev-info {
+          flex: 1;
+          min-width: 260px;
+  
+          h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+          }
+          .role {
+            color: #a8a8ff;
+            font-size: 1.1rem;
+            margin: 0.3rem 0;
+          }
+          .motto {
+            color: #ccc;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+          }
+          .contacts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            a {
+              font-size: 0.9rem;
+            }
+          }
+        }
+      }
+  
+      /* ======= Основная часть ======= */
+      .dev-body {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+  
+        @media (max-width: 960px) {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+  
+        .dev-text {
+          h3 {
+            color: #fff;
+            font-size: 1.3rem;
+            margin-bottom: 0.6rem;
+          }
+          p {
+            color: #dcdcdc;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: 0.98rem;
+          }
+          .traits {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+  
+            div {
+              background: rgba(93, 50, 249, 0.08);
+              border: 1px solid rgba(93, 50, 249, 0.18);
+              border-radius: 10px;
+              padding: 0.6rem 0.9rem;
+              color: #bfc4ff;
+              font-size: 0.9rem;
+              transition: background 0.3s ease, transform 0.3s ease;
+  
+              &:hover {
+                background: rgba(93, 50, 249, 0.15);
+                transform: translateX(4px);
+              }
+            }
+          }
+        }
+  
+        .dev-stack {
+          h4 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+          }
+  
+          .stack-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 0.5rem;
+            grid-template-columns: 1fr 1fr;
+  
+            @media (max-width: 600px) {
+              grid-template-columns: 1fr;
+            }
+  
+            li {
+              position: relative;
+              padding-left: 1.2rem;
+              color: #d2d2d2;
+              font-size: 0.95rem;
+              transition: color 0.3s ease;
+  
+              &::before {
+                content: "▹";
+                position: absolute;
+                left: 0;
+                color: #5d32f9;
+                opacity: 0.9;
+              }
+  
+              &:hover {
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+  
+      /* ======= Нижняя часть ======= */
+      .dev-footer {
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 1.5rem;
+  
+        p {
+          margin-bottom: 1rem;
+          color: #ccc;
+          font-size: 0.95rem;
+        }
+  
+        .but.large {
+          padding: 0.8rem 1.4rem;
+          font-weight: 600;
+          font-size: 1rem;
+        }
+      }
+  
+      /* ======= Mobile tweaks ======= */
+      @media (max-width: 600px) {
+        padding: 1.4rem;
+  
+        .dev-header {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+  
+          .dev-photo {
+            width: 120px;
+            height: 120px;
+          }
+  
+          .dev-info {
+            h2 { font-size: 1.5rem; }
+            .role { font-size: 1rem; }
+            .motto { font-size: 0.95rem; }
+          }
+  
+          .contacts {
+            justify-content: center;
+          }
+        }
+  
+        .dev-body {
+          .dev-text p { font-size: 0.9rem; }
+          .stack-list li { font-size: 0.9rem; }
+        }
+  
+        .dev-footer {
+          p { font-size: 0.9rem; }
+          .but.large { width: 100%; }
+        }
+      }
+    }
+  }
+  
+  /* ===== Центрирование блока паспорта разработчика ===== */
+.about-dev {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px); // оставляем немного места для хедера/футера
+    padding: 2rem 1rem;
+  
+    .dev-card {
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+  
+.about-dev {
+    align-items: flex-start;
+    min-height: auto;
+    padding-top: 2rem;
+}
+  
+/* Исправление смещения блока about-dev при изменении ширины */
+.about-dev {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: calc(100vh - 100px);
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+  
+    /* убираем влияние контейнера, если он задаёт отступы */
+    margin-left: auto !important;
+    margin-right: auto !important;
+  
+    .dev-card {
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+  }
+  
+  /* на мобильных возвращаем естественное поведение */
+  @media (max-width: 768px) {
+    .about-dev {
+      align-items: flex-start;
+      justify-content: center;
+      min-height: auto;
+      padding-top: 2rem;
+    }
+  }
+  
