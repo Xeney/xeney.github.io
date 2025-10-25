@@ -1,0 +1,205 @@
+/* Мобильная оптимизация - отключаем сложные эффекты */
+@media screen and (max-width: 768px) {
+    /* Отключаем анимированный фон canvas */
+    #bg-canvas {
+      display: none;
+    }
+    
+    /* Отключаем 3D-эффекты карточек */
+    .why-card {
+      transform: none !important;
+      transition: none !important;
+    }
+    
+    .why-card:hover {
+      transform: none !important;
+      box-shadow: 0 0 20px rgba(93, 50, 249, 0.15) !important;
+    }
+    
+    /* Упрощаем анимации кнопок */
+    .but:hover {
+      transform: scale(1.05) !important;
+      box-shadow: 0 0 8px 1px #5d32f9 !important;
+    }
+    
+    /* Отключаем плавающие анимации */
+    .icon {
+      animation: none !important;
+    }
+    
+    /* Упрощаем header */
+    .header {
+      padding: 15px 10px;
+      flex-direction: row !important;
+      justify-content: space-between !important;
+      flex-wrap: wrap;
+    }
+    
+    .header .logo {
+      font-size: 14px;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .header .menu,
+    .header .vk-tg {
+      width: auto;
+    }
+    
+    /* Улучшаем отображение контента */
+    .content .hello {
+      margin-top: 50px;
+      min-height: 50vh;
+    }
+    
+    .content .hello .logo {
+      font-size: 2.5rem !important;
+      padding-top: 20px;
+    }
+    
+    .post .one-text {
+      font-size: 18px !important;
+      line-height: 1.4;
+    }
+    
+    /* Оптимизируем секцию "Почему я" */
+    .why-me {
+      padding: 4rem 0 !important;
+    }
+    
+    .why-me .section-title {
+      font-size: 2rem !important;
+      animation: none;
+      background: #5d32f9;
+      -webkit-text-fill-color: #5d32f9;
+    }
+    
+    .why-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+    }
+    
+    /* Оптимизируем карточку разработчика */
+    .about-dev {
+      padding: 1rem 0;
+    }
+    
+    .dev-card {
+      padding: 1.5rem !important;
+    }
+    
+    .dev-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem !important;
+    }
+    
+    .dev-info .contacts {
+      justify-content: center;
+    }
+    
+    .dev-body {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+    }
+    
+    .stack-list {
+      grid-template-columns: 1fr !important;
+    }
+    
+    /* Оптимизируем секцию достижений */
+    .step-3 .rewards {
+      margin-top: 80px !important;
+      grid-gap: 80px !important;
+    }
+    
+    .reward h1 {
+      font-size: 2rem !important;
+      line-height: 1.2;
+    }
+    
+    .reward p {
+      font-size: 16px !important;
+    }
+    
+    /* Улучшаем навигационные кнопки */
+    .but-nav {
+      position: fixed;
+      bottom: 5px;
+      left: 5px;
+      flex-direction: row;
+    }
+    
+    .but-nav .but {
+      font-size: 12px;
+      padding: 8px 12px;
+    }
+    
+    /* Упрощаем футер */
+    .footer {
+      padding: 30px 10px 15px;
+      text-align: center;
+    }
+    
+    /* Улучшаем модальное окно */
+    .modal .close {
+      top: 15px;
+      right: 20px;
+      font-size: 30px;
+    }
+    
+    .modal .modal-content {
+      max-width: 95%;
+      max-height: 85%;
+    }
+    
+    /* Отключаем сложные градиенты body */
+    body::before,
+    body::after {
+      display: none;
+    }
+    
+    /* Упрощаем background для лучшей производительности */
+    body {
+      background: #0d0d0d;
+    }
+  }
+  
+  /* Дополнительные оптимизации для очень маленьких экранов */
+  @media screen and (max-width: 480px) {
+    .content .hello .logo {
+      font-size: 2rem !important;
+    }
+    
+    .post .one-text {
+      font-size: 16px !important;
+    }
+    
+    .why-me .section-title {
+      font-size: 1.8rem !important;
+    }
+    
+    .reward h1 {
+      font-size: 1.8rem !important;
+    }
+    
+    .header .menu ul,
+    .footer .menu ul {
+      grid-gap: 10px !important;
+    }
+    
+    .but {
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+    
+    .list-flex {
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .dev-card {
+      padding: 1rem !important;
+    }
+  }
