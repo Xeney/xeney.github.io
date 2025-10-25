@@ -416,3 +416,148 @@
       margin: 0.3rem 0 0.8rem 0 !important;
     }
   }
+
+  /* Простое исправление для 770px */
+@media screen and (max-width: 770px) {
+    .about-dev.container {
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+    }
+    
+    .about-dev .dev-card {
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+  }
+  
+  /* Атомарное исправление */
+  @media screen and (max-width: 770px) {
+    section.about-dev {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+      transform: none !important;
+    }
+    
+    .about-dev .container {
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+    }
+  }
+
+  /* Исправление для экранов 558px и меньше */
+@media screen and (max-width: 558px) {
+    .about-dev {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      width: 100% !important;
+      margin: 0 auto !important;
+      padding: 0 10px !important;
+    }
+    
+    .about-dev .container {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 auto !important;
+      padding: 0 !important;
+      display: flex !important;
+      justify-content: center !important;
+    }
+    
+    .about-dev .dev-card {
+      width: 100% !important;
+      max-width: 500px !important;
+      margin: 0 auto !important;
+      padding: 1.2rem !important;
+    }
+    
+    /* Исправление структуры */
+    .about-dev .dev-header {
+      flex-direction: column !important;
+      text-align: center !important;
+      gap: 1rem !important;
+    }
+    
+    .about-dev .dev-info .contacts {
+      justify-content: center !important;
+      flex-wrap: wrap;
+    }
+    
+    .about-dev .dev-info .contacts .but {
+      min-width: 120px;
+    }
+  }
+  
+  /* Конкретно для диапазона 480px - 558px */
+  @media screen and (min-width: 480px) and (max-width: 558px) {
+    .about-dev .dev-card {
+      max-width: 450px !important;
+    }
+    
+    .about-dev .dev-header {
+      flex-direction: row !important;
+      text-align: left !important;
+      gap: 1.5rem !important;
+    }
+    
+    .about-dev .dev-photo {
+      width: 100px !important;
+      height: 100px !important;
+    }
+  }
+  
+  /* Гарантированное центрирование для всех маленьких экранов */
+  @media screen and (max-width: 558px) {
+    body .container {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+    
+    main.content .container {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+    }
+    
+    section.about-dev {
+      align-self: center !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+  }
+  
+  /* Экстренное исправление смещения */
+  @media screen and (max-width: 558px) {
+    .about-dev.container {
+      transform: none !important;
+      left: auto !important;
+      right: auto !important;
+    }
+    
+    .about-dev .dev-card {
+      margin-left: auto !important;
+      margin-right: auto !important;
+      transform: none !important;
+    }
+  }
+  
+  /* Исправление отступов контента */
+  @media screen and (max-width: 558px) {
+    .content {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    
+    .content .container {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+    }
+  }
