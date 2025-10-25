@@ -191,41 +191,78 @@ a {
             }
         }
     }
-    .why {
-        .logo {
-            padding-top: 150px;
-            color: $white;
-            text-align: center;
+    .why-me {
+        padding: 8rem 0;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+      
+        .section-title {
+          font-size: 3rem;
+          font-weight: 700;
+          background: linear-gradient(90deg, $blue, lighten($blue, 15%), $white);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: gradient-flow 6s linear infinite;
+          margin-bottom: 4rem;
+        }
+      
+        .why-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 2.5rem;
+          justify-content: center;
+          align-items: stretch;
+          perspective: 1000px;
+        }
+      
+        .why-card {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 1.5rem;
+          padding: 2.5rem 2rem;
+          backdrop-filter: blur(10px);
+          box-shadow: 0 0 20px rgba(93, 50, 249, 0.15);
+          transition: transform 0.5s ease, box-shadow 0.5s ease;
+          cursor: pointer;
+          transform-style: preserve-3d;
+      
+          &:hover {
+            transform: translateY(-10px) rotateX(6deg) rotateY(-3deg);
+            box-shadow: 0 0 35px rgba(93, 50, 249, 0.5);
+          }
+      
+          .icon {
             font-size: 3rem;
-            font-family: $font;
-            font-weight: 500;
+            margin-bottom: 1rem;
+            animation: float 4s ease-in-out infinite;
+          }
+      
+          h3 {
+            font-size: 1.5rem;
+            color: $white;
+            margin-bottom: 0.8rem;
+          }
+      
+          p {
+            color: $gray;
+            font-size: 1rem;
+            line-height: 1.6;
+          }
         }
-        .card-list {
-            // @include flex();
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            padding-top: 50px;
-            grid-gap: 20px;
-            padding-bottom: 50px;
-            justify-content: space-between;
-            text-align: center;
-            h1 {
-                font-size: 30px;
-                color: $white;
-            }
-            p {
-                font-size: 20px;
-                color: $gray;
-            }
-        }
-        @media screen and (max-width: 1060px) {
-            .card-list {
-                display: flex;
-                flex-direction: column;
-                grid-gap: 50px;
-            }
-        }
-    }
+      }
+      
+      @keyframes float {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0); }
+      }
+      
+      @keyframes gradient-flow {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 300% 50%; }
+      }
+      
     .step-1 {
         padding-bottom: 50px;
         .logo {
