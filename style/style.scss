@@ -1,30 +1,70 @@
 @import url('https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap');
 
-$font: "Tektur";
-$black: #000;
-$blue: #5d32f9;
-$white: #ffffff;
-$gray: #707070;
-$color-none: rgba(0, 0, 0, 0);
+$font: "Tektur"; // или Inter / Manrope / Space Grotesk — если захочешь вариант без акцента
+$black: #0d0d0d;       // глубокий нейтральный фон, не чистый черный
+$blue: #5d32f9;        // основной акцент — фирменный фиолетово-синий
+$white: #f3f3f3;       // мягкий белый, не режет глаза
+$gray: #a1a1aa;        // приглушённый серый для текста и рамок
+$color-none: rgba(0, 0, 0, 0); // прозрачный для эффектов
+
+$blue-light: #7b5ff5;     // hover для кнопок, подсветка
+$accent: #00e5ff;         // яркий неоновый акцент для деталей
+$bg-dark: #121212;        // альтернативный фон секций
+$gradient-primary: linear-gradient(90deg, $blue, $accent);
+$gradient-accent: linear-gradient(90deg, #9b5de5, $blue);
+$shadow: 0 0 20px rgba(93, 50, 249, 0.4); // мягкая свечение кнопок и карточек
+
 
 body {
-    background-color: $black;
-    &::-webkit-scrollbar {
-        width: 20px;
+    background: radial-gradient(circle at center, #0d0d0d 30%, #050505 100%);
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+    color: $white;
+
+    &::before, &::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.35;
+        mix-blend-mode: screen;
+        z-index: 0;
+        pointer-events: none;
     }
-    &::-webkit-scrollbar-track {
-        background-color: $gray;
-        border-radius: 100px;
-        margin: 10px auto;
+
+    &::before {
+        width: 700px;
+        height: 700px;
+        background: $blue;
+        top: -3%;
+        left: -15%;
+        animation: moveOrb1 8s ease-in-out infinite alternate;
     }
-    &::-webkit-scrollbar-thumb {
-        &:active {
-            background-color: $blue;
-        }
-        border-radius: 100px;
-        background-color: $white;
+
+    &::after {
+        width: 700px;
+        height: 700px;
+        background: $accent;
+        bottom: 60%;
+        right: -20%;
+        animation: moveOrb2 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes moveOrb1 {
+        0% { transform: translate(0, 0) scale(1); filter: blur(120px); }
+        50% { transform: translate(150px, 80px) scale(1.2); filter: blur(150px); }
+        100% { transform: translate(50px, -50px) scale(0.9); filter: blur(100px); }
+    }
+
+    @keyframes moveOrb2 {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(-200px, -100px) scale(1.3); }
+        100% { transform: translate(-100px, 100px) scale(0.8); }
     }
 }
+
+
 
 * {
     margin: 0;
@@ -584,5 +624,98 @@ a {
             opacity: 1;
             box-shadow: 0 0 10px 2px $gray;
         }
+    }
+}
+
+// анимации
+
+.gradient-text {
+    background: linear-gradient(
+      90deg,
+      #5d32f9,
+      #7b5ff5,
+      #00e5ff,
+      #5d32f9
+    );
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-flow 5s linear infinite;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  @keyframes gradient-flow {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 300% 50%;
+    }
+}
+
+
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.but {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    &:hover {
+        transform: scale(1.1) rotate(-1deg);
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease;
+
+    .close {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        font-size: 40px;
+        color: $white;
+        cursor: pointer;
+        transition: 0.3s;
+        &:hover { color: $accent; }
+    }
+
+    .modal-content {
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 10px;
+        box-shadow: 0 0 40px rgba($blue, 0.5);
+        animation: zoomIn 0.4s ease;
+    }
+
+    #caption {
+        color: $gray;
+        margin-top: 20px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes zoomIn {
+        from { transform: scale(0.7); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
     }
 }

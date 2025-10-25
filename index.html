@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./style/style.css">
-    <title>Варламов Дамир | Веб-разработчик</title>
+    <title>Варламов Дамир | Backend-разработчик</title>
 </head>
 <body>
+    <canvas id="bg-canvas"></canvas>
     <header id="top" class="header container">
         <div class="logo">
             <h1>Варламов Дамир</h1>
@@ -16,6 +17,7 @@
         <nav class="menu">
             <ul>
                 <li><a href="https://github.com/Xeney" target="_blank">GitHub</a></li>
+                <li><a href="#skills">Навыки</a></li>
                 <li><a href="#progress">Достижения</a></li>
             </ul>
         </nav>
@@ -30,12 +32,12 @@
         <div id="about" class="hello">
             <h1 class="logo">
                 Варламов Дамир<br>
-                <span class="gardient">Веб-разработчик</span>
+                <span class="gradient-text">Backend-разработчик</span>
             </h1>
             <div class="post">
-                <p class="one-text">Ты светишься по-другому,<br>
-                    когда находишься в нужном месте</p>
-                    <p><small>Я стремлюсь к новым знаниям и навыкам</small></p>
+                <p class="one-text">Разрабатываю современные веб-приложения.<br>
+                    Люблю чистый код, минимализм и реальные проекты.</p>
+                    <p><small>Открыт к новым возможностям и сотрудничеству</small></p>
                 <div class="list-flex">
                     <a href="https://t.me/Ghosers" class="but blue" target="_blank">Telegram</a>
                     <a href="https://github.com/Xeney" class="but none" target="_blank">Мои работы (GitHub)</a>
@@ -51,43 +53,54 @@
                 <div class="card">
                     <div style="justify-content: center;" class="list-flex">
                         <img style="font-size: 30px;" src="_" alt="📚">
-                        <h1>Постоянное саморазвитие</h1>
+                        <h1>Постоянное развитие</h1>
                     </div>
-                    <p>Развиваю навыки, быстро адаптируюсь к изменениям.</p>
+                    <p>Изучаю новые технологии и подходы. Следую best practices и не останавливаюсь на достигнутом</p>
                 </div>
                 <div class="card">
                     <div style="justify-content: center;" class="list-flex">
                         <img style="font-size: 30px;" src="_" alt="🥇">
-                        <h1>Высокая мотивация</h1>
+                        <h1>Ответственность и мотивация</h1>
                     </div>
-                    <p>Я люблю программирование, ответственно подхожу к работе.</p>
+                    <p>Ценю качество, довожу задачи до конца и всегда ищу способы сделать лучше</p>
                 </div>
                 <div class="card">
                     <div style="justify-content: center;" class="list-flex">
                         <img style="font-size: 30px;" src="_" alt="💬">
-                        <h1>Общительность</h1>
+                        <h1>Командный подход</h1>
                     </div>
-                    <p>Я легко нахожу общий язык, умею работать в команде.</p>
+                    <p>Открыт к диалогу, легко встраиваюсь в команду и помогаю другим расти вместе со мной</p>
                 </div>
             </div>
         </div>
+
         <div id="skills" class="step-2">
-            <p class="step">Что ищу?</p>
+            <p class="step">Навыки</p>
             <div class="logo">
-                <h1>Что ищу?</h1>
+                <h1>Технологический стек</h1>
+            </div>
+            <div class="skills">
+                <ul class="skills-list">
+                    <ol><strong>HTML, CSS, JS (ES6+)</strong></ol>
+                    <ol><strong>Python, Golang</strong></ol>
+                    <ol>Fiber, Gin, Echo, Gorilla Mux</ol>
+                    <ol>REST API, gRPC, PostgreSQL, Redis</ol>
+                    <ol>Git, Docker, Linux</ol>
+                    <ol>UI/UX дизайн (базовый уровень)</ol>
+                </ul>
+            </div>
+        </div>
+
+        <div id="#" class="step-2">
+            <p class="step">Зачем я здесь?</p>
+            <div class="logo">
+                <h1>Ищу сильную команду</h1>
             </div>
             <div class="skills">
                 <div>
-                    <h1>Ищу сильную команду</h1>
-                    <small>Дамир, Веб-разработчик</small>
-                    <p>Ищу сильную команду, которая поможет мне<br>
-                        развиваться в сфере разработки. Я стремлюсь<br>
-                        к новым знаниям и навыкам. Мне важно работать<br>
-                        в компании, которая поддерживает профессиональный<br>
-                        рост своих сотрудников и предлагает возможности<br>
-                        для карьерного продвижения. Верю, что смогу<br>
-                        внести значимый вклад в команду и вместе достигать<br>
-                        амбициозных целей.</p>
+                    <p>Хочу развиваться в профессиональной команде, где ценят качество кода, обмен опытом и честность.<br>
+                        Мне важно создавать продукты, которые решают реальные задачи и приносят результат.<br>
+                        Готов брать ответственность, делиться знаниями и двигаться вперёд вместе с проектом.</p>
                 </div>
             </div>
         </div>
@@ -95,60 +108,42 @@
             <p class="step">Достижения</p>
             <div class="logo">
                 <h1>Мои достижения</h1>
-                <p>В этом разделе я расскажу о своих достижениях</p>
+                <p>Подробнее о моих достижениях</p>
             </div>
             <div class="rewards">
                 <div class="reward">
                     <div>
-                        <small>World Skills Russia<br>Я занял <span class="blue-text">1-е</span> место на чемпионате</small>
+                        <small>World Skills Russia 2022<br><span class="blue-text">1-е</span> место на национальном чемпионате</small>
                         <h1>Разработка бизнес-решений с использованием блокчейн-технологий</h1>
                         <p>HTML, CSS, Python, Golang, Web3.py, Flask.</p>
-                        <a href="./img/rewards/v1.jpg" class="but blue" target="_blank">Открыть фото</a>
+                        <a href="./img/rewards/v1.jpg" class="but blue" target="_blank">Смотреть фото</a>
                     </div>
                     <img src="./img/rewards/v1.jpg" alt="reward">
                 </div>
                 <div class="reward">
                     <div>
-                        <small>World Skills Russia<br>Я занял <span class="blue-text">2-е</span> место</small>
+                        <small>World Skills Russia 2021<br><span class="blue-text">2-е</span> место на региональных соревнованиях</small>
                         <h1>Разработка бизнес-решений с использованием блокчейн-технологий</h1>
                         <p>HTML, CSS, Python, Golang, Web3.py, Flask.</p>
-                        <a href="./img/rewards/v2.jpg" class="but blue" target="_blank">Открыть фото</a>
+                        <a href="./img/rewards/v2.jpg" class="but blue" target="_blank">Смотреть фото</a>
                     </div>
                     <img src="./img/rewards/v2.jpg" alt="reward">
                 </div>
                 <div class="reward">
                     <div>
-                        <small>World Skills Russia<br>Я занял <span class="blue-text">3-е</span> место</small>
-                        <h1>Разработка бизнес-решений с использованием блокчейн-технологий</h1>
-                        <p>HTML, CSS, Python, Golang, Web3.py, Flask.</p>
-                        <a href="./img/rewards/v3.jpg" class="but blue" target="_blank">Открыть фото</a>
-                    </div>
-                    <img src="./img/rewards/v3.jpg" alt="reward">
-                </div>
-                <div class="reward">
-                    <div>
-                        <small>World Skills Russia<br>Я занял <span class="blue-text">3-е</span> место</small>
-                        <h1>Разработка бизнес-решений с использованием блокчейн-технологий</h1>
-                        <p>HTML, CSS, Python, Golang, Web3.py, Flask.</p>
-                        <a href="./img/rewards/v4.jpg" class="but blue" target="_blank">Открыть фото</a>
-                    </div>
-                    <img src="./img/rewards/v4.jpg" alt="reward">
-                </div>
-                <div class="reward">
-                    <div>
-                        <small>ГУБЕРНАТОР САМАРСКОЙ ОБЛАСТИ</small>
+                        <small>Губернатор Самарской области</small>
                         <h1>Благодарственное письмо</h1>
                         <p>За достижение высоких результатов в финале соревнований Х национального чемпионата «Молодые профессионалы».</p>
-                        <a href="./img/rewards/v5.jpg" class="but blue" target="_blank">Открыть фото</a>
+                        <a href="./img/rewards/v5.jpg" class="but blue" target="_blank">Смотреть фото</a>
                     </div>
                     <img src="./img/rewards/v5.jpg" alt="reward">
                 </div>
                 <div class="reward">
                     <div>
-                        <small>МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ САМАРСКОЙ ОБЛАСТИ</small>
+                        <small>Министерство образования и науки Самарской области</small>
                         <h1>Благодарственное письмо</h1>
                         <p>За успехи в профессиональном обучении и активное участие в общественной и социально значимой деятельности.</p>
-                        <a href="./img/rewards/v6.jpg" class="but blue" target="_blank">Открыть фото</a>
+                        <a href="./img/rewards/v6.jpg" class="but blue" target="_blank">Смотреть фото</a>
                     </div>
                     <img src="./img/rewards/v6.jpg" alt="reward">
                 </div>
@@ -162,7 +157,7 @@
                 <!-- <img src="./logo.png" alt="logo"> -->
             </div>
             <div class="logo-2">
-                <a href="mailto:jeneksero@gmail.com">jeneksero@gmail.com</a>
+                <a href="mailto:damir.itwar@yandex.ru">damir.itwar@yandex.ru</a>
             </div>
         </div>
         <nav class="menu">
@@ -172,11 +167,77 @@
             </ul>
         </nav>
     </footer>
-    <small class="description" style="font-size: 16px;">Спасибо за ваше время!</small>
-    <small class="description">© 2022 Варламов Дамир Алексеевич</small>
+    <small class="description" style="font-size: 16px;">Спасибо, что заглянули!</small>
+    <small class="description">© 2025 Варламов Дамир Алексеевич</small>
     <div class="but-nav">
-        <a style="width: auto;" href="#top" class="but none">Начало</a>
-        <a style="width: auto;" href="#bottom" class="but none">Конец</a>
+        <a style="width: auto;" href="#top" class="but none">В начало</a>
+        <a style="width: auto;" href="#bottom" class="but none">В конец</a>
     </div>
+    <div id="modal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modal-img">
+        <div id="caption"></div>
+    </div>
+    
+    <script>
+    document.querySelectorAll('.reward a').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modal-img');
+            const caption = document.getElementById('caption');
+            modal.style.display = "flex";
+            modalImg.src = link.href;
+            caption.innerText = link.parentElement.querySelector('small')?.innerText || '';
+        });
+    });
+    
+    document.querySelector('.modal .close').addEventListener('click', () => {
+        document.getElementById('modal').style.display = "none";
+    });
+    </script>
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resize() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+        
+        for (let i = 0; i < 60; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 2 + 1,
+            dx: (Math.random() - 0.5) * 0.3,
+            dy: (Math.random() - 0.5) * 0.3
+          });
+        }
+        
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (let p of particles) {
+            p.x += p.dx;
+            p.y += p.dy;
+        
+            if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        
+            const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
+            gradient.addColorStop(0, 'rgba(93, 50, 249, 0.7)');
+            gradient.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 </html>
