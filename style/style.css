@@ -1123,3 +1123,74 @@ a:hover, a:active {
         transform: translateY(0px);
     }
 }
+
+
+/* Финальная, лучшая кнопка */
+.but.large {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    
+    /* Градиент с движением */
+    background: linear-gradient(45deg, #5d32f9, #7b5ff5, #00e5ff, #5d32f9);
+    background-size: 300% 100%;
+    border: none;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    
+    /* Тени и форма */
+    box-shadow: 0 4px 20px 0 rgba(93, 50, 249, 0.5);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    /* Защита от переполнения */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Эффект блеска */
+.but.large::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(30deg);
+    transition: transform 0.7s ease;
+    pointer-events: none;
+}
+
+/* Анимация градиента */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
+
+/* Стили для иконки */
+.but.large i {
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+}
+
+/* Эффекты при наведении */
+.but.large:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 30px 0 rgba(93, 50, 249, 0.8);
+    animation: gradientBG 6s linear infinite;
+}
+
+.but.large:hover::after {
+    transform: rotate(30deg) translate(10%, 20%);
+}
+
+.but.large:hover i {
+    transform: translate(4px, -2px) rotate(5deg);
+}
+
+.but.large:active {
+    transform: translateY(0) scale(1.02);
+    box-shadow: 0 5px 15px 0 rgba(93, 50, 249, 0.6);
+}
