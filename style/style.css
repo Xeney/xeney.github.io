@@ -2357,3 +2357,274 @@ header, main, footer, .modal, .scroll-to-top {
         justify-content: center;
     }
 }
+
+/* ========================================
+   БЛОК "ПОЧЕМУ Я?" - РЕДИЗАЙН
+   ======================================== */
+
+/* Заголовок секции */
+.section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+}
+
+.section-tag {
+    color: #5d32f9;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.section-title {
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, #5d32f9, #7b5ff5, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200%;
+    animation: gradient-flow 6s linear infinite;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #5d32f9, #00e5ff);
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: #a1a1aa;
+    line-height: 1.6;
+    margin-top: 25px;
+}
+
+/* Сетка карточек */
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 35px;
+    justify-content: center;
+    align-items: stretch;
+}
+
+/* Карточка */
+.why-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 35px 30px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.why-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #5d32f9, #00e5ff);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+}
+
+.why-card:hover::before {
+    transform: scaleX(1);
+}
+
+.why-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(93, 50, 249, 0.08) 0%, transparent 70%);
+    transform: scale(0);
+    transition: transform 0.4s ease;
+}
+
+.why-card:hover::after {
+    transform: scale(1);
+}
+
+.why-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 45px rgba(93, 50, 249, 0.35);
+    border-color: rgba(93, 50, 249, 0.3);
+}
+
+/* Иконка карточки */
+.card-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(93, 50, 249, 0.12);
+    border: 2px solid rgba(93, 50, 249, 0.3);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    transition: all 0.4s ease;
+}
+
+.card-icon i {
+    font-size: 2.8rem;
+    color: #5d32f9;
+    transition: all 0.4s ease;
+}
+
+.why-card:hover .card-icon {
+    background: rgba(93, 50, 249, 0.25);
+    border-color: rgba(93, 50, 249, 0.5);
+    transform: scale(1.1) rotate(5deg);
+}
+
+.why-card:hover .card-icon i {
+    transform: scale(1.2);
+    color: #fff;
+    text-shadow: 0 0 20px rgba(93, 50, 249, 0.8);
+}
+
+/* Контент карточки */
+.card-content {
+    z-index: 2;
+    position: relative;
+}
+
+.card-content h3 {
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 15px;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+}
+
+.why-card:hover .card-content h3 {
+    color: #5d32f9;
+}
+
+.card-content p {
+    color: #b8b8c3;
+    line-height: 1.7;
+    font-size: 1.02rem;
+    transition: color 0.3s ease;
+}
+
+.why-card:hover .card-content p {
+    color: #d5d5e0;
+}
+
+/* Номер карточки */
+.card-number {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 3rem;
+    font-weight: 800;
+    color: rgba(93, 50, 249, 0.15);
+    line-height: 1;
+    z-index: 0;
+    transition: all 0.4s ease;
+}
+
+.why-card:hover .card-number {
+    color: rgba(93, 50, 249, 0.3);
+    transform: scale(1.2);
+}
+
+/* Анимации */
+@keyframes gradient-flow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Медиа-запросы */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+    }
+    
+    .why-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .why-card {
+        padding: 30px 25px;
+    }
+    
+    .card-icon {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .card-icon i {
+        font-size: 2.4rem;
+    }
+    
+    .card-content h3 {
+        font-size: 1.5rem;
+    }
+    
+    .card-number {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .section-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .why-card {
+        padding: 25px 20px;
+    }
+    
+    .card-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .card-icon i {
+        font-size: 2rem;
+    }
+    
+    .card-content h3 {
+        font-size: 1.4rem;
+    }
+    
+    .card-content p {
+        font-size: 0.98rem;
+    }
+    
+    .card-number {
+        font-size: 2rem;
+    }
+}
