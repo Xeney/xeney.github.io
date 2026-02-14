@@ -1364,81 +1364,6 @@ a:hover, a:active {
     font-size: 1.3rem;
 }
 
-/* ===== КНОПКА "НАВЕРХ" ===== */
-.scroll-to-top {
-    position: fixed;
-    bottom: 30px;
-    left: 30px;  /* Изменили с right на left */
-    width: 55px;
-    height: 55px;
-    background: linear-gradient(135deg, #5d32f9, #7b5ff5);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 24px;
-    text-decoration: none;
-    box-shadow: 0 4px 20px rgba(93, 50, 249, 0.4);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px) scale(0.9);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 999;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-}
-
-.scroll-to-top.visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scale(1);
-}
-
-.scroll-to-top:hover {
-    background: linear-gradient(135deg, #6b42fa, #8a6cff);
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 8px 30px rgba(93, 50, 249, 0.8);
-    border-color: rgba(255, 255, 255, 0.4);
-}
-
-.scroll-to-top i {
-    transition: transform 0.3s ease;
-}
-
-.scroll-to-top:hover i {
-    transform: translateY(-3px);
-}
-
-/* Пульсирующий эффект при появлении */
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(93, 50, 249, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 15px rgba(93, 50, 249, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(93, 50, 249, 0);
-    }
-}
-
-.scroll-to-top.visible {
-    animation: pulse 2s infinite;
-}
-
-/* Для мобильных устройств */
-@media (max-width: 768px) {
-    .scroll-to-top {
-        bottom: 20px;
-        left: 20px;  /* Тоже изменили на left */
-        width: 50px;
-        height: 50px;
-        font-size: 22px;
-    }
-}
-
 /* Удаляем старые навигационные кнопки */
 .but-nav {
     display: none !important;
@@ -1858,4 +1783,66 @@ header, main, footer, .modal, .scroll-to-top {
 /* Кнопка "Наверх" тоже должна быть выше контента */
 .scroll-to-top {
     z-index: 999 !important;
+}
+
+/* ===== КНОПКА "НАВЕРХ" ===== */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #5d32f9, #7b5ff5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(93, 50, 249, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.9);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 999;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    animation: pulse 2s infinite;
+}
+
+.scroll-to-top:hover {
+    background: linear-gradient(135deg, #6b42fa, #8a6cff);
+    transform: translateY(-5px) scale(1.15);
+    box-shadow: 0 8px 30px rgba(93, 50, 249, 0.8);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.scroll-to-top:hover i {
+    animation: floatUp 0.6s ease infinite;
+}
+
+@keyframes floatUp {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Пульсирующий эффект при появлении */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(93, 50, 249, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(93, 50, 249, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(93, 50, 249, 0);
+    }
 }
