@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Backend Developer из Самары. Студент Самарского университета им. Королёва. Победитель World Skills Russia. Стек: C#, .NET, Python, Golang, PostgreSQL.">
     <link rel="shortcut icon" href="./logo.png" type="image/x-icon">
-    <!-- icons -->
+    
+    <!-- Иконки: Font Awesome + Devicon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@latest/devicon.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.15.1/devicon.min.css">
 
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/mobile.css" media="screen and (max-width: 768px)">
@@ -35,6 +36,7 @@
         </nav>
     </header>
     <main class="content container">
+        <!-- Приветственный блок -->
         <div id="about" class="hello">
             <h1 class="logo">
                 Варламов Дамир<br>
@@ -43,7 +45,7 @@
             <div class="post">
                 <p class="one-text">Строю карьеру в разработке современных веб-приложений.<br>
                     Ценю чистый код, минимализм и практические решения.</p>
-                    <p><small>Открыт к новым возможностям и сотрудничеству</small></p>
+                <p><small>Открыт к новым возможностям и сотрудничеству</small></p>
                 <div class="list-flex">
                     <a href="https://t.me/Ghosers" class="but blue" target="_blank">Telegram</a>
                     <a href="https://github.com/Xeney" class="but none" target="_blank">Мои работы (GitHub)</a>
@@ -52,12 +54,13 @@
             </div>
         </div>
 
+        <!-- Секция "Почему я?" -->
         <section id="why" class="why-me container">
             <h2 class="section-title">Почему я?</h2>
             <div class="why-grid">
                 <div class="why-card">
                     <div class="icon">
-                        <i class="fas fa-microchip"></i>  <!-- Процессор - развитие технологий -->
+                        <i class="fas fa-microchip"></i>
                     </div>
                     <h3>Постоянное развитие</h3>
                     <p>Регулярно осваиваю новые технологии и углубляю фундаментальные знания.</p>
@@ -65,7 +68,7 @@
 
                 <div class="why-card">
                     <div class="icon">
-                        <i class="fas fa-code"></i>  <!-- Код - реальные проекты -->
+                        <i class="fas fa-code"></i>
                     </div>
                     <h3>Практический опыт</h3>
                     <p>Победитель чемпионата World Skills Russia, имею опыт разработки реальных проектов.</p>
@@ -73,7 +76,7 @@
 
                 <div class="why-card">
                     <div class="icon">
-                        <i class="fas fa-user-check"></i>  <!-- Пользователь с галочкой - надежность -->
+                        <i class="fas fa-user-check"></i>
                     </div>
                     <h3>Дисциплина и ответственность</h3>
                     <p>Армейский опыт и техническое образование формируют серьёзный подход к работе.</p>
@@ -81,7 +84,7 @@
             </div>
         </section>
           
-
+        <!-- Секция "Обо мне" (Карточка разработчика) -->
         <section id="about-dev" class="about-dev container">
             <div class="dev-card">
                 <div class="dev-header">
@@ -94,10 +97,10 @@
                         <p class="motto">Студент Самарского университета им. Королёва по направлению 09.03.01 ИВТ.<br>Активно развиваюсь в backend-разработке</p>
                         <div class="contacts">
                             <a class="but blue" href="https://t.me/Ghosers" target="_blank" rel="noopener">
-                                <i class="fab fa-telegram-plane"></i> Telegram  <!-- Иконка из Font Awesome -->
+                                <i class="fab fa-telegram-plane"></i> Telegram
                             </a>
                             <a class="but none" href="mailto:damir.itwar@yandex.ru" target="_blank">
-                                <i class="fas fa-envelope"></i> Email  <!-- Иконка из Font Awesome -->
+                                <i class="fas fa-envelope"></i> Email
                             </a>
                             <a class="but none" href="https://github.com/Xeney" target="_blank">
                                 <i class="devicon-github-original"></i> GitHub
@@ -139,7 +142,7 @@
                             <li><i class="devicon-figma-plain colored"></i> Figma — проектирование интерфейсов</li>
                             <li><i class="devicon-postgresql-plain colored"></i> PostgreSQL / SQLite</li>
                             <li><i class="devicon-git-plain colored"></i> Git — система контроля версий</li>
-                            <li><i class="fab fa-telegram-plane colored" style="color: #26A5E4;"></i> Telegram Bot API (Python, Golang)</li>
+                            <li><i class="fab fa-telegram-plane" style="color: #26A5E4;"></i> Telegram Bot API (Python, Golang)</li>
                             <li><i class="devicon-docker-plain colored"></i> Docker / Linux</li>
                             <li><i class="devicon-windows8-original colored"></i> Windows Forms / WinForms</li>
                         </ul>
@@ -156,11 +159,7 @@
             </div>
         </section>
           
-          
-          
-          
-
-
+        <!-- Секция "Достижения" -->
         <div id="progress" class="step-3">
             <p class="step">Достижения</p>
             <div class="logo">
@@ -168,6 +167,7 @@
                 <p>Подробнее о моих достижениях</p>
             </div>
             <div class="rewards">
+                <!-- Достижения -->
                 <div class="reward">
                     <div>
                         <small>World Skills Russia 2022<br><span class="blue-text">1-е</span> место на национальном чемпионате</small>
@@ -207,6 +207,8 @@
             </div>
         </div>
     </main>
+    
+    <!-- Футер -->
     <footer id="bottom" class="footer container">
         <div class="logo">
             <div class="logo-1">
@@ -226,10 +228,14 @@
     </footer>
     <small class="description" style="font-size: 16px;">Спасибо, что заглянули!</small>
     <small class="description">© 2025 Варламов Дамир Алексеевич</small>
+    
+    <!-- Навигационные кнопки -->
     <div class="but-nav">
         <a style="width: auto;" href="#top" class="but none">В начало</a>
         <a style="width: auto;" href="#bottom" class="but none">В конец</a>
     </div>
+    
+    <!-- Модальное окно для фото -->
     <div id="modal" class="modal">
         <span class="close">&times;</span>
         <img class="modal-content" id="modal-img">

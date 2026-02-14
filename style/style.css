@@ -1194,3 +1194,172 @@ a:hover, a:active {
     transform: translateY(0) scale(1.02);
     box-shadow: 0 5px 15px 0 rgba(93, 50, 249, 0.6);
 }
+
+
+/* ===== ОБНОВЛЕННЫЕ СТИЛИ ===== */
+
+/* Улучшенная анимация для карточек "Почему я?" */
+.why-card {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+.why-card:hover {
+    transform: translateY(-12px) scale(1.02);
+}
+
+.why-card .icon {
+    transition: all 0.4s ease;
+}
+
+.why-card:hover .icon {
+    transform: scale(1.15) rotate(8deg);
+}
+
+/* Индивидуальные цвета для иконок в "Почему я?" */
+.why-card:nth-child(1) .icon i {
+    color: #4CAF50;
+    filter: drop-shadow(0 0 12px rgba(76, 175, 80, 0.6));
+}
+
+.why-card:nth-child(2) .icon i {
+    color: #FFC107;
+    filter: drop-shadow(0 0 12px rgba(255, 193, 7, 0.6));
+}
+
+.why-card:nth-child(3) .icon i {
+    color: #F44336;
+    filter: drop-shadow(0 0 12px rgba(244, 67, 54, 0.6));
+}
+
+/* Стили для блока traits (синхронизация с why-card) */
+.traits div {
+    background: rgba(93, 50, 249, 0.08);
+    border: 1px solid rgba(93, 50, 249, 0.18);
+    border-radius: 12px;
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.traits div i {
+    font-size: 1.3rem;
+    min-width: 28px;
+    color: #5d32f9;
+    transition: all 0.3s ease;
+}
+
+.traits div:hover {
+    background: rgba(93, 50, 249, 0.15);
+    border-color: rgba(93, 50, 249, 0.4);
+    transform: translateX(6px);
+}
+
+.traits div:hover i {
+    transform: scale(1.2);
+    color: #fff;
+    text-shadow: 0 0 10px #5d32f9;
+}
+
+/* Технологический стек - единый стиль */
+.stack-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.4rem 0;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.stack-list li:hover {
+    background: rgba(93, 50, 249, 0.1);
+    padding-left: 10px;
+}
+
+.stack-list li i {
+    font-size: 1.3rem;
+    min-width: 28px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.stack-list li:hover i {
+    transform: scale(1.2);
+}
+
+/* Кнопка "Связаться — Telegram" (финальная версия) */
+.but.large {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    
+    /* Градиент с движением */
+    background: linear-gradient(45deg, #5d32f9, #7b5ff5, #00e5ff, #5d32f9);
+    background-size: 300% 100%;
+    border: none;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 0.9rem 2rem;
+    
+    /* Тени и форма */
+    box-shadow: 0 4px 25px 0 rgba(93, 50, 249, 0.6);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    /* Защита от переполнения */
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+/* Эффект блеска */
+.but.large::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.15);
+    transform: rotate(30deg);
+    transition: transform 0.7s ease;
+    pointer-events: none;
+}
+
+/* Анимация градиента */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
+
+/* Стили для иконки внутри кнопки */
+.but.large i {
+    font-size: 1.3em;
+    transition: transform 0.3s ease;
+}
+
+/* Эффекты при наведении */
+.but.large:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 15px 35px 0 rgba(93, 50, 249, 0.9);
+    animation: gradientBG 4s linear infinite;
+}
+
+.but.large:hover::after {
+    transform: rotate(30deg) translate(15%, 25%);
+}
+
+.but.large:hover i {
+    transform: translate(5px, -3px) rotate(8deg);
+}
+
+.but.large:active {
+    transform: translateY(0) scale(1.02);
+    box-shadow: 0 5px 20px 0 rgba(93, 50, 249, 0.7);
+}
+
+/* Убираем дублирующиеся правила для stack-list, если они были */
+.stack-list li i.devicon-github-original,
+.stack-list li i.fab {
+    font-size: 1.3rem;
+}
