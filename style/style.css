@@ -1443,3 +1443,419 @@ a:hover, a:active {
 .but-nav {
     display: none !important;
 }
+
+/* ===== НОВЫЕ СТИЛИ КНОПОК ===== */
+
+/* Базовые стили для всех кнопок */
+.but {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* ===== 1. КНОПКИ В ШАПКЕ (Элегантные, минималистичные) ===== */
+.header .but {
+    background: transparent;
+    color: #a1a1aa;
+    padding: 8px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(5px);
+}
+
+.header .but.blue {
+    background: rgba(93, 50, 249, 0.1);
+    border-color: rgba(93, 50, 249, 0.3);
+    color: #5d32f9;
+}
+
+.header .but:hover {
+    border-color: #5d32f9;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(93, 50, 249, 0.2);
+}
+
+.header .but.blue:hover {
+    background: #5d32f9;
+    color: #fff;
+    box-shadow: 0 5px 20px rgba(93, 50, 249, 0.4);
+}
+
+/* ===== 2. КНОПКИ В БЛОКЕ ПРИВЕТСТВИЯ (Стильные и современные) ===== */
+.hello .but {
+    padding: 14px 32px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 12px; /* Меньше скругление, современнее */
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.3px;
+    text-transform: none;
+    backdrop-filter: blur(5px);
+}
+
+.hello .but.blue {
+    background: linear-gradient(145deg, #5d32f9, #7b5ff5);
+    color: white;
+    border: none;
+    box-shadow: 0 8px 20px -8px rgba(93, 50, 249, 0.5);
+    transition: all 0.3s ease;
+}
+
+.hello .but.blue:hover {
+    background: linear-gradient(145deg, #6b42fa, #8a6cff);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -8px rgba(93, 50, 249, 0.8);
+}
+
+.hello .but.blue:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 15px -5px rgba(93, 50, 249, 0.6);
+}
+
+.hello .but.none {
+    background: rgba(255, 255, 255, 0.03);
+    color: #f3f3f3;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.hello .but.none:hover {
+    background: rgba(93, 50, 249, 0.1);
+    border-color: #5d32f9;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -8px rgba(93, 50, 249, 0.4);
+}
+
+.hello .but.none:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+/* Убираем старые анимации, которые делали "колхозно" */
+.hello .but.blue::before,
+.hello .but.none::after {
+    display: none;
+}
+
+/* ===== 3. КНОПКИ В КАРТОЧКЕ РАЗРАБОТЧИКА (Технологичные, с иконками) ===== */
+.dev-info .contacts .but {
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid transparent;
+}
+
+.dev-info .contacts .but.blue {
+    background: linear-gradient(135deg, #5d32f9, #3b1b9e);
+    color: white;
+    box-shadow: 0 2px 10px rgba(93, 50, 249, 0.3);
+}
+
+.dev-info .contacts .but.blue i {
+    color: white;
+    font-size: 1.1rem;
+}
+
+.dev-info .contacts .but.blue:hover {
+    background: linear-gradient(135deg, #6b42fa, #4a2ac9);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 5px 20px rgba(93, 50, 249, 0.5);
+}
+
+.dev-info .contacts .but.blue:hover i {
+    animation: shake 0.5s ease;
+}
+
+.dev-info .contacts .but.none {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #d2d2d2;
+}
+
+.dev-info .contacts .but.none i {
+    color: #5d32f9;
+    font-size: 1.1rem;
+}
+
+.dev-info .contacts .but.none:hover {
+    background: rgba(93, 50, 249, 0.15);
+    border-color: #5d32f9;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.dev-info .contacts .but.none:hover i {
+    color: #fff;
+    animation: bounce 0.5s ease;
+}
+
+/* ===== 4. КНОПКИ В ДОСТИЖЕНИЯХ (Стиль "Медаль/Награда") ===== */
+.reward .but {
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #5d32f9, #2a0f7a);
+    color: white;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+    position: relative;
+}
+
+.reward .but::before {
+    content: '🏆';
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.reward .but:hover {
+    background: linear-gradient(135deg, #6b42fa, #3b1b9e);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+    border-color: #FFD700;
+    padding-left: 40px;
+}
+
+.reward .but:hover::before {
+    left: 10px;
+    opacity: 1;
+}
+
+.reward .but:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* ===== 5. КНОПКА В ФУТЕРЕ (Минималистичная, но стильная) ===== */
+.footer .logo-2 a {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(93, 50, 249, 0.1);
+    border-radius: 20px;
+    color: #a1a1aa;
+    border: 1px solid rgba(93, 50, 249, 0.2);
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.footer .logo-2 a:hover {
+    background: #5d32f9;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(93, 50, 249, 0.3);
+    border-color: transparent;
+}
+
+/* ===== 6. КНОПКА "НАВЕРХ" ===== */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #5d32f9, #7b5ff5); /* Убрали голубой, оставили фиолетовый */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 26px;
+    text-decoration: none;
+    box-shadow: 0 4px 25px rgba(93, 50, 249, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.9);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 999;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    animation: pulse 2s infinite;
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-5px) scale(1.15);
+    box-shadow: 0 8px 40px rgba(93, 50, 249, 0.9);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.scroll-to-top:hover i {
+    animation: rocket 0.6s ease infinite;
+}
+
+@keyframes rocket {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* ===== АНИМАЦИИ ===== */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(93, 50, 249, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(93, 50, 249, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(93, 50, 249, 0); }
+}
+
+/* ===== МОБИЛЬНЫЕ НАСТРОЙКИ ===== */
+@media (max-width: 768px) {
+    .hello .but {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+    
+    .dev-info .contacts {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .dev-info .contacts .but {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .scroll-to-top {
+        bottom: 20px;
+        left: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+    }
+}
+
+/* Убираем старые навигационные кнопки */
+.but-nav {
+    display: none !important;
+}
+
+/* Фикс для иконок в кнопках */
+.but i {
+    font-size: 1.1em;
+    transition: transform 0.2s ease;
+}
+
+.but:hover i {
+    transform: translateX(2px) scale(1.05);
+}
+
+/* Специально для кнопки Telegram в приветствии */
+.hello .but.blue i {
+    margin-right: 5px;
+}
+
+/* ===== 4. КНОПКИ В ДОСТИЖЕНИЯХ (Премиум с 3D-эффектом) [citation:1][citation:6] ===== */
+.reward .but {
+    padding: 14px 32px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 1rem;
+    background: linear-gradient(145deg, #5d32f9, #3b1b9e);
+    color: white;
+    box-shadow: 0 8px 0 #1e0e4a, 0 10px 25px rgba(93, 50, 249, 0.4);
+    transition: all 0.1s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    position: relative;
+    transform: translateY(0);
+}
+
+.reward .but::before {
+    content: '🏆';
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.reward .but:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 0 #1e0e4a, 0 18px 30px rgba(93, 50, 249, 0.6);
+    padding-left: 48px;
+}
+
+.reward .but:hover::before {
+    left: 16px;
+    opacity: 1;
+    animation: bounce1 0.5s ease;
+}
+
+.reward .but:active {
+    transform: translateY(4px);
+    box-shadow: 0 4px 0 #1e0e4a, 0 10px 20px rgba(93, 50, 249, 0.4);
+}
+
+@keyframes bounce1 {
+    0%, 100% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-70%) scale(1.2); }
+}
+
+/* ===== ИСПРАВЛЕНИЕ СЛОЁВ ===== */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0 !important; /* Частицы на самом нижнем слое */
+    pointer-events: none; /* Чтобы частицы не мешали кликать по кнопкам */
+    opacity: 0.5; /* Немного прозрачности, чтобы не перебивать контент */
+}
+
+/* Весь контент должен быть выше частиц */
+header, main, footer, .modal, .scroll-to-top {
+    position: relative;
+    z-index: 1;
+}
+
+/* Для модального окна нужен особо высокий z-index */
+.modal {
+    z-index: 1000 !important;
+}
+
+/* Кнопка "Наверх" тоже должна быть выше контента */
+.scroll-to-top {
+    z-index: 999 !important;
+}
