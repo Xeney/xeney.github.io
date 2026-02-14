@@ -3579,19 +3579,24 @@ header, main, footer, .modal, .scroll-to-top {
 
 /* Заголовок */
 .hello-title {
-    font-size: 4.8rem;
+    padding-top: 50px;
+    text-align: center;
+    font-size: 5rem;
+    font-family: "Tektur";
     font-weight: 900;
-    margin-bottom: 15px;
-    line-height: 1.1;
-    animation: slideInUp 0.7s ease-out 0.2s both;
-    background: linear-gradient(90deg, #5d32f9, #7b5ff5, #fff);
+    background: linear-gradient(90deg, #5d32f9, #7b5ff5, #00e5ff, #5d32f9);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-size: 200%;
+    background-size: 300%;
+    animation: gradient-flow 5s linear infinite;
+    line-height: 1.1;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .hello-name {
+    font-family: "Tektur";
     display: block;
+    margin-top: 10px;
 }
 
 /* Подзаголовок */
