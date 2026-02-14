@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Backend Developer из Самары. Студент Самарского университета им. Королёва. Победитель World Skills Russia. Стек: C#, .NET, Python, Golang, PostgreSQL.">
     <link rel="shortcut icon" href="./logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@latest/devicon.min.css">
+
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/mobile.css" media="screen and (max-width: 768px)">
-    <title>Варламов Дамир | Web-разработчик</title>
+    <title>Варламов Дамир | Backend Developer из Самары</title>
 </head>
 <body>
     <canvas id="bg-canvas"></canvas>
@@ -19,7 +23,7 @@
         <nav class="menu">
             <ul>
                 <li><a href="https://github.com/Xeney" target="_blank">GitHub</a></li>
-                <li><a href="#about-dev">Навыки</a></li>
+                <li><a href="#about-dev">Обо мне</a></li>
                 <li><a href="#progress">Достижения</a></li>
             </ul>
         </nav>
@@ -34,11 +38,11 @@
         <div id="about" class="hello">
             <h1 class="logo">
                 Варламов Дамир<br>
-                <span class="gradient-text">Web-разработчик</span>
+                <span class="gradient-text">Backend Developer из Самары</span>
             </h1>
             <div class="post">
-                <p class="one-text">Разрабатываю современные веб-приложения.<br>
-                    Люблю чистый код, минимализм и реальные проекты.</p>
+                <p class="one-text">Строю карьеру в разработке современных веб-приложений.<br>
+                    Ценю чистый код, минимализм и практические решения.</p>
                     <p><small>Открыт к новым возможностям и сотрудничеству</small></p>
                 <div class="list-flex">
                     <a href="https://t.me/Ghosers" class="but blue" target="_blank">Telegram</a>
@@ -50,25 +54,30 @@
 
         <section id="why" class="why-me container">
             <h2 class="section-title">Почему я?</h2>
-          
             <div class="why-grid">
-              <div class="why-card">
-                <div class="icon">📚</div>
-                <h3>Постоянное саморазвитие</h3>
-                <p>Развиваю навыки, быстро адаптируюсь к изменениям.</p>
-              </div>
-          
-              <div class="why-card">
-                <div class="icon">🥇</div>
-                <h3>Высокая мотивация</h3>
-                <p>Я люблю программирование, ответственно подхожу к работе.</p>
-              </div>
-          
-              <div class="why-card">
-                <div class="icon">💬</div>
-                <h3>Общительность</h3>
-                <p>Я легко нахожу общий язык, умею работать в команде.</p>
-              </div>
+                <div class="why-card">
+                    <div class="icon">
+                        <i class="fas fa-microchip"></i>  <!-- Процессор - развитие технологий -->
+                    </div>
+                    <h3>Постоянное развитие</h3>
+                    <p>Регулярно осваиваю новые технологии и углубляю фундаментальные знания.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="icon">
+                        <i class="fas fa-code"></i>  <!-- Код - реальные проекты -->
+                    </div>
+                    <h3>Практический опыт</h3>
+                    <p>Победитель чемпионата World Skills Russia, имею опыт разработки реальных проектов.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="icon">
+                        <i class="fas fa-user-check"></i>  <!-- Пользователь с галочкой - надежность -->
+                    </div>
+                    <h3>Дисциплина и ответственность</h3>
+                    <p>Армейский опыт и техническое образование формируют серьёзный подход к работе.</p>
+                </div>
             </div>
         </section>
           
@@ -84,9 +93,15 @@
                         <p class="role">Backend Developer</p>
                         <p class="motto">Студент Самарского университета им. Королёва по направлению 09.03.01 ИВТ.<br>Активно развиваюсь в backend-разработке</p>
                         <div class="contacts">
-                            <a class="but blue" href="https://t.me/Ghosers" target="_blank" rel="noopener">Telegram</a>
-                            <a class="but none" href="mailto:damir.itwar@yandex.ru" target="_blank">Email</a>
-                            <a class="but none" href="https://github.com/Xeney" target="_blank">GitHub</a>
+                            <a class="but blue" href="https://t.me/Ghosers" target="_blank" rel="noopener">
+                                <i class="fab fa-telegram-plane"></i> Telegram  <!-- Иконка из Font Awesome -->
+                            </a>
+                            <a class="but none" href="mailto:damir.itwar@yandex.ru" target="_blank">
+                                <i class="fas fa-envelope"></i> Email  <!-- Иконка из Font Awesome -->
+                            </a>
+                            <a class="but none" href="https://github.com/Xeney" target="_blank">
+                                <i class="devicon-github-original"></i> GitHub
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -94,30 +109,39 @@
                 <div class="dev-body">
                     <div class="dev-text">
                         <h3>Обо мне</h3>
-                        <p>Имею техническое образование по специальности «Разработчик веб- и мультимедийных приложений», прошёл срочную службу в Вооружённых Силах РФ, что сформировало дисциплину и умение работать в условиях высокой ответственности.<br><br>
-                            В настоящее время получаю высшее образование в Самарском университете им. Королёва. Активно изучаю современные технологии бэкенд-разработки, строю фундаментальные знания в области алгоритмов, структур данных и архитектуры программного обеспечения.</p>
+                        <p>
+                            <strong>Образование:</strong> Техническое образование по специальности «Разработчик веб- и мультимедийных приложений». 
+                            В 2025 году поступил в Самарский университет им. Королёва на направление 09.03.01 ИВТ.<br><br>
+                            
+                            <strong>Достижения:</strong> Победитель национального чемпионата World Skills Russia 2022 в компетенции 
+                            «Разработка бизнес-решений с использованием блокчейн-технологий». Имею опыт разработки 
+                            бэкенд-приложений на современных технологиях: C#, Python, Golang.<br><br>
+                            
+                            <strong>Философия:</strong> Строю карьеру системно — от фундаментальных знаний в области алгоритмов, 
+                            структур данных и архитектуры ПО к практическому применению в реальных проектах. 
+                            Готов к интенсивному росту и работе в профессиональной команде.
+                        </p>
 
                         <div class="traits">
-                            <div>⚡ Дисциплина и ответственность</div>
-                            <div>🧠 Системный подход к обучению</div>
-                            <div>🚀 Готов к интенсивному росту</div>
+                            <div><i class="fas fa-shield-alt"></i> Дисциплина и ответственность</div>
+                            <div><i class="fas fa-brain"></i> Системный подход к обучению</div>
+                            <div><i class="fas fa-rocket"></i> Готов к интенсивному росту</div>
                         </div>
                     </div>
 
                     <div class="dev-stack">
                         <h4>Технологический стек</h4>
                         <ul class="stack-list">
-                            <li>C# / .NET 8+</li>
-                            <li>Python / Golang</li>
-                            <li>ASP.NET Core / Flask / Gin</li>
-                            <li>Windows Forms / WinForms</li>
-                            <li>Telegram Bot API (Python, Golang)</li>
-                            <li>HTML / CSS / JavaScript (ES6+)</li>
-                            <li>Figma — проектирование интерфейсов</li>
-                            <li>PostgreSQL / SQLite</li>
-                            <li>Entity Framework Core / SQLAlchemy</li>
-                            <li>Git — система контроля версий</li>
-                            <li>Docker / Linux</li>
+                            <li><i class="devicon-csharp-plain colored"></i> C# / .NET 8+</li>
+                            <li><i class="devicon-python-plain colored"></i> Python / Golang</li>
+                            <li><i class="devicon-dotnetcore-plain colored"></i> ASP.NET Core / Flask / Gin</li>
+                            <li><i class="devicon-html5-plain colored"></i> HTML / CSS / JavaScript (ES6+)</li>
+                            <li><i class="devicon-figma-plain colored"></i> Figma — проектирование интерфейсов</li>
+                            <li><i class="devicon-postgresql-plain colored"></i> PostgreSQL / SQLite</li>
+                            <li><i class="devicon-git-plain colored"></i> Git — система контроля версий</li>
+                            <li><i class="fab fa-telegram-plane colored" style="color: #26A5E4;"></i> Telegram Bot API (Python, Golang)</li>
+                            <li><i class="devicon-docker-plain colored"></i> Docker / Linux</li>
+                            <li><i class="devicon-windows8-original colored"></i> Windows Forms / WinForms</li>
                         </ul>
                     </div>
                 </div>
@@ -184,15 +208,15 @@
         <div class="logo">
             <div class="logo-1">
                 <h1>Варламов Дамир</h1>
-                <!-- <img src="./logo.png" alt="logo"> -->
             </div>
             <div class="logo-2">
-                <a href="mailto:damir.itwar@yandex.ru">damir.itwar@yandex.ru</a>
+                <a href="https://t.me/Ghosers" target="_blank">@Ghosers (Telegram)</a>
             </div>
         </div>
         <nav class="menu">
             <ul>
                 <li><a href="https://github.com/Xeney" target="_blank">GitHub</a></li>
+                <li><a href="#about-dev">Обо мне</a></li>
                 <li><a href="#progress">Достижения</a></li>
             </ul>
         </nav>

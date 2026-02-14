@@ -883,7 +883,7 @@ a:hover, a:active {
   transition: color 0.3s ease;
 }
 .about-dev .dev-card .dev-body .dev-stack .stack-list li::before {
-  content: "▹";
+  /* content: "▹"; */
   position: absolute;
   left: 0;
   color: #5d32f9;
@@ -995,3 +995,131 @@ a:hover, a:active {
     padding-top: 2rem;
   }
 }/*# sourceMappingURL=style.css.map */
+
+
+
+
+.stack-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 0 !important;
+}
+
+.stack-list li i {
+    font-size: 1.2rem;
+    color: #5d32f9;
+}
+/* Улучшение отображения иконок */
+.stack-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 0 !important;
+}
+
+.stack-list li i {
+    font-size: 1.3rem;
+    min-width: 24px;
+    text-align: center;
+}
+
+/* Для Font Awesome */
+.stack-list li .fas,
+.stack-list li .fab,
+.contacts .fas,
+.contacts .fab {
+    font-size: 1.2rem;
+    margin-right: 5px;
+}
+
+/* Для Material Icons */
+.stack-list li .material-icons {
+    font-size: 1.2rem;
+    color: #5d32f9;
+}
+
+/* Стили для блока traits */
+.traits div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(93, 50, 249, 0.08);
+    border: 1px solid rgba(93, 50, 249, 0.18);
+    border-radius: 10px;
+    padding: 0.6rem 0.9rem;
+    color: #bfc4ff;
+    font-size: 0.9rem;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.traits div i {
+    font-size: 1.2rem;
+    min-width: 24px;
+    text-align: center;
+}
+
+/* Цвета для иконок Font Awesome */
+.traits div i.fa-shield-alt {
+    color: #4CAF50;
+}
+
+.traits div i.fa-brain {
+    color: #FF9800;
+}
+
+.traits div i.fa-rocket {
+    color: #F44336;
+}
+
+/* Или общий стиль для всех иконок в traits */
+.traits div i {
+    color: #5d32f9;
+    filter: drop-shadow(0 0 5px rgba(93, 50, 249, 0.5));
+}
+
+/* Эффект при наведении */
+.traits div:hover i {
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
+}
+/* Улучшение стилей для иконок в why-card */
+.why-card .icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: float 4s ease-in-out infinite;
+    color: #5d32f9; /* Основной цвет */
+    filter: drop-shadow(0 0 10px rgba(93, 50, 249, 0.5));
+    transition: all 0.3s ease;
+}
+
+.why-card:hover .icon {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 20px rgba(93, 50, 249, 0.8));
+}
+
+/* Индивидуальные цвета для каждой карточки (опционально) */
+.why-card:nth-child(1) .icon {
+    color: #4CAF50; /* Зеленый - развитие */
+}
+
+.why-card:nth-child(2) .icon {
+    color: #FFC107; /* Золотой - достижения */
+}
+
+.why-card:nth-child(3) .icon {
+    color: #F44336; /* Красный - дисциплина */
+}
+
+/* Анимация плавания для иконок */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
