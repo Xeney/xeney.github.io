@@ -229,12 +229,6 @@
     <small class="description" style="font-size: 16px;">Спасибо, что заглянули!</small>
     <small class="description">© 2025 Варламов Дамир Алексеевич</small>
     
-    <!-- Навигационные кнопки -->
-    <div class="but-nav">
-        <a style="width: auto;" href="#top" class="but none">В начало</a>
-        <a style="width: auto;" href="#bottom" class="but none">В конец</a>
-    </div>
-    
     <!-- Модальное окно для фото -->
     <div id="modal" class="modal">
         <span class="close">&times;</span>
@@ -242,6 +236,36 @@
         <div id="caption"></div>
     </div>
     
+    <!-- Кнопка "Наверх" -->
+    <a href="#" class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Скрипт для кнопки "Наверх"
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollButton = document.getElementById('scrollToTop');
+            
+            // Показываем/скрываем кнопку при прокрутке
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) { // Появляется после 300px прокрутки
+                    scrollButton.classList.add('visible');
+                } else {
+                    scrollButton.classList.remove('visible');
+                }
+            });
+            
+            // Плавная прокрутка наверх
+            scrollButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
     <script>
     document.querySelectorAll('.reward a').forEach(link => {
         link.addEventListener('click', e => {
