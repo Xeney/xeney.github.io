@@ -1846,3 +1846,41 @@ header, main, footer, .modal, .scroll-to-top {
         box-shadow: 0 0 0 0 rgba(93, 50, 249, 0);
     }
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 80%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: #fff;
+    font-size: 40px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+#caption {
+    color: #fff;
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
