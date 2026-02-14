@@ -779,12 +779,14 @@ a:hover, a:active {
   overflow: hidden;
   flex-shrink: 0;
   box-shadow: 0 0 20px rgba(93, 50, 249, 0.3);
+
 }
 .about-dev .dev-card .dev-header .dev-photo img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  object-position: top; 
   display: block;
 }
 .about-dev .dev-card .dev-header .dev-info {
