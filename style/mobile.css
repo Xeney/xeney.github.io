@@ -639,3 +639,529 @@
         height: 100px;
     }
 }
+/* Мобильная оптимизация - отключаем сложные эффекты */
+@media screen and (max-width: 768px) {
+    /* Отключаем анимированный фон canvas */
+    #bg-canvas {
+      display: none;
+    }
+    
+    /* Отключаем 3D-эффекты карточек */
+    .why-card {
+      transform: none !important;
+      transition: none !important;
+    }
+    
+    .why-card:hover {
+      transform: none !important;
+      box-shadow: 0 0 20px rgba(93, 50, 249, 0.15) !important;
+    }
+    
+    /* Упрощаем анимации кнопок */
+    .but:hover {
+      transform: scale(1.05) !important;
+      box-shadow: 0 0 8px 1px #5d32f9 !important;
+    }
+    
+    /* Отключаем плавающие анимации */
+    .icon {
+      animation: none !important;
+    }
+    
+    /* ===== АДАПТИВНАЯ ШАПКА ===== */
+    .header {
+      padding: 15px 20px;
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 15px;
+      background: rgba(13, 13, 13, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(93, 50, 249, 0.3);
+    }
+    
+    /* Логотип */
+    .header .logo h1 {
+      font-size: 1.5rem !important;
+      text-align: center;
+      margin: 0;
+    }
+    
+    .logo-gradient {
+      background: linear-gradient(90deg, #5d32f9, #7b5ff5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .logo-light {
+      color: #f3f3f3;
+    }
+    
+    /* Меню навигации */
+    .header .menu ul {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+      gap: 15px !important;
+      padding: 0 10px;
+    }
+    
+    .header .menu ul li a {
+      font-size: 1rem !important;
+      padding: 8px 15px !important;
+      background: rgba(93, 50, 249, 0.1);
+      border-radius: 25px;
+      border: 1px solid rgba(93, 50, 249, 0.2);
+      color: #f3f3f3;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .header .menu ul li a i {
+      font-size: 1.1rem;
+      color: #5d32f9;
+    }
+    
+    .header .menu ul li a:hover {
+      background: rgba(93, 50, 249, 0.2);
+      border-color: #5d32f9;
+      transform: translateY(-2px);
+    }
+    
+    /* Социальные иконки */
+    .header .socials ul {
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: center !important;
+      gap: 15px !important;
+      padding: 0;
+    }
+    
+    .header .socials .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #a1a1aa;
+      transition: all 0.3s ease;
+    }
+    
+    .header .socials .social-icon:hover {
+      background: rgba(93, 50, 249, 0.2);
+      border-color: #5d32f9;
+      color: #fff;
+      transform: translateY(-3px) scale(1.1);
+    }
+    
+    /* Специфические цвета для соцсетей */
+    .header .socials .social-icon.telegram:hover {
+      background: rgba(66, 184, 221, 0.2);
+      border-color: #42b8dd;
+    }
+    
+    .header .socials .social-icon.email:hover {
+      background: rgba(235, 64, 52, 0.2);
+      border-color: #eb4034;
+    }
+    
+    /* Улучшаем отображение контента */
+    .content .hello {
+      margin-top: 50px;
+      min-height: 50vh;
+    }
+    
+    .content .hello .logo {
+      font-size: 2.5rem !important;
+      padding-top: 20px;
+    }
+    
+    .post .one-text {
+      font-size: 18px !important;
+      line-height: 1.4;
+    }
+    
+    /* Оптимизируем секцию "Почему я" */
+    .why-me {
+      padding: 4rem 0 !important;
+    }
+    
+    .why-me .section-title {
+      font-size: 2rem !important;
+    }
+    
+    .why-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+    }
+    
+    /* Оптимизируем карточку разработчика */
+    .about-dev {
+      padding: 1rem 0;
+    }
+    
+    .dev-card {
+      padding: 1.5rem !important;
+    }
+    
+    .dev-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem !important;
+    }
+    
+    .dev-info .contacts {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .dev-body {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+    }
+    
+    .stack-list {
+      grid-template-columns: 1fr !important;
+    }
+    
+    /* Оптимизируем секцию достижений */
+    .achievements-section {
+      padding: 60px 0 50px;
+    }
+    
+    .section-header h2 {
+      font-size: 2.3rem;
+    }
+    
+    .achievements-grid {
+      gap: 20px;
+    }
+    
+    .achievement-card {
+      padding: 22px;
+    }
+    
+    .card-badge {
+      top: 12px;
+      right: 12px;
+      padding: 4px 10px;
+      font-size: 0.82rem;
+    }
+    
+    .card-meta .year {
+      font-size: 1.4rem;
+    }
+    
+    /* Упрощаем футер */
+    .footer {
+      padding: 30px 10px 15px;
+      text-align: center;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .footer .menu ul {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    /* Улучшаем модальное окно */
+    .modal .close {
+      top: 15px;
+      right: 20px;
+      font-size: 30px;
+    }
+    
+    .modal .modal-content {
+      max-width: 95%;
+      max-height: 85%;
+    }
+    
+    /* Отключаем сложные градиенты body */
+    body::before,
+    body::after {
+      display: none;
+    }
+    
+    /* Упрощаем background для лучшей производительности */
+    body {
+      background: #0d0d0d;
+    }
+}
+
+/* ===== ДЛЯ ЭКРАНОВ 480px И МЕНЬШЕ ===== */
+@media screen and (max-width: 480px) {
+    .header {
+      padding: 12px 15px;
+      gap: 12px;
+    }
+    
+    .header .logo h1 {
+      font-size: 1.3rem !important;
+    }
+    
+    .header .menu ul {
+      gap: 10px !important;
+    }
+    
+    .header .menu ul li a {
+      font-size: 0.9rem !important;
+      padding: 6px 12px !important;
+    }
+    
+    .header .menu ul li a i {
+      font-size: 1rem;
+    }
+    
+    .header .socials ul {
+      gap: 10px !important;
+    }
+    
+    .header .socials .social-icon {
+      width: 35px;
+      height: 35px;
+      font-size: 1.1rem;
+    }
+    
+    .content .hello .logo {
+      font-size: 2rem !important;
+    }
+    
+    .post .one-text {
+      font-size: 16px !important;
+    }
+    
+    .why-me .section-title {
+      font-size: 1.8rem !important;
+    }
+    
+    .section-header h2 {
+      font-size: 1.9rem;
+    }
+    
+    .section-subtitle {
+      font-size: 0.95rem;
+    }
+    
+    .achievement-card {
+      padding: 18px;
+    }
+    
+    .achievement-card h3 {
+      font-size: 1.4rem;
+    }
+    
+    .tech-tags .tag {
+      padding: 3px 8px;
+      font-size: 0.8rem;
+    }
+    
+    .view-photo {
+      padding: 7px 12px;
+      font-size: 0.9rem;
+    }
+    
+    .card-image-preview {
+      width: 100%;
+      height: 100px;
+    }
+    
+    .but {
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+    
+    .list-flex {
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .footer .menu ul {
+      gap: 10px !important;
+    }
+}
+
+/* ===== ДЛЯ ЭКРАНОВ 360px И МЕНЬШЕ ===== */
+@media screen and (max-width: 360px) {
+    .header .menu ul li a {
+      font-size: 0.85rem !important;
+      padding: 5px 10px !important;
+    }
+    
+    .header .menu ul li a i {
+      display: none; /* Прячем иконки на очень маленьких экранах */
+    }
+    
+    .header .socials .social-icon {
+      width: 32px;
+      height: 32px;
+      font-size: 1rem;
+    }
+}
+
+/* ===== ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ДЛЯ КАРТОЧКИ РАЗРАБОТЧИКА ===== */
+@media screen and (max-width: 768px) {
+    .about-dev .container {
+      padding: 0 10px;
+      width: 100%;
+      max-width: 100%;
+    }
+    
+    .about-dev .dev-card {
+      margin: 0 auto;
+      width: 100%;
+      border-radius: 16px;
+      padding: 1.2rem !important;
+    }
+    
+    .about-dev .dev-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 1.2rem !important;
+      margin-bottom: 1.5rem !important;
+    }
+    
+    .about-dev .dev-photo {
+      width: 100px !important;
+      height: 100px !important;
+      border-radius: 12px !important;
+    }
+    
+    .about-dev .dev-info h2 {
+      font-size: 1.4rem !important;
+      line-height: 1.2;
+    }
+    
+    .about-dev .dev-info .role {
+      font-size: 1rem !important;
+      margin: 0.5rem 0 !important;
+    }
+    
+    .about-dev .dev-info .motto {
+      font-size: 0.9rem !important;
+      line-height: 1.4;
+      margin-bottom: 1rem !important;
+    }
+    
+    .about-dev .dev-info .contacts {
+      justify-content: center !important;
+      gap: 0.5rem !important;
+      flex-wrap: wrap;
+    }
+    
+    .about-dev .dev-info .contacts .but {
+      font-size: 0.85rem !important;
+      padding: 0.5rem 0.8rem !important;
+      min-width: auto;
+    }
+    
+    .about-dev .dev-body {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+      margin-bottom: 1.5rem !important;
+    }
+    
+    .about-dev .dev-text h3 {
+      font-size: 1.2rem !important;
+      text-align: center;
+    }
+    
+    .about-dev .dev-text p {
+      font-size: 0.9rem !important;
+      line-height: 1.5;
+      text-align: center;
+    }
+    
+    .about-dev .traits {
+      gap: 0.5rem !important;
+    }
+    
+    .about-dev .traits div {
+      padding: 0.5rem 0.8rem !important;
+      font-size: 0.85rem !important;
+      text-align: center;
+      border-radius: 8px !important;
+    }
+    
+    .about-dev .dev-stack h4 {
+      font-size: 1.1rem !important;
+      text-align: center;
+      margin-bottom: 1rem !important;
+    }
+    
+    .about-dev .stack-list {
+      grid-template-columns: 1fr !important;
+      gap: 0.4rem !important;
+    }
+    
+    .about-dev .stack-list li {
+      font-size: 0.9rem !important;
+      padding: 0.4rem 0 0.4rem 1rem !important;
+      text-align: left;
+    }
+    
+    .about-dev .dev-footer {
+      padding-top: 1.2rem !important;
+    }
+    
+    .about-dev .dev-footer p {
+      font-size: 0.9rem !important;
+      margin-bottom: 1rem !important;
+      line-height: 1.4;
+    }
+    
+    .about-dev .dev-footer .but.large {
+      width: 100% !important;
+      padding: 0.8rem 1rem !important;
+      font-size: 0.95rem !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .about-dev .dev-card {
+      padding: 1rem !important;
+    }
+    
+    .about-dev .dev-info .contacts {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .about-dev .dev-info .contacts .but {
+      width: 100%;
+      max-width: 200px;
+    }
+}
+/* Убираем подчеркивание только у трех навигационных кнопок */
+@media screen and (max-width: 768px) {
+    /* Целенаправленно убираем подчеркивание у ссылок в меню */
+    .header .menu ul li a.nav-link::after {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        opacity: 0 !important;
+        background: transparent !important;
+    }
+    
+    /* Убираем подчеркивание при наведении */
+    .header .menu ul li a.nav-link:hover::after {
+        display: none !important;
+    }
+    
+    /* Убираем подчеркивание у активной ссылки */
+    .header .menu ul li a.nav-link.active::after {
+        display: none !important;
+    }
+    
+    /* Убеждаемся, что нет других подчеркиваний */
+    .header .menu ul li a.nav-link {
+        text-decoration: none !important;
+        border-bottom: none !important;
+    }
+}

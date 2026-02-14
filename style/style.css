@@ -2473,7 +2473,7 @@ header, main, footer, .modal, .scroll-to-top {
 }
 
 /* Иконка карточки */
-.card-icon {
+.card-icon1 {
     width: 80px;
     height: 80px;
     background: rgba(93, 50, 249, 0.12);
@@ -2486,19 +2486,19 @@ header, main, footer, .modal, .scroll-to-top {
     transition: all 0.4s ease;
 }
 
-.card-icon i {
+.card-icon1 i {
     font-size: 2.8rem;
     color: #5d32f9;
     transition: all 0.4s ease;
 }
 
-.why-card:hover .card-icon {
+.why-card:hover .card-icon1 {
     background: rgba(93, 50, 249, 0.25);
     border-color: rgba(93, 50, 249, 0.5);
     transform: scale(1.1) rotate(5deg);
 }
 
-.why-card:hover .card-icon i {
+.why-card:hover .card-icon1 i {
     transform: scale(1.2);
     color: #fff;
     text-shadow: 0 0 20px rgba(93, 50, 249, 0.8);
@@ -2576,12 +2576,12 @@ header, main, footer, .modal, .scroll-to-top {
         padding: 30px 25px;
     }
     
-    .card-icon {
+    .card-icon1 {
         width: 70px;
         height: 70px;
     }
     
-    .card-icon i {
+    .card-icon1 i {
         font-size: 2.4rem;
     }
     
@@ -2607,12 +2607,12 @@ header, main, footer, .modal, .scroll-to-top {
         padding: 25px 20px;
     }
     
-    .card-icon {
+    .card-icon1 {
         width: 60px;
         height: 60px;
     }
     
-    .card-icon i {
+    .card-icon1 i {
         font-size: 2rem;
     }
     
@@ -2626,5 +2626,323 @@ header, main, footer, .modal, .scroll-to-top {
     
     .card-number {
         font-size: 2rem;
+    }
+}
+
+/* ========================================
+   СОВРЕМЕННЫЙ ХЕДЕР - РЕДИЗАЙН
+   ======================================== */
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    background: rgba(13, 13, 13, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(93, 50, 249, 0.25);
+    position: sticky;
+    top: 0;
+    z-index: 5000;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Эффект при прокрутке */
+.header.scrolled {
+    padding: 12px 40px;
+    background: rgba(13, 13, 13, 0.95);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    border-bottom-color: rgba(93, 50, 249, 0.4);
+}
+
+/* Логотип */
+.header .logo h1 {
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.3s ease;
+}
+
+.header .logo h1:hover {
+    transform: scale(1.03);
+}
+
+.logo-gradient {
+    background: linear-gradient(90deg, #5d32f9, #7b5ff5, #00e5ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200%;
+    animation: gradient-flow 4s linear infinite;
+}
+
+.logo-light {
+    color: #f3f3f3;
+    opacity: 0.95;
+}
+
+/* Меню навигации */
+.header .menu ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    margin: 0;
+    padding: 0;
+}
+
+.header .menu ul li {
+    position: relative;
+}
+
+/* Ссылки меню */
+.nav-link {
+    color: #b8b8c3;
+    font-weight: 500;
+    font-size: 1.05rem;
+    position: relative;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    text-decoration: none !important;
+}
+
+.nav-link i {
+    font-size: 1.2rem;
+    min-width: 20px;
+    text-align: center;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover i {
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+.nav-link:hover,
+.nav-link:active {
+    color: #5d32f9;
+    transform: translateY(-2px);
+}
+
+/* Подчеркивание при наведении */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #5d32f9, #00e5ff);
+    transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Активный пункт меню */
+.nav-link.active {
+    color: #5d32f9;
+}
+
+.nav-link.active::after {
+    width: 100%;
+    background: linear-gradient(90deg, #5d32f9, #00e5ff);
+}
+
+/* Социальные иконки */
+.header .socials ul {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+.social-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #a1a1aa;
+    font-size: 1.3rem;
+    text-decoration: none !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(93, 50, 249, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s, height 0.4s;
+}
+
+.social-icon:hover::before {
+    width: 120%;
+    height: 120%;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px) scale(1.08);
+    background: rgba(93, 50, 249, 0.15);
+    border-color: rgba(93, 50, 249, 0.4);
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(93, 50, 249, 0.4);
+}
+
+/* Цвета для разных соцсетей */
+.social-icon.telegram {
+    background: rgba(66, 184, 221, 0.1);
+    border-color: rgba(66, 184, 221, 0.3);
+    color: #42b8dd;
+}
+
+.social-icon.telegram:hover {
+    background: rgba(66, 184, 221, 0.25);
+    border-color: rgba(66, 184, 221, 0.5);
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(66, 184, 221, 0.4);
+}
+
+.social-icon.email {
+    background: rgba(235, 64, 52, 0.1);
+    border-color: rgba(235, 64, 52, 0.3);
+    color: #eb4034;
+}
+
+.social-icon.email:hover {
+    background: rgba(235, 64, 52, 0.25);
+    border-color: rgba(235, 64, 52, 0.5);
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(235, 64, 52, 0.4);
+}
+
+/* Анимация иконок */
+.social-icon i {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover i {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* Адаптивность */
+@media screen and (max-width: 1100px) {
+    .header {
+        padding: 16px 30px;
+    }
+    
+    .header .menu ul {
+        gap: 25px;
+    }
+    
+    .header .menu ul li a {
+        font-size: 1rem;
+    }
+    
+    .social-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .header {
+        flex-direction: column;
+        padding: 18px 25px;
+        gap: 15px;
+    }
+    
+    .header .menu ul,
+    .header .socials ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .header .menu ul {
+        gap: 20px;
+    }
+    
+    .header .logo h1 {
+        font-size: 1.5rem;
+    }
+    
+    .social-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1.15rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .header {
+        padding: 14px 20px;
+        gap: 12px;
+    }
+    
+    .header .menu ul {
+        gap: 15px;
+    }
+    
+    .header .menu ul li a {
+        font-size: 0.95rem;
+        padding: 6px 0;
+    }
+    
+    .header .logo h1 {
+        font-size: 1.4rem;
+    }
+    
+    .social-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 1.1rem;
+    }
+    
+    .nav-link i {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .header {
+        padding: 12px 15px;
+    }
+    
+    .header .menu ul {
+        gap: 12px;
+    }
+    
+    .header .logo h1 {
+        font-size: 1.3rem;
+    }
+    
+    .social-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
     }
 }
