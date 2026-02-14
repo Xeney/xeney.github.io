@@ -55,19 +55,56 @@
     <main class="content container">
         <!-- Приветственный блок -->
         <div id="about" class="hello">
-            <h1 class="logo">
-                Варламов Дамир<br>
-                <span class="gradient-text">Backend Developer из Самары</span>
-            </h1>
-            <div class="post">
-                <p class="one-text">Строю карьеру в разработке современных веб-приложений.<br>
-                    Ценю чистый код, минимализм и практические решения.</p>
-                <p><small>Открыт к новым возможностям и сотрудничеству</small></p>
-                <div class="list-flex">
-                    <a href="https://t.me/Ghosers" class="but blue" target="_blank">Telegram</a>
-                    <a href="https://github.com/Xeney" class="but none" target="_blank">Мои работы (GitHub)</a>
+            <div class="hello-content">
+                <div class="hello-badge">
+                    <span class="icon"><i class="devicon-git-plain colored"></i></span>
+                    Backend Developer
                 </div>
-                <small><span class="green-text-anim">◉ </span>online <span style="color: gray">Напишите мне</span></small>
+                
+                <h1 class="hello-title">
+                    <span class="hello-name">Варламов Дамир</span>
+                </h1>
+                
+                <p class="hello-subtitle">
+                    Студент Самарского университета им. Королёва<br>
+                    Специализируюсь на backend-разработке
+                </p>
+                
+                <div class="hello-description">
+                    <p>
+                        Строю карьеру в разработке современных веб-приложений.<br>
+                        Ценю чистый код, минимализм и практические решения.
+                    </p>
+                </div>
+                
+                <div class="hello-actions">
+                    <a href="https://t.me/Ghosers" class="but blue large" target="_blank">
+                        <i class="fab fa-telegram-plane"></i> Написать в Telegram
+                    </a>
+                    <a href="https://github.com/Xeney" class="but none large" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+                
+                <div class="hello-status">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Доступен для стажировки и проектов</span>
+                </div>
+                
+                <div class="hello-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="2019">0</span>
+                        <span class="stat-label">Год начала учёбы</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="9">0</span>
+                        <span class="stat-label">Лет обучения</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="100">0</span>
+                        <span class="stat-label">% мотивации</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -378,6 +415,49 @@
     <a href="#" class="scroll-to-top" id="scrollToTop">
         <i class="fas fa-arrow-up"></i>
     </a>
+
+    <script>
+        // Анимация счётчиков
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            const statsSection = document.querySelector('.hello-stats');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+        });
+        
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const duration = 2000; // 2 seconds
+                const stepTime = 20; // ms
+                const steps = Math.ceil(duration / stepTime);
+                const stepCount = Math.abs(target) / steps;
+                let currentNumber = 0;
+                
+                const counterStep = () => {
+                    currentNumber += stepCount;
+                    if (currentNumber < target) {
+                        counter.textContent = Math.floor(currentNumber);
+                        setTimeout(counterStep, stepTime);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                setTimeout(counterStep, 100);
+            });
+        }
+    </script>
     <!-- Подключаем бургер-меню -->
     <!-- <script src="./scripts/burger.js"></script> -->
     <script>

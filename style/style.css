@@ -3514,3 +3514,401 @@ header, main, footer, .modal, .scroll-to-top {
         font-size: 0.9rem;
     }
 }
+
+/* ========================================
+   БЛОК ПРИВЕТСТВИЯ - РЕДИЗАЙН
+   ======================================== */
+
+.hello {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hello::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(93, 50, 249, 0.08) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.hello:hover::before {
+    opacity: 1;
+}
+
+/* Контент блока */
+.hello-content {
+    max-width: 800px;
+    text-align: center;
+    padding: 0 20px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* Бейдж с должностью */
+.hello-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(93, 50, 249, 0.15);
+    border: 1px solid rgba(93, 50, 249, 0.3);
+    color: #7b5ff5;
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+    animation: slideInDown 0.6s ease-out;
+    backdrop-filter: blur(5px);
+}
+
+.hello-badge .badge-icon {
+    font-size: 1.2rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+/* Заголовок */
+.hello-title {
+    font-size: 4.8rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+    line-height: 1.1;
+    animation: slideInUp 0.7s ease-out 0.2s both;
+    background: linear-gradient(90deg, #5d32f9, #7b5ff5, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200%;
+}
+
+.hello-name {
+    display: block;
+}
+
+/* Подзаголовок */
+.hello-subtitle {
+    font-size: 1.4rem;
+    color: #a1a1aa;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    animation: slideInUp 0.7s ease-out 0.3s both;
+}
+
+/* Описание */
+.hello-description {
+    margin-bottom: 40px;
+    animation: slideInUp 0.7s ease-out 0.4s both;
+}
+
+.hello-description p {
+    font-size: 1.15rem;
+    color: #d5d5e0;
+    line-height: 1.7;
+}
+
+/* Кнопки действий */
+.hello-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+    animation: slideInUp 0.7s ease-out 0.5s both;
+}
+
+.hello-actions .but {
+    padding: 14px 28px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hello-actions .but i {
+    font-size: 1.2rem;
+    min-width: 20px;
+}
+
+.hello-actions .but.blue {
+    background: linear-gradient(135deg, #5d32f9, #3b1b9e);
+    box-shadow: 0 8px 25px rgba(93, 50, 249, 0.4);
+}
+
+.hello-actions .but.blue:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(93, 50, 249, 0.6);
+}
+
+.hello-actions .but.none {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #a1a1aa;
+}
+
+.hello-actions .but.none:hover {
+    background: rgba(93, 50, 249, 0.1);
+    border-color: rgba(93, 50, 249, 0.4);
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+/* Статус онлайн */
+.hello-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 45px;
+    animation: slideInUp 0.7s ease-out 0.6s both;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background: #00e5ff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00e5ff;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.status-text {
+    color: #a1a1aa;
+    font-size: 0.95rem;
+}
+
+/* Статистика */
+.hello-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    animation: slideInUp 0.7s ease-out 0.7s both;
+}
+
+.stat-item {
+    text-align: center;
+    min-width: 120px;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #5d32f9, #00e5ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200%;
+    animation: gradientBG 4s linear infinite;
+    line-height: 1;
+}
+
+.stat-label {
+    display: block;
+    color: #a1a1aa;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* Анимации */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.7);
+    }
+    50% {
+        opacity: 0.8;
+        box-shadow: 0 0 0 8px rgba(0, 229, 255, 0);
+    }
+}
+
+@keyframes gradientBG {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Адаптивность */
+@media (max-width: 900px) {
+    .hello-title {
+        font-size: 3.8rem;
+    }
+    
+    .hello-subtitle {
+        font-size: 1.25rem;
+    }
+    
+    .hello-description p {
+        font-size: 1.1rem;
+    }
+    
+    .hello-actions {
+        gap: 12px;
+    }
+    
+    .hello-actions .but {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+    
+    .hello-stats {
+        gap: 25px;
+    }
+    
+    .stat-number {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hello {
+        min-height: 80vh;
+        padding: 60px 0 40px;
+    }
+    
+    .hello-title {
+        font-size: 3.2rem;
+    }
+    
+    .hello-subtitle {
+        font-size: 1.15rem;
+    }
+    
+    .hello-description p {
+        font-size: 1.05rem;
+    }
+    
+    .hello-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hello-actions .but {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+    }
+    
+    .hello-stats {
+        gap: 20px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stat-item {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .stat-number {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hello {
+        min-height: 75vh;
+        padding: 50px 0 30px;
+    }
+    
+    .hello-badge {
+        padding: 6px 14px;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+    }
+    
+    .hello-title {
+        font-size: 2.6rem;
+    }
+    
+    .hello-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+    
+    .hello-description {
+        margin-bottom: 30px;
+    }
+    
+    .hello-description p {
+        font-size: 1rem;
+    }
+    
+    .hello-actions {
+        margin-bottom: 25px;
+    }
+    
+    .hello-actions .but {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+    
+    .hello-status {
+        margin-bottom: 30px;
+    }
+    
+    .hello-stats {
+        gap: 15px;
+    }
+    
+    .stat-number {
+        font-size: 2.4rem;
+    }
+    
+    .stat-label {
+        font-size: 0.85rem;
+    }
+}
