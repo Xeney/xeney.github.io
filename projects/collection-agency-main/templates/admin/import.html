@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Импорт данных - CRM Система{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 fw-bold text-primary">
+        <i class="fas fa-file-import me-2"></i>Импорт данных
+    </h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow-sm glass-effect animate__animated animate__fadeInUp">
+            <div class="card-header bg-white border-bottom-0">
+                <h5 class="mb-0 fw-bold text-dark">
+                    <i class="fas fa-upload me-2 text-primary"></i>Загрузка Excel файла
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info border-0 bg-info bg-opacity-10 animate__animated animate__fadeIn">
+                    <div class="d-flex">
+                        <i class="fas fa-info-circle fs-4 text-info me-3"></i>
+                        <div>
+                            <h6 class="alert-heading fw-bold text-info">Формат файла</h6>
+                            <p class="mb-2">Файл должен содержать следующие столбцы в первой строке:</p>
+                            <ul class="mb-0">
+                                <li><strong class="text-dark">ФИО</strong> - Полное ФИО должника</li>
+                                <li><strong class="text-dark">Дата рождения</strong> - в формате ДД.ММ.ГГГГ</li>
+                                <li><strong class="text-dark">Паспорт</strong> - Паспортные данные</li>
+                                <li><strong class="text-dark">Номер договора</strong> - Уникальный номер договора</li>
+                                <li><strong class="text-dark">Сумма долга</strong> - Числовое значение</li>
+                                <li><strong class="text-dark">Банк</strong> - Название банка-кредитора</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <form method="POST" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-medium">
+                            <i class="fas fa-file-excel me-1 text-success"></i>{{ form.file.label.text }}
+                        </label>
+                        {{ form.file(class="form-control form-control-lg" + (" is-invalid" if form.file.errors else ""), accept=".xlsx,.xls") }}
+                        {% if form.file.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.file.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text text-muted">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Поддерживаются файлы .xlsx и .xls (максимум 16MB)
+                        </div>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg btn-rounded">
+                            <i class="fas fa-upload me-2"></i>Начать импорт
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-5 p-4 bg-light rounded animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                    <h6 class="fw-bold text-dark mb-3">
+                        <i class="fas fa-lightbulb me-2 text-warning"></i>Примечания:
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-sync text-primary me-2"></i>
+                                    При совпадении номера договора данные будут обновлены
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-asterisk text-danger me-2"></i>
+                                    Все поля обязательны для заполнения
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-calendar text-success me-2"></i>
+                                    Рекомендуемый формат даты: ДД.ММ.ГГГГ
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-database text-info me-2"></i>
+                                    Максимум 1000 записей за один импорт
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 p-4 bg-success bg-opacity-10 rounded border border-success border-opacity-25 animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-download fs-2 text-success me-3"></i>
+                        <div>
+                            <h6 class="fw-bold text-success mb-1">Нет тестового файла?</h6>
+                            <p class="text-muted mb-2">Создайте тестовые данные прямо сейчас</p>
+                            <a href="{{ url_for('admin.generate_test_file') }}" class="btn btn-success btn-rounded">
+                                <i class="fas fa-magic me-1"></i>Создать тестовый файл
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

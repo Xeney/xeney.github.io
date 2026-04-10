@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Student Projects Hub - Главная</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="hat">
+        <div class="header__container">
+            <nav class="header__nav">
+                <a href="index.html"><img src="logo/Logo.png" alt="Логотип"></a>
+                <ul class="header__list">
+                    <li class="header__list-item">
+                        <a href="#about__ID" class="header__list-link">О проекте</a>  
+                    </li>
+                    <li class="header__list-item">
+                        <a href="#team__ID" class="header__list-link">Команда</a>
+                    </li>
+                    <li class="header__list-item">
+                        <a href="#feedback__ID" class="header__list-link">Примеры проектов</a>
+                    </li>
+                    <li class="header__list-item">
+                        <a href="#means__ID" class="header__list-link">Отзывы</a>
+                    </li>
+                    <!-- <li class="header__list-item">
+                        <a href="" class="header__list-link">Обратная связь</a>
+                    </li> -->
+                    <li class="header__list-item">
+                        <a href="projects.html" class="header__list-link">Все проекты</a>
+                    </li>
+                </ul>
+                <a href="/" class="header__button">Войти</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero__container">
+                <div class="hero__content">
+                    <h1 class="hero__title">Student <p>Projects Hub</p></h1>
+                    <p class="hero__descriprion">Учебная платформа для студентов технических специальностей, созданная с целью систематизации, демонстрации и обмена опытом в разработке учебных проектов. </p>
+                    <div class="hero__button">
+                        <a href="projects.html" class="hero__button-projects">Перейти к списку проектов</a>
+                    </div>
+                </div>
+                <img class="hero__image" src="logo/megafon.png" >
+            </div>
+                
+            
+            
+        </section>
+
+        <sectoin class="services" id="about__ID">
+            <div class="services__content">
+                <h2 class="services__logo">Services</h2> 
+                <div class="services__descriptoin">
+                    Мы предоставляем удобное пространство, где каждый может представить свои работы, <br> изучить проекты коллег и вдохновиться идеями для дальнейшего развития.
+                </div>
+            </div>
+        </sectoin>
+
+        <section class="advantages">
+            <div class="advantages__content">
+                <ul class="advantages__list">
+                    <li class="advantages__list-link">
+                            <a href="/"><img class="list__image" src="listcards/1.png"></a>
+                    </li>
+                    <li class="advantages__list-link">
+                            <a href="/"><img class="list__image" src="listcards/2.png"></a>
+                    </li>
+                    <li class="advantages__list-link">
+                            <a href="/"><img class="list__image" src="listcards/3.png"></a>
+                    </li>
+                    <li class="advantages__list-link">
+                            <a href="/"><img class="list__image" src="listcards/4.png"></a>
+                    </li>
+                    <li class="advantages__list-link">
+                            <a href="/"><img class="list__image" src="listcards/5.png"></a>
+                    </li>
+                    <li class="advantages__list-link">
+                            <a href="/"><img class="list__image" src="listcards/6.png"></a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </section>
+        
+        <sectoin class="create">
+            <div class="create__content">
+                <div class="create__title">
+                    <h3>Давайте создавать вместе!</h3>
+                </div>
+
+                <div class="create__description">
+                    Свяжитесь с нами, чтобы узнать больше о том, как платформа Student Projects Hub может помочь студентам делиться своими учебными проектами, получать обратную связь и вдохновляться работами других.
+                </div>
+
+                <a href="/" class="create__button">Попробуйте демо-версию уже сегодня!</a>
+
+                <img src="logo/createlogo.png" class="create__logo">
+            </div>
+            
+
+
+        </sectoin>
+
+        <section class="examples" id="feedback__ID">
+            <div class="examples__content">
+                <h2 class="examples__logo">Примеры проектов</h2> 
+                <div class="examples__descriptoin">
+                    Познакомьтесь с реальными учебными работами студентов,<br>реализованными с помощью платформы Student Projects Hub                
+                </div>
+            
+            </div>
+        </section>
+
+        <sectoin class="feedback">
+            <div class="feedback__content">
+                <img src="feedback/feedback.png" alt="">
+
+            </div>
+            
+
+
+        </sectoin>
+
+        <section class="work">
+            <div class="examples__content">
+                <h2 class="examples__logo">Наш рабочий процесс</h2> 
+                <div class="examples__descriptoin">
+                     Пошаговое руководство по созданию и публикации<br> вашего учебного проекта.
+                </div>
+            
+            </div>
+        </section>
+
+        <section class="steps">
+            <div class="steps__content">
+                <!-- Карточка 1 -->
+                <div class="step active" onclick="toggleStep(this)">
+                    <div class="steps-default">
+                        <div class="steps__num">01</div>
+                        <div class="steps__title-text">Идея и консультация</div>
+                        <div class="steps__arrow"></div>
+                    </div>
+                    <div class="steps__description">
+                        На первом этапе вы определяете цель проекта, предметную область и требования преподавателя. При необходимости — обсуждаете идею с коллегами или менторами, чтобы уточнить техническое задание.
+                    </div>
+                </div>
+
+                <!-- Карточка 2 -->
+                <div class="step" onclick="toggleStep(this)">
+                    <div class="steps-default">
+                        <div class="steps__num">02</div>
+                        <div class="steps__title-text">Анализ и планирование</div>
+                        <div class="steps__arrow"></div>
+                    </div>
+                    <div class="steps__description">
+                        Изучаете аналоги, выбираете технологии (например, Python/Flask для бэкенда, HTML/CSS/JS для фронтенда), проектируете архитектуру и интерфейс. Формируете чек-лист задач.
+                    </div>
+                </div>
+
+                <!-- Карточка 3 -->
+                <div class="step" onclick="toggleStep(this)">
+                    <div class="steps-default">
+                        <div class="steps__num">03</div>
+                        <div class="steps__title-text">Реализация</div>
+                        <div class="steps__arrow"></div>
+                    </div>
+                    <div class="steps__description">
+                        Пишете код, тестируете функционал, отлаживаете ошибки. Создаёте как минимум MVP (минимально жизнеспособный продукт), соответствующий требованиям ТЗ.
+                    </div>
+                </div>
+
+                <!-- Карточка 4 -->
+                <div class="step" onclick="toggleStep(this)">
+                    <div class="steps-default">
+                        <div class="steps__num">04</div>
+                        <div class="steps__title-text">Тестирование и доработка</div>
+                        <div class="steps__arrow"></div>
+                    </div>
+                    <div class="steps__description">
+                        Проверяете работоспособность всех модулей, исправляете баги, улучшаете UX/UI. При необходимости — собираете фидбек от одногруппников или преподавателя.
+                    </div>
+                </div>
+
+                <!-- Карточка 5 -->
+                <div class="step" onclick="toggleStep(this)">
+                    <div class="steps-default">
+                        <div class="steps__num">05</div>
+                        <div class="steps__title-text">Публикация на платформе</div>
+                        <div class="steps__arrow"></div>
+                    </div>
+                    <div class="steps__description">
+                        Оформляете карточку проекта: загружаете описание, скриншоты, ссылку на репозиторий (например, GitHub) и технические детали. Проект становится доступен другим студентам.
+                    </div>
+                </div>
+
+                <!-- Карточка 6 -->
+                <div class="step" onclick="toggleStep(this)">
+                    <div class="steps-default">
+                        <div class="steps__num">06</div>
+                        <div class="steps__title-text">Обмен опытом и развитие</div>
+                        <div class="steps__arrow"></div>
+                    </div>
+                    <div class="steps__description">
+                        Вы получаете обратную связь, изучаете чужие проекты, участвуете в обсуждениях. Это помогает расти как разработчику и готовиться к будущим задачам в IT-карьере.
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="team" id="team__ID">
+            <div class="team__content">
+                <h2 class="team__logo">Команда</h2> 
+                <div class="team__descriptoin">
+                     Познакомьтесь с разработчиками, стоящими за <br> учебным веб-проектом Student Projects Hub
+                </div>
+            
+            </div>
+        </section>
+
+        <section class="teammates">
+            <div class="teammates__content">
+                <div class="teammates__list">
+                    <ul>
+                        <li class="teammate">
+                            <a href="https://github.com/Krab1kWW"   class ="teammate__url"> <img src="team/teammate__Dima.png" alt="Дмитрий"></a>
+                        </li>
+                        <li class="teammate">
+                            <a href="https://github.com/Xeney"   class ="teammate__url"> <img src="team/teammate__Damir.png" alt="Дмитрий"></a>
+                        </li>
+                        <li class="teammate">
+                            <a href=""   class ="teammate__url"> <img src="team/teammate__Igor.png" alt="Дмитрий"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="means" id="means__ID">
+            <div class="means__content">
+                <h2 class="means__logo">Отзывы</h2> 
+                <div class="means__descriptoin">
+                     Узнайте, что говорят студенты и преподаватели о <br>платформе Student Projects Hub
+                </div>
+            
+            </div>
+        </section>
+
+        <section class="slider">
+            <div class="slider__background"></div>
+            
+            <div class="slider__container">
+                <!-- Кнопки -->
+                <button class="slider__btn prev">←</button>
+                <button class="slider__btn next">→</button>
+                
+                <!-- Слайды -->
+                <div class="slider__track">
+                    <!-- Дублируем последнюю карточку в начало -->
+                    <div class="slide">
+                        <img src="slider/Card3__slider.png" alt="Отзыв 3">
+                    </div>
+                    
+                    <!-- Основные карточки -->
+                    <div class="slide active">
+                        <img src="slider/Card1__slider.png" alt="Отзыв 1">
+                    </div>
+                    <div class="slide">
+                        <img src="slider/Card2__slider.png" alt="Отзыв 2">
+                    </div>
+                    <div class="slide">
+                        <img src="slider/Card3__slider.png" alt="Отзыв 3">
+                    </div>
+                    
+                    <!-- Дублируем первую карточку в конец -->
+                    <div class="slide">
+                        <img src="slider/Card1__slider.png" alt="Отзыв 1">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Точки -->
+            <div class="slider__dots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+            </div>
+        </section>
+
+         <!-- <section class="connect">
+            <div class="connect__content">
+                <h2 class="connect__logo">Свяжитесь с нами</h2> 
+                <div class="connect__descriptoin">
+                     Хотите предложить улучшение, сообщить об ошибке или <br> просто пообщаться о разработке? Пишите!
+                </div>
+            
+            </div>
+        </section>
+
+        <section class="message">
+            <div class="message__content">    
+            </div>
+        </section> -->
+
+    </main>
+
+
+    <footer>
+        <section class="footer">
+            <div class="footer__container">
+                <img src="" alt="">
+                <nav class="footer__nav">
+                    <a href="index.html" class="footer__logo"><img src="logo/Logo__white.png" alt="Логотип"></a>
+                    <ul class="footer__list">
+                        <li class="footer__list-item">
+                            <a href="#about__ID" class="footer__list-link">О проекте </a>  
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="#team__ID" class="footer__list-link">Команда </a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="#feedback__ID" class="footer__list-link">Примеры проектов</a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="#means__ID" class="footer__list-link">Отзывы </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer__content"></div>
+
+        </section>
+
+
+    </footer>
+
+
+    <script>
+        function toggleStep(clickedCard) {
+            // Находим все карточки
+            const allCards = document.querySelectorAll('.step');
+            
+            // Проходим по всем карточкам
+            allCards.forEach(card => {
+                if (card === clickedCard) {
+                    // Кликнули на эту карточку - переключаем
+                    card.classList.toggle('active');
+                } else {
+                    // Другие карточки - закрываем
+                    card.classList.remove('active');
+                }
+            });
+        }
+    </script>
+
+   <script>
+        const track = document.querySelector('.slider__track');
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.querySelector('.slider__btn.prev');
+        const nextBtn = document.querySelector('.slider__btn.next');
+
+        let currentIndex = 1; // Начинаем с центральной
+        const totalSlides = slides.length;
+        const slideWidth = 33.333; // 33.333% на карточку
+
+        // Функция центрирования
+        function goToSlide(index) {
+            // Убираем active у всех
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Добавляем active текущему
+            slides[index].classList.add('active');
+            
+            // Центрируем - сдвигаем дорожку
+            const offset = (index - 1) * slideWidth;
+            track.style.transform = `translateX(-${offset}%)`;
+            
+            // Обновляем точки (минус 1 из-за дубля в начале)
+            updateDots(index - 1);
+        }
+
+                // Обновляем точки
+                function updateDots(realIndex) {
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === realIndex);
+                    });
+                }
+
+                nextBtn.addEventListener('click', () => {
+            currentIndex++;
+            
+            // Если дошли до последнего дубля
+            if (currentIndex >= slides.length - 1) {
+                // Даём доехать до конца
+                goToSlide(currentIndex);
+                
+                // Через 500мс (после анимации) мгновенно на начало
+                setTimeout(() => {
+                    currentIndex = 1;
+                    goToSlide(currentIndex, true);
+                }, 500);
+            } else {
+                goToSlide(currentIndex);
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex--;
+            
+            // Если дошли до первого дубля
+            if (currentIndex <= 0) {
+                // Даём доехать до начала
+                goToSlide(currentIndex);
+                
+                // Через 500мс мгновенно в конец
+                setTimeout(() => {
+                    currentIndex = slides.length - 2;
+                    goToSlide(currentIndex, true);
+                }, 500);
+            } else {
+                goToSlide(currentIndex);
+            }
+        });
+    </script>
+</body>
+</html>

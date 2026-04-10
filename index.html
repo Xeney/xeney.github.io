@@ -1,578 +1,595 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Backend Developer из Самары. Студент Самарского университета им. Королёва. Победитель World Skills Russia. Стек: C#, .NET, Python, Golang, PostgreSQL.">
+    <meta name="description" content="Варламов Дамир — Backend Developer из Самары. Разработка сайтов, Telegram-ботов, веб-приложений. Победитель World Skills Russia.">
+    <meta name="keywords" content="backend разработчик, веб-разработчик, Python, Go, C#, Telegram бот, сайт-визитка, Самара">
+    <meta name="author" content="Варламов Дамир">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://xeney.github.io/">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xeney.github.io/">
+    <meta property="og:title" content="Варламов Дамир | Backend Developer">
+    <meta property="og:description" content="Backend-разработчик из Самары. Разработка сайтов, Telegram-ботов, веб-приложений.">
+    <meta property="og:image" content="https://xeney.github.io/img/avatar.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Варламов Дамир | Backend Developer">
+    <meta name="twitter:description" content="Backend-разработчик из Самары. Разработка сайтов, Telegram-ботов, веб-приложений.">
+    <meta name="twitter:image" content="https://xeney.github.io/img/avatar.jpg">
+    
     <link rel="shortcut icon" href="./logo.png" type="image/x-icon">
     
-    <!-- Иконки: Font Awesome + Devicon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.15.1/devicon.min.css">
-
-    <link rel="stylesheet" href="./style/style.css">
-    <link rel="stylesheet" href="./style/mobile.css" media="screen and (max-width: 768px)">
-    <title>Варламов Дамир | Backend Developer из Самары</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.16.0/devicon.min.css">
+    
+    <title>Варламов Дамир | Backend Developer</title>
+    
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="./src/styles/main.css">
 </head>
 <body>
-    <canvas id="bg-canvas"></canvas>
-    <header id="top" class="header">
-        <div class="logo">
-            <h1><span class="logo-gradient">Варламов</span> <span class="logo-light">Дамир</span></h1>
+    <!-- Background Effects -->
+    <div class="bg-canvas">
+        <canvas id="particles-canvas"></canvas>
+    </div>
+    <div class="bg-gradient"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-noise"></div>
+    
+    <!-- Floating Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <span>Дамир</span>
+                <span>Варламов</span>
+            </a>
+            
+            <nav class="nav" id="nav">
+                <a href="#about" class="nav-link">Обо мне</a>
+                <a href="#projects" class="nav-link">Проекты</a>
+                <a href="#services" class="nav-link">Услуги</a>
+                <a href="#reviews" class="nav-link">Отзывы</a>
+                <a href="#contact" class="nav-link">Контакты</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
-        
-        <nav class="menu">
-            <ul>
-                <li><a href="https://github.com/Xeney" target="_blank" class="nav-link">
-                    <i class="devicon-github-original"></i> GitHub
-                </a></li>
-                <li><a href="#about-dev" class="nav-link">Обо мне</a></li>
-                <li><a href="#progress" class="nav-link">Достижения</a></li>
-            </ul>
-        </nav>
-        
-        <nav class="socials">
-            <ul class="list-flex">
-                <li>
-                    <a href="https://vk.com/damir_varlamov" target="_blank" class="social-icon" aria-label="VK">
-                        <i class="fab fa-vk"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://t.me/Ghosers" target="_blank" class="social-icon telegram" aria-label="Telegram">
-                        <i class="fab fa-telegram-plane"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="mailto:damir.itwar@yandex.ru" class="social-icon email" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
     </header>
-    <main class="content container">
-        <!-- Приветственный блок -->
-        <div id="about" class="hello">
-            <div class="hello-content">
-                <div class="hello-badge">
-                    <span class="icon"><i class="devicon-git-plain colored"></i></span>
-                    Backend Developer
-                </div>
-                
-                <h1 class="hello-title">
-                    <span class="hello-name">Варламов Дамир</span>
-                </h1>
-                
-                <p class="hello-subtitle">
-                    Студент Самарского университета им. Королёва<br>
-                    Специализируюсь на backend-разработке
-                </p>
-                
-                <div class="hello-description">
-                    <p>
-                        Строю карьеру в разработке современных веб-приложений.<br>
-                        Ценю чистый код, минимализм и практические решения.
-                    </p>
-                </div>
-                
-                <div class="hello-actions">
-                    <a href="https://t.me/Ghosers" class="but blue large" target="_blank">
-                        <i class="fab fa-telegram-plane"></i> Написать в Telegram
-                    </a>
-                    <a href="https://github.com/Xeney" class="but none large" target="_blank">
-                        <i class="fab fa-github"></i> GitHub
-                    </a>
-                </div>
-                
-                <div class="hello-status">
-                    <span class="status-dot"></span>
-                    <span class="status-text">Доступен для стажировки и проектов</span>
-                </div>
-                
-                <div class="hello-stats">
-                    <div class="stat-item">
-                        <span class="stat-number" data-count="2019">0</span>
-                        <span class="stat-label">Год начала учёбы</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" data-count="9">0</span>
-                        <span class="stat-label">Лет обучения</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" data-count="100">0</span>
-                        <span class="stat-label">% мотивации</span>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <section id="why" class="why-me container">
-            <div class="section-header">
-                <p class="section-tag">Преимущества</p>
-                <h2 class="section-title">Почему я?</h2>
-                <p class="section-subtitle">Три ключевых качества, которые делают меня ценным специалистом</p>
-            </div>
-        
-            <div class="why-grid">
-                <div class="why-card">
-                    <div class="card-icon1">
-                        <i class="devicon-csharp-plain colored"></i>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-code"></i>
+                        <span>Backend Developer</span>
                     </div>
-                    <div class="card-content">
-                        <h3>Постоянное развитие</h3>
-                        <p>Регулярно осваиваю новые технологии и углубляю фундаментальные знания в области алгоритмов и архитектуры ПО.</p>
+                    
+                    <h1 class="hero-title">
+                        Привет, я <span class="accent" data-text="Дамир Варламов">Дамир Варламов</span>
+                    </h1>
+                    
+                    <p class="hero-subtitle">
+                        Backend-разработчик из Самары.<br>
+                        Специализируюсь на современных веб-решениях.
+                    </p>
+                    
+                    <p class="hero-description">
+                        Создаю сайты, Telegram-ботов и веб-приложения. 
+                        Ценю качественный код, минимализм и практический подход.
+                    </p>
+                    
+                    <div class="hero-cta">
+                        <a href="https://t.me/Ghosers" class="btn btn-primary" target="_blank">
+                            <i class="fas fa-comment-dots"></i>
+                            Бесплатная консультация
+                        </a>
+                        <a href="#projects" class="btn btn-secondary">
+                            <i class="fas fa-folder"></i>
+                            Мои проекты
+                        </a>
                     </div>
-                    <div class="card-number">01</div>
+                    
+                    <div class="hero-status">
+                        <span class="status-dot"></span>
+                        <span>Доступен для новых проектов</span>
+                    </div>
                 </div>
-        
-                <div class="why-card">
-                    <div class="card-icon1">
-                        <i class="devicon-python-plain colored"></i>
+                
+                <div class="hero-card">
+                    <div class="hero-card-inner">
+                        <div class="hero-avatar">
+                            <img src="./img/avatar.jpg" alt="Варламов Дамир">
+                        </div>
+                        <h3 class="hero-card-name">Варламов Дамир</h3>
+                        <p class="hero-card-role">Backend Developer</p>
+                        <div class="hero-card-tech">
+                            <i class="devicon-csharp-plain colored"></i>
+                            <i class="devicon-python-plain colored"></i>
+                            <i class="devicon-go-plain colored"></i>
+                        </div>
                     </div>
-                    <div class="card-content">
-                        <h3>Практический опыт</h3>
-                        <p>Победитель чемпионата World Skills Russia, имею опыт разработки реальных проектов на современных технологиях.</p>
-                    </div>
-                    <div class="card-number">02</div>
-                </div>
-        
-                <div class="why-card">
-                    <div class="card-icon1">
-                        <i class="devicon-git-plain colored"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Дисциплина и ответственность</h3>
-                        <p>Армейский опыт и техническое образование формируют серьёзный подход к работе и умение работать в условиях высокой ответственности.</p>
-                    </div>
-                    <div class="card-number">03</div>
                 </div>
             </div>
         </section>
-          
-        <!-- Секция "Обо мне" (Карточка разработчика) -->
-        <section id="about-dev" class="about-dev container">
-            <div class="dev-card">
-                <div class="dev-header">
-                    <div class="dev-photo">
-                        <img src="./img/avatar.jpg" alt="Варламов Дамир — Backend Developer">
-                    </div>
-                    <div class="dev-info">
-                        <h2>Варламов Дамир</h2>
-                        <p class="role">Backend Developer</p>
-                        <p class="motto">Студент Самарского университета им. Королёва по направлению 09.03.01 ИВТ.<br>Активно развиваюсь в backend-разработке</p>
-                        <div class="contacts">
-                            <a class="but blue" href="https://t.me/Ghosers" target="_blank" rel="noopener">
+
+        <!-- About Section -->
+        <section class="section about" id="about">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Обо мне</span>
+                    <h2 class="section-title">Кто я такой</h2>
+                </div>
+                
+                <div class="about-grid">
+                    <div class="about-info">
+                        <h3>Немного о себе</h3>
+                        <p>
+                            Backend-разработчик из Самары с опытом создания веб-приложений, сайтов и Telegram-ботов. 
+                            Специализируюсь на современных технологиях и качественном коде.
+                        </p>
+                        <p>
+                            <strong>Достижения:</strong> Победитель национального чемпионата World Skills Russia 2022 
+                            в компетенции «Разработка бизнес-решений с использованием блокчейн-технологий».
+                        </p>
+                        
+                        <div class="about-traits">
+                            <div class="trait">
+                                <i class="fas fa-code"></i>
+                                <span>Чистый код</span>
+                            </div>
+                            <div class="trait">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Эффективные решения</span>
+                            </div>
+                            <div class="trait">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Качество и надёжность</span>
+                            </div>
+                        </div>
+                        
+                        <div class="about-links">
+                            <a href="https://github.com/Xeney" class="btn btn-secondary" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="https://t.me/Ghosers" class="btn btn-secondary" target="_blank">
                                 <i class="fab fa-telegram-plane"></i> Telegram
                             </a>
-                            <a class="but none" href="mailto:damir.itwar@yandex.ru" target="_blank">
-                                <i class="fas fa-envelope"></i> Email
-                            </a>
-                            <a class="but none" href="https://github.com/Xeney" target="_blank">
-                                <i class="devicon-github-original"></i> GitHub
-                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="about-stack">
+                        <h3>Технологический стек</h3>
+                        <div class="tech-grid">
+                            <div class="tech-item">
+                                <i class="devicon-csharp-plain colored"></i>
+                                <span>C# / .NET</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="devicon-python-plain colored"></i>
+                                <span>Python</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="devicon-go-plain colored"></i>
+                                <span>Go / Golang</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="devicon-flask-original colored"></i>
+                                <span>Flask</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="devicon-dotnetcore-plain colored"></i>
+                                <span>ASP.NET Core</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="devicon-postgresql-plain colored"></i>
+                                <span>PostgreSQL</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="devicon-docker-plain colored"></i>
+                                <span>Docker</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="devicon-git-plain colored"></i>
+                                <span>Git</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fab fa-html5"></i>
+                                <span>HTML / CSS</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fab fa-telegram"></i>
+                                <span>Telegram API</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="dev-body">
-                    <div class="dev-text">
-                        <h3>Обо мне</h3>
-                        <p>
-                            <strong>Образование:</strong> Техническое образование по специальности «Разработчик веб- и мультимедийных приложений». 
-                            В 2025 году поступил в Самарский университет им. Королёва на направление 09.03.01 ИВТ.<br><br>
-                            
-                            <strong>Достижения:</strong> Победитель национального чемпионата World Skills Russia 2022 в компетенции 
-                            «Разработка бизнес-решений с использованием блокчейн-технологий». Имею опыт разработки 
-                            бэкенд-приложений на современных технологиях: C#, Python, Golang.<br><br>
-                            
-                            <strong>Философия:</strong> Строю карьеру системно — от фундаментальных знаний в области алгоритмов, 
-                            структур данных и архитектуры ПО к практическому применению в реальных проектах. 
-                            Готов к интенсивному росту и работе в профессиональной команде.
-                        </p>
-
-                        <div class="traits">
-                            <div><i class="fas fa-shield-alt"></i> Дисциплина и ответственность</div>
-                            <div><i class="fas fa-brain"></i> Системный подход к обучению</div>
-                            <div><i class="fas fa-rocket"></i> Готов к интенсивному росту</div>
+        <!-- Projects Section -->
+        <section class="section projects" id="projects">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Проекты</span>
+                    <h2 class="section-title">Мои работы</h2>
+                    <p class="section-subtitle">Проекты, над которыми я работал и которыми горжусь</p>
+                </div>
+                
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <span class="project-badge">Backend</span>
                         </div>
-                    </div>
+                        <h3>Система планирования дронов <span class="project-number">#1</span></h3>
+                        <p>Система маршрутизации роя БПЛА для автоматизированной доставки грузов с визуализацией на карте.</p>
+                        <div class="project-tech">
+                            <span>Go</span>
+                            <span>Gin</span>
+                            <span>Leaflet.js</span>
+                        </div>
+                        <a href="https://github.com/Xeney" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i> Смотреть на GitHub
+                        </a>
+                    </article>
+                    
+                    <article class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <span class="project-badge">Full-stack</span>
+                        </div>
+                        <h3>CRM для коллекторского агентства <span class="project-number">#2</span></h3>
+                        <p>Полнофункциональная CRM-система с ролевым доступом, импортом/экспортом Excel и умным поиском.</p>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>Flask</span>
+                            <span>SQLAlchemy</span>
+                            <span>Bootstrap</span>
+                        </div>
+                        <a href="https://github.com/Xeney" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i> Смотреть на GitHub
+                        </a>
+                    </article>
+                    
+                    <article class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <span class="project-badge">Full-stack</span>
+                        </div>
+                        <h3>SkillPass — образовательная платформа <span class="project-number">#3</span></h3>
+                        <p>Платформа для структурированного обучения с геймификацией, XP, уровнями и публичными профилями.</p>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>Flask</span>
+                            <span>SQLAlchemy</span>
+                            <span>Bootstrap</span>
+                        </div>
+                        <a href="https://github.com/Xeney" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i> Смотреть на GitHub
+                        </a>
+                    </article>
+                    
+                    <article class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <span class="project-badge">Backend</span>
+                        </div>
+                        <h3>Student Projects Hub <span class="project-number">#4</span></h3>
+                        <p>Веб-платформа для студентов-разработчиков с полным CRUD и REST API на Go.</p>
+                        <div class="project-tech">
+                            <span>Go</span>
+                            <span>Gin</span>
+                            <span>HTML/CSS</span>
+                            <span>JS</span>
+                        </div>
+                        <a href="https://github.com/Xeney" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i> Смотреть на GitHub
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-                    <div class="dev-stack">
-                        <h4>Технологический стек</h4>
-                        <ul class="stack-list">
-                            <li><i class="devicon-csharp-plain colored"></i> C# / .NET 8+</li>
-                            <li><i class="devicon-python-plain colored"></i> Python / Golang</li>
-                            <li><i class="devicon-dotnetcore-plain colored"></i> ASP.NET Core / Flask / Gin</li>
-                            <li><i class="devicon-html5-plain colored"></i> HTML / CSS / JavaScript (ES6+)</li>
-                            <li><i class="devicon-figma-plain colored"></i> Figma — проектирование интерфейсов</li>
-                            <li><i class="devicon-postgresql-plain colored"></i> PostgreSQL / SQLite</li>
-                            <li><i class="devicon-git-plain colored"></i> Git — система контроля версий</li>
-                            <li><i class="fab fa-telegram-plane" style="color: #26A5E4;"></i> Telegram Bot API (Python, Golang)</li>
-                            <li><i class="devicon-docker-plain colored"></i> Docker / Linux</li>
-                            <li><i class="devicon-windows8-original colored"></i> Windows Forms / WinForms</li>
+        <!-- Services Section -->
+        <section class="section services" id="services">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Услуги</span>
+                    <h2 class="section-title">Что я делаю</h2>
+                    <p class="section-subtitle">Качественные услуги по доступным ценам</p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <h3>Сайт-визитка</h3>
+                        <p>Лаконичный сайт для представления ваших услуг или персонального портфолио.</p>
+                        <div class="service-price">
+                            <span>от</span>
+                            <span class="price">3 000 ₽</span>
+                        </div>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Адаптивный дизайн</li>
+                            <li><i class="fas fa-check"></i> До 5 страниц</li>
+                            <li><i class="fas fa-check"></i> Базовая SEO</li>
+                            <li><i class="fas fa-check"></i> Форма контактов</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card featured">
+                        <div class="service-badge">Популярно</div>
+                        <div class="service-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h3>Landing Page</h3>
+                        <p>Продающая одностраничная структура для привлечения клиентов.</p>
+                        <div class="service-price">
+                            <span>от</span>
+                            <span class="price">5 000 ₽</span>
+                        </div>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Продающий дизайн</li>
+                            <li><i class="fas fa-check"></i> Форма захвата</li>
+                            <li><i class="fas fa-check"></i> Адаптивность</li>
+                            <li><i class="fas fa-check"></i> Базовая аналитика</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <h3>Telegram-бот</h3>
+                        <p>Умный бот с автоответом, клавиатурами и интеграциями.</p>
+                        <div class="service-price">
+                            <span>от</span>
+                            <span class="price">4 000 ₽</span>
+                        </div>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Автоответы</li>
+                            <li><i class="fas fa-check"></i> Клавиатуры</li>
+                            <li><i class="fas fa-check"></i> База данных</li>
+                            <li><i class="fas fa-check"></i> API интеграции</li>
                         </ul>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="dev-footer">
-                    <p>Открыт к предложениям о стажировке и первой позиции разработчика</p>
-                    <a href="https://t.me/Ghosers" class="but blue large" target="_blank" rel="noopener">
-                        Связаться
-                        <i class="fab fa-telegram-plane"></i>
-                    </a>
+        <!-- Reviews Section -->
+        <section class="section reviews" id="reviews">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Отзывы</span>
+                    <h2 class="section-title">Что говорят клиенты</h2>
+                </div>
+                
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="review-author">
+                                <h4>Людмила П.</h4>
+                                <span>Преподаватель испанского языка</span>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="review-text">
+                            Мне нужно было сделать сайт и я по объявлению познакомилась с Дамиром. Он не только сделал очень быстро сайт, дизайн был намного лучше того, что я представляла. Объяснил как работать с сайтом, консультировал по всем вопросам. Рекомендую!
+                        </p>
+                        <span class="review-project">Сайт-визитка</span>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="review-author">
+                                <h4>Анна В.</h4>
+                                <span>Владелец цветочного магазина</span>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="review-text">
+                            Заказывала Telegram-бота для приёма заказов. Дамир сделал всё очень быстро и качественно! Бот принимает заказы, отправляет уведомления, ведёт статистику. Очень довольна результатом!
+                        </p>
+                        <span class="review-project">Telegram-бот</span>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="review-author">
+                                <h4>Дмитрий С.</h4>
+                                <span>Руководитель IT-стартапа</span>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="review-text">
+                            Работал с Дамиром над прототипом веб-приложения. Отличный специалист! Внимательный к деталям, предлагает свои решения. Код чистый, комментарии понятные. Рекомендую!
+                        </p>
+                        <span class="review-project">Веб-приложение</span>
+                    </div>
                 </div>
             </div>
         </section>
-          
-        <!-- Секция "Достижения" -->
-        <div id="progress" class="achievements-section container">
-            <div class="section-header">
-                <p class="section-tag">Достижения</p>
-                <h2 class="section-title">Мои достижения</h2>
-                <p class="section-subtitle">Результаты участия в соревнованиях и признание профессиональных заслуг</p>
-            </div>
 
-            <div class="achievements-grid">
-                <!-- Достижение 1 -->
-                <div class="achievement-card">
-                    <div class="card-badge gold">🥇 1 место</div>
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="devicon-python-plain colored"></i>
-                            <i class="devicon-go-plain colored"></i>
-                        </div>
-                        <div class="card-meta">
-                            <span class="year">2022</span>
-                            <span class="event-type">Национальный чемпионат</span>
-                        </div>
-                    </div>
-                    <h3>World Skills Russia</h3>
-                    <p class="achievement-desc">Разработка бизнес-решений с использованием блокчейн-технологий</p>
-                    <div class="tech-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Golang</span>
-                        <span class="tag">Web3.py</span>
-                        <span class="tag">Flask</span>
-                        <span class="tag">HTML/CSS</span>
-                    </div>
-                    <div class="card-footer">
-                        <a href="./img/rewards/v1.jpg" class="view-photo">
-                            <i class="fas fa-image"></i> Посмотреть фото
-                        </a>
-                        <div class="card-image-preview">
-                            <img src="./img/rewards/v1.jpg" alt="World Skills Russia 2022">
-                        </div>
-                    </div>
+        <!-- Contact Section -->
+        <section class="section contact" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Контакты</span>
+                    <h2 class="section-title">Свяжитесь со мной</h2>
+                    <p class="section-subtitle">Готов обсудить ваш проект прямо сейчас</p>
                 </div>
-
-                <!-- Достижение 2 -->
-                <div class="achievement-card">
-                    <div class="card-badge silver">🥈 2 место</div>
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="devicon-python-plain colored"></i>
-                            <i class="devicon-go-plain colored"></i>
+                
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Давайте обсудим ваш проект</h3>
+                        <p>Напишите мне в любой из удобных каналов — отвечу в течение нескольких часов.</p>
+                        
+                        <div class="contact-cards">
+                            <a href="https://t.me/Ghosers" class="contact-card" target="_blank">
+                                <i class="fab fa-telegram-plane"></i>
+                                <span>Telegram</span>
+                            </a>
+                            <a href="https://vk.com/damir_varlamov" class="contact-card" target="_blank">
+                                <i class="fab fa-vk"></i>
+                                <span>ВКонтакте</span>
+                            </a>
                         </div>
-                        <div class="card-meta">
-                            <span class="year">2021</span>
-                            <span class="event-type">Региональный этап</span>
+                        
+                        <div class="contact-links">
+                            <a href="mailto:damir.itwar@yandex.ru" class="contact-link">
+                                <i class="fas fa-envelope"></i>
+                                <span>damir.itwar@yandex.ru</span>
+                            </a>
+                            <div class="contact-link">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Самара, Россия</span>
+                            </div>
                         </div>
-                    </div>
-                    <h3>World Skills Russia</h3>
-                    <p class="achievement-desc">Разработка бизнес-решений с использованием блокчейн-технологий</p>
-                    <div class="tech-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Golang</span>
-                        <span class="tag">Web3.py</span>
-                        <span class="tag">Flask</span>
-                        <span class="tag">HTML/CSS</span>
-                    </div>
-                    <div class="card-footer">
-                        <a href="./img/rewards/v2.jpg" class="view-photo">
-                            <i class="fas fa-image"></i> Посмотреть фото
-                        </a>
-                        <div class="card-image-preview">
-                            <img src="./img/rewards/v2.jpg" alt="World Skills Russia 2021">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Достижение 3 -->
-                <div class="achievement-card honor">
-                    <div class="card-badge special">🎖️ Благодарность</div>
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-award"></i>
-                        </div>
-                        <div class="card-meta">
-                            <span class="year">2022</span>
-                            <span class="event-type">Губернатор Самарской области</span>
+                        
+                        <div class="contact-socials">
+                            <a href="https://github.com/Xeney" target="_blank" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://t.me/Ghosers" target="_blank" aria-label="Telegram">
+                                <i class="fab fa-telegram-plane"></i>
+                            </a>
+                            <a href="https://vk.com/damir_varlamov" target="_blank" aria-label="VK">
+                                <i class="fab fa-vk"></i>
+                            </a>
+                            <a href="mailto:damir.itwar@yandex.ru" aria-label="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
                         </div>
                     </div>
-                    <h3>Благодарственное письмо</h3>
-                    <p class="achievement-desc">За достижение высоких результатов в финале соревнований Х национального чемпионата «Молодые профессионалы»</p>
-                    <div class="card-footer">
-                        <a href="./img/rewards/v5.jpg" class="view-photo">
-                            <i class="fas fa-image"></i> Посмотреть фото
-                        </a>
-                        <div class="card-image-preview">
-                            <img src="./img/rewards/v5.jpg" alt="Благодарственное письмо">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Достижение 4 -->
-                <div class="achievement-card honor">
-                    <div class="card-badge special">🎖️ Благодарность</div>
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-award"></i>
-                        </div>
-                        <div class="card-meta">
-                            <span class="year">2021</span>
-                            <span class="event-type">Министерство образования и науки Самарской области</span>
-                        </div>
-                    </div>
-                    <h3>Благодарственное письмо</h3>
-                    <p class="achievement-desc">За успехи в профессиональном обучении и активное участие в общественной и социально значимой деятельности</p>
-                    <div class="card-footer">
-                        <a href="./img/rewards/v6.jpg" class="view-photo">
-                            <i class="fas fa-image"></i> Посмотреть фото
-                        </a>
-                        <div class="card-image-preview">
-                            <img src="./img/rewards/v6.jpg" alt="Благодарственное письмо">
-                        </div>
+                    
+                    <div class="contact-form-wrapper">
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Ваше имя" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Email или Telegram" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" placeholder="Расскажите о вашем проекте..." rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                Отправить сообщение
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
-    
-    <!-- Футер -->
-    <footer id="bottom" class="footer container">
-        <div class="footer-section logo-section">
-            <h2 class="footer-logo">
-                <span class="logo-gradient">Варламов</span> 
-                <span class="logo-light">Дамир</span>
-            </h2>
-            <p class="footer-tagline">Backend Developer из Самары</p>
-            <div class="footer-socials">
-                <a href="https://vk.com/damir_varlamov" target="_blank" class="social-icon vk" aria-label="VK">
-                    <i class="fab fa-vk"></i>
-                </a>
-                <a href="https://t.me/Ghosers" target="_blank" class="social-icon telegram" aria-label="Telegram">
-                    <i class="fab fa-telegram-plane"></i>
-                </a>
-                <a href="mailto:damir.itwar@yandex.ru" class="social-icon email" aria-label="Email">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="https://github.com/Xeney" target="_blank" class="social-icon github" aria-label="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-info">
+                    <a href="#" class="footer-logo">
+                        <span>Дамир</span>
+                        <span>Варламов</span>
+                    </a>
+                    <p>Backend Developer из Самары</p>
+                    <p class="footer-thanks">Спасибо, что заглянули!</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Навигация</h4>
+                    <a href="#about">Обо мне</a>
+                    <a href="#projects">Проекты</a>
+                    <a href="#services">Услуги</a>
+                    <a href="#reviews">Отзывы</a>
+                </div>
+                
+                <div class="footer-contacts">
+                    <h4>Контакты</h4>
+                    <a href="https://t.me/Ghosers" target="_blank">Telegram</a>
+                    <a href="https://vk.com/damir_varlamov" target="_blank">ВКонтакте</a>
+                    <a href="mailto:damir.itwar@yandex.ru">Email</a>
+                    <a href="https://github.com/Xeney" target="_blank">GitHub</a>
+                </div>
             </div>
-        </div>
-        
-        <div class="footer-section links-section">
-            <h3>Навигация</h3>
-            <ul class="footer-links">
-                <li><a href="#about-dev" class="footer-link"><i class="fas fa-user"></i> Обо мне</a></li>
-                <li><a href="#progress" class="footer-link"><i class="fas fa-trophy"></i> Достижения</a></li>
-                <li><a href="https://github.com/Xeney" target="_blank" class="footer-link"><i class="fab fa-github"></i> GitHub</a></li>
-            </ul>
-        </div>
-        
-        <div class="footer-section contact-section">
-            <h3>Контакты</h3>
-            <div class="contact-item">
-                <i class="fas fa-envelope"></i>
-                <a href="mailto:damir.itwar@yandex.ru">damir.itwar@yandex.ru</a>
-            </div>
-            <div class="contact-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Самара, Россия</span>
+            
+            <div class="footer-bottom">
+                <p>© 2026 Варламов Дамир. Все права защищены.</p>
             </div>
         </div>
     </footer>
 
-    <!-- НОВЫЙ БЛОК В САМОМ НИЗУ СТРАНИЦЫ -->
-    <div class="site-footer">
-        <div class="container">
-            <p class="footer-thanks">Спасибо, что заглянули! 🙏</p>
-            <p class="footer-copyright">© 2026 Варламов Дамир Алексеевич. Все права защищены.</p>
-        </div>
-    </div>
-    
-    <!-- Модальное окно для фото -->
-    <div id="modal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modal-img">
-        <div id="caption"></div>
-    </div>
-    
-    <!-- Кнопка "Наверх" -->
-    <a href="#" class="scroll-to-top" id="scrollToTop">
+    <!-- Scroll to top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Наверх">
         <i class="fas fa-arrow-up"></i>
-    </a>
+    </button>
 
-    <script>
-        // Анимация счётчиков
-        document.addEventListener('DOMContentLoaded', function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateCounters();
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            const statsSection = document.querySelector('.hello-stats');
-            if (statsSection) {
-                observer.observe(statsSection);
-            }
-        });
-        
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number');
-            counters.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-count'));
-                const duration = 2000; // 2 seconds
-                const stepTime = 20; // ms
-                const steps = Math.ceil(duration / stepTime);
-                const stepCount = Math.abs(target) / steps;
-                let currentNumber = 0;
-                
-                const counterStep = () => {
-                    currentNumber += stepCount;
-                    if (currentNumber < target) {
-                        counter.textContent = Math.floor(currentNumber);
-                        setTimeout(counterStep, stepTime);
-                    } else {
-                        counter.textContent = target;
-                    }
-                };
-                
-                setTimeout(counterStep, 100);
-            });
-        }
-    </script>
-    <!-- Подключаем бургер-меню -->
-    <!-- <script src="./scripts/burger.js"></script> -->
-    <script>
-        // Скрипт для кнопки "Наверх"
-        document.addEventListener('DOMContentLoaded', function() {
-            const scrollButton = document.getElementById('scrollToTop');
-            
-            // Показываем/скрываем кнопку при прокрутке
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) { // Появляется после 300px прокрутки
-                    scrollButton.classList.add('visible');
-                } else {
-                    scrollButton.classList.remove('visible');
-                }
-            });
-            
-            // Плавная прокрутка наверх
-            scrollButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
-
-    <script>
-        document.querySelectorAll('.achievement-card .view-photo').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Находим модальное окно и его элементы
-                const modal = document.getElementById('modal');
-                const modalImg = document.getElementById('modal-img');
-                const caption = document.getElementById('caption');
-                
-                // Получаем путь к изображению из href ссылки
-                const imgSrc = this.getAttribute('href');
-                
-                // Получаем подпись из alt изображения в превью
-                const previewImg = this.closest('.card-footer').querySelector('.card-image-preview img');
-                const imgAlt = previewImg ? previewImg.getAttribute('alt') : 'Достижение';
-                
-                // Устанавливаем изображение и подпись
-                modalImg.src = imgSrc;
-                caption.textContent = imgAlt;
-                
-                // Показываем модальное окно
-                modal.style.display = "flex";
-            });
-        });
-
-        // Закрытие модального окна при клике на крестик
-        document.querySelector('.modal .close').addEventListener('click', function() {
-            document.getElementById('modal').style.display = "none";
-        });
-
-        // Закрытие модального окна при клике вне изображения
-        window.addEventListener('click', function(e) {
-            const modal = document.getElementById('modal');
-            if (e.target === modal) {
-                modal.style.display = "none";
-            }
-        });
-
-        // Закрытие модального окна при нажатии ESC
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.getElementById('modal').style.display = "none";
-            }
-        });
-    </script>
-    <script>
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        
-        function resize() {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-        
-        for (let i = 0; i < 60; i++) {
-          particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            r: Math.random() * 2 + 1,
-            dx: (Math.random() - 0.5) * 0.3,
-            dy: (Math.random() - 0.5) * 0.3
-          });
-        }
-        
-        function animate() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          for (let p of particles) {
-            p.x += p.dx;
-            p.y += p.dy;
-        
-            if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-            if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-        
-            const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
-            gradient.addColorStop(0, 'rgba(93, 50, 249, 0.7)');
-            gradient.addColorStop(1, 'rgba(0,0,0,0)');
-            ctx.fillStyle = gradient;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
-            ctx.fill();
-          }
-          requestAnimationFrame(animate);
-        }
-        animate();
-    </script>
+    <!-- Main Script -->
+    <script src="./src/js/main.js"></script>
 </body>
 </html>

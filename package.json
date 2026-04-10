@@ -1,0 +1,8 @@
+{
+  "name": "damir-portfolio",
+  "version": "1.0.0",
+  "type": "module",
+  "devDependencies": {
+    "sass": "^1.99.0"
+  }
+}

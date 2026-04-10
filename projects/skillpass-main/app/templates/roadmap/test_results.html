@@ -1,0 +1,557 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Анимации */
+    @keyframes confetti {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Конфетти (для успешной сдачи) */
+    .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: var(--color);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 9999;
+        animation: confetti 3s ease-out forwards;
+    }
+    
+    /* Основной контент */
+    .results-container {
+        min-height: calc(100vh - 300px);
+        display: flex;
+        align-items: center;
+        padding: 60px 0;
+    }
+    
+    .results-card {
+        background: white;
+        border-radius: 60px;
+        padding: 50px;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.1);
+        animation: slideInUp 0.8s ease-out;
+        border: 1px solid #e9ecef;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .results-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    
+    .result-icon {
+        width: 120px;
+        height: 120px;
+        border-radius: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 30px;
+        font-size: 4rem;
+    }
+    
+    .result-icon.success {
+        background: linear-gradient(135deg, #d4edda, #c3e6cb);
+        color: #28a745;
+    }
+    
+    .result-icon.failure {
+        background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+        color: #dc3545;
+    }
+    
+    .result-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 15px;
+    }
+    
+    .result-title.success {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .result-title.failure {
+        background: linear-gradient(135deg, #dc3545, #b02a37);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .result-subtitle {
+        color: #6c757d;
+        font-size: 1.2rem;
+    }
+    
+    /* Статистика */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+    
+    .stat-box {
+        background: #f8faff;
+        border-radius: 30px;
+        padding: 30px 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    .stat-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(13, 110, 253, 0.1);
+    }
+    
+    .stat-value {
+        font-size: 3rem;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 10px;
+    }
+    
+    .stat-value.success {
+        color: #28a745;
+    }
+    
+    .stat-value.failure {
+        color: #dc3545;
+    }
+    
+    .stat-label {
+        color: #6c757d;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    /* Прогресс-бар */
+    .progress-container {
+        margin-bottom: 40px;
+        padding: 20px;
+        background: #f8faff;
+        border-radius: 50px;
+    }
+    
+    .progress-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+    
+    .progress-goal {
+        color: #6c757d;
+    }
+    
+    .progress-bar-container {
+        height: 20px;
+        background: #e9ecef;
+        border-radius: 30px;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+    
+    .progress-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--fill-start), var(--fill-end));
+        border-radius: 30px;
+        transition: width 1s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .progress-bar-fill::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
+    .progress-bar-fill.success {
+        --fill-start: #28a745;
+        --fill-end: #20c997;
+    }
+    
+    .progress-bar-fill.failure {
+        --fill-start: #ffc107;
+        --fill-end: #fd7e14;
+    }
+    
+    .progress-percent {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+    
+    /* Детализация ответов */
+    .answers-section {
+        margin-bottom: 40px;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .section-title i {
+        color: #0d6efd;
+    }
+    
+    .answer-item {
+        background: #f8faff;
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+    }
+    
+    .answer-item.correct {
+        border-left-color: #28a745;
+    }
+    
+    .answer-item.incorrect {
+        border-left-color: #dc3545;
+    }
+    
+    .answer-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .answer-question {
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 10px;
+    }
+    
+    .answer-detail {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .answer-badge {
+        padding: 5px 15px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+    
+    .answer-badge.correct {
+        background: #d4edda;
+        color: #28a745;
+    }
+    
+    .answer-badge.incorrect {
+        background: #f8d7da;
+        color: #dc3545;
+    }
+    
+    .answer-text {
+        color: #1e293b;
+        font-size: 1rem;
+    }
+    
+    /* Кнопки действий */
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 2px solid #f1f5f9;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 15px 35px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(13, 110, 253, 0.3);
+        color: white;
+    }
+    
+    .btn-secondary {
+        background: #f8faff;
+        color: #1e293b;
+        border: 1px solid #e9ecef;
+        border-radius: 20px;
+        padding: 15px 35px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .btn-secondary:hover {
+        background: #e9ecef;
+        transform: translateY(-2px);
+    }
+    
+    .btn-retry {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 15px 35px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .btn-retry:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(255, 193, 7, 0.3);
+        color: white;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .results-card {
+            padding: 30px 20px;
+        }
+        
+        .result-title {
+            font-size: 2.2rem;
+        }
+        
+        .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        
+        .stat-box {
+            padding: 20px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+        }
+        
+        .btn-primary, .btn-secondary, .btn-retry {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="results-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="results-card">
+                    <div class="results-header">
+                        <div class="result-icon {% if results.score >= results.passing_score %}success{% else %}failure{% endif %}">
+                            <i class="bi bi-{% if results.score >= results.passing_score %}trophy-fill{% else %}exclamation-triangle-fill{% endif %}"></i>
+                        </div>
+                        
+                        <h1 class="result-title {% if results.score >= results.passing_score %}success{% else %}failure{% endif %}">
+                            {% if results.score >= results.passing_score %}
+                                Тест пройден!
+                            {% else %}
+                                Тест не пройден
+                            {% endif %}
+                        </h1>
+                        
+                        <p class="result-subtitle">
+                            {{ results.step_title }}
+                        </p>
+                    </div>
+                    
+                    <!-- Статистика -->
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-value {% if results.score >= results.passing_score %}success{% else %}failure{% endif %}">
+                                {{ "%.1f"|format(results.score) }}%
+                            </div>
+                            <div class="stat-label">Ваш результат</div>
+                        </div>
+                        
+                        <div class="stat-box">
+                            <div class="stat-value">{{ results.correct }}/{{ results.total }}</div>
+                            <div class="stat-label">Правильных</div>
+                        </div>
+                        
+                        <div class="stat-box">
+                            <div class="stat-value">{{ results.passing_score }}%</div>
+                            <div class="stat-label">Проходной</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Прогресс-бар -->
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <span>Результат</span>
+                            <span class="progress-goal">Цель: {{ results.passing_score }}%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill {% if results.score >= results.passing_score %}success{% else %}failure{% endif %}" 
+                                 style="width: {{ results.score }}%;">
+                            </div>
+                        </div>
+                        <div class="progress-percent">
+                            {% if results.score >= results.passing_score %}
+                                <span class="text-success">Отлично! Вы справились!</span>
+                            {% else %}
+                                <span class="text-warning">Нужно набрать минимум {{ results.passing_score }}%</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Детализация ответов -->
+                    <div class="answers-section">
+                        <h2 class="section-title">
+                            <i class="bi bi-list-check"></i>
+                            Детализация ответов
+                        </h2>
+                        
+                        {% for answer in results.answers %}
+                        <div class="answer-item {% if answer.is_correct %}correct{% else %}incorrect{% endif %}">
+                            <div class="answer-question">{{ loop.index }}. {{ answer.question }}</div>
+                            <div class="answer-detail">
+                                <span class="answer-badge {% if answer.is_correct %}correct{% else %}incorrect{% endif %}">
+                                    <i class="bi bi-{% if answer.is_correct %}check-circle{% else %}x-circle{% endif %} me-1"></i>
+                                    {% if answer.is_correct %}Правильно{% else %}Неправильно{% endif %}
+                                </span>
+                                <span class="answer-text">{{ answer.answer }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Информация о награде -->
+                    {% if results.score >= results.passing_score %}
+                    <div class="alert alert-success text-center">
+                        <i class="bi bi-star-fill me-2"></i>
+                        Вы получили <strong>{{ results.xp_reward }} XP</strong> за успешную сдачу теста!
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Кнопки действий -->
+                    <div class="action-buttons">
+                        <a href="{{ url_for('roadmap.view', path_id=step.stage.path.id) }}" class="btn-primary">
+                            <i class="bi bi-arrow-left"></i>
+                            Вернуться к пути
+                        </a>
+                        
+                        {% if results.score < results.passing_score %}
+                        <form method="post" action="{{ url_for('roadmap.retry_test', step_id=step.id) }}" style="display: inline;">
+                            <button type="submit" class="btn-retry">
+                                <i class="bi bi-arrow-repeat"></i>
+                                Попробовать снова
+                            </button>
+                        </form>
+                        {% endif %}
+                        
+                        {% if step.stage.steps|length > 0 %}
+                            {% set next_step = step.stage.steps|selectattr("order_index", ">", step.order_index)|first %}
+                            {% if next_step and results.score >= results.passing_score %}
+                            <a href="{{ url_for('roadmap.view_step', step_id=next_step.id) }}" class="btn-primary">
+                                <span>Следующий шаг</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if results.score >= results.passing_score %}
+<script>
+// Эффект конфетти при успешной сдаче
+function createConfetti() {
+    const colors = ['#28a745', '#20c997', '#0d6efd', '#ffc107', '#dc3545'];
+    
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.setProperty('--color', colors[Math.floor(Math.random() * colors.length)]);
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 3000);
+        }, i * 50);
+    }
+}
+
+createConfetti();
+</script>
+{% endif %}
+{% endblock %}

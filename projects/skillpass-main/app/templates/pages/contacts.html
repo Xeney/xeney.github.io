@@ -1,0 +1,601 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Анимации */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    /* Герой секция */
+    .hero-section {
+        position: relative;
+        background: linear-gradient(135deg, #17a2b8 0%, #0dcaf0 100%);
+        color: white;
+        padding: 100px 0;
+        overflow: hidden;
+        border-radius: 0 0 60px 60px;
+        margin-bottom: 60px;
+    }
+    
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 600px;
+        height: 600px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(15deg);
+        animation: float 8s ease-in-out infinite;
+    }
+    
+    .hero-section::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        left: -10%;
+        width: 700px;
+        height: 700px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(-15deg);
+        animation: float 10s ease-in-out infinite reverse;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+        opacity: 0.95;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    /* Контактная информация */
+    .contact-section {
+        padding: 60px 0;
+        background: white;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #1e293b;
+        margin-bottom: 50px;
+        position: relative;
+        animation: slideInUp 0.6s ease-out;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #17a2b8, #0dcaf0);
+        border-radius: 2px;
+    }
+    
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-bottom: 60px;
+    }
+    
+    .contact-card {
+        background: white;
+        border-radius: 40px;
+        padding: 40px 30px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e9ecef;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        animation: slideInUp 0.6s ease-out;
+        animation-fill-mode: both;
+    }
+    
+    .contact-card:nth-child(1) { animation-delay: 0.1s; }
+    .contact-card:nth-child(2) { animation-delay: 0.2s; }
+    .contact-card:nth-child(3) { animation-delay: 0.3s; }
+    .contact-card:nth-child(4) { animation-delay: 0.4s; }
+    
+    .contact-card:hover {
+        transform: translateY(-15px) scale(1.02);
+        box-shadow: 0 30px 60px rgba(23, 162, 184, 0.15);
+        border-color: #17a2b8;
+    }
+    
+    .contact-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #f8faff, #f0f4ff);
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 25px;
+        font-size: 2rem;
+        color: #17a2b8;
+        transition: all 0.3s ease;
+    }
+    
+    .contact-card:hover .contact-icon {
+        background: linear-gradient(135deg, #17a2b8, #0dcaf0);
+        color: white;
+        transform: rotate(10deg) scale(1.1);
+    }
+    
+    .contact-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 15px;
+    }
+    
+    .contact-detail {
+        color: #6c757d;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    
+    .contact-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #17a2b8;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 8px 20px;
+        border-radius: 30px;
+        background: #f8faff;
+        transition: all 0.3s ease;
+    }
+    
+    .contact-action:hover {
+        background: #17a2b8;
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    /* Форма обратной связи */
+    .form-section {
+        background: #f8faff;
+        padding: 80px 0;
+    }
+    
+    .form-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 60px;
+        padding: 50px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .form-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    
+    .form-subtitle {
+        color: #6c757d;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    
+    .form-group {
+        margin-bottom: 25px;
+        animation: slideInUp 0.6s ease-out;
+        animation-fill-mode: both;
+    }
+    
+    .form-group:nth-child(1) { animation-delay: 0.1s; }
+    .form-group:nth-child(2) { animation-delay: 0.15s; }
+    .form-group:nth-child(3) { animation-delay: 0.2s; }
+    .form-group:nth-child(4) { animation-delay: 0.25s; }
+    
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #1e293b;
+    }
+    
+    .form-control, .form-select {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid #e9ecef;
+        border-radius: 20px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: #17a2b8;
+        box-shadow: 0 10px 30px rgba(23, 162, 184, 0.1);
+        outline: none;
+    }
+    
+    textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+    }
+    
+    .btn-submit {
+        background: linear-gradient(135deg, #17a2b8, #0dcaf0);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 18px 50px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-submit::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .btn-submit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px rgba(23, 162, 184, 0.3);
+    }
+    
+    .btn-submit:hover::before {
+        left: 100%;
+    }
+    
+    /* Карта */
+    .map-section {
+        padding: 60px 0;
+        background: white;
+    }
+    
+    .map-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        border-radius: 40px;
+        overflow: hidden;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .map-placeholder {
+        background: linear-gradient(135deg, #f8faff, #f0f4ff);
+        padding: 100px;
+        text-align: center;
+        color: #6c757d;
+    }
+    
+    .map-placeholder i {
+        font-size: 4rem;
+        color: #17a2b8;
+        margin-bottom: 20px;
+    }
+    
+    /* Социальные сети */
+    .social-section {
+        padding: 60px 0;
+        background: linear-gradient(135deg, #17a2b8 0%, #0dcaf0 100%);
+        color: white;
+    }
+    
+    .social-container {
+        text-align: center;
+    }
+    
+    .social-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+    
+    .social-grid {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .social-item {
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: white;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    
+    .social-item:hover {
+        background: white;
+        color: #17a2b8;
+        transform: translateY(-5px) rotate(10deg);
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .form-container {
+            padding: 30px 20px;
+        }
+        
+        .map-placeholder {
+            padding: 50px 20px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Герой секция -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title">Свяжитесь с нами</h1>
+            <p class="hero-subtitle">Мы всегда рады помочь и ответить на ваши вопросы</p>
+        </div>
+    </div>
+</section>
+
+<!-- Контактная информация -->
+<section class="contact-section">
+    <div class="container">
+        <h2 class="section-title text-center">Как с нами связаться</h2>
+        
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="bi bi-envelope"></i>
+                </div>
+                <h3 class="contact-title">Email</h3>
+                <p class="contact-detail">По общим вопросам</p>
+                <a href="mailto:info@skillpass.ru" class="contact-action">
+                    info@skillpass.ru
+                    <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+                <p class="contact-detail mt-3">Техническая поддержка</p>
+                <a href="mailto:support@skillpass.ru" class="contact-action">
+                    support@skillpass.ru
+                    <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="bi bi-telephone"></i>
+                </div>
+                <h3 class="contact-title">Телефон</h3>
+                <p class="contact-detail">Пн-Пт, 10:00 - 19:00</p>
+                <a href="tel:+79878166533" class="contact-action">
+                    +7 (987) 816-65-33
+                    <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+                <p class="contact-detail mt-3">Самара, Россия</p>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="bi bi-telegram"></i>
+                </div>
+                <h3 class="contact-title">Telegram</h3>
+                <p class="contact-detail">Быстрые ответы</p>
+                <a href="https://t.me/skillpass" class="contact-action" target="_blank">
+                    @skillpass
+                    <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+                <p class="contact-detail mt-3">Канал с новостями</p>
+                <a href="https://t.me/skillpass_news" class="contact-action" target="_blank">
+                    @skillpass_news
+                    <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="bi bi-github"></i>
+                </div>
+                <h3 class="contact-title">GitHub</h3>
+                <p class="contact-detail">Исходный код проекта</p>
+                <a href="https://github.com/damir/skillpass" class="contact-action" target="_blank">
+                    github.com/damir/skillpass
+                    <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+                <p class="contact-detail mt-3">Открывайте issues, предлагайте улучшения</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Форма обратной связи -->
+<section class="form-section">
+    <div class="container">
+        <div class="form-container">
+            <h2 class="form-title">Напишите нам</h2>
+            <p class="form-subtitle">Заполните форму, и мы ответим в ближайшее время</p>
+            
+            <form id="contactForm">
+                <div class="form-group">
+                    <label class="form-label">Ваше имя</label>
+                    <input type="text" class="form-control" placeholder="Как к вам обращаться?" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" placeholder="для обратной связи" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Тема</label>
+                    <select class="form-select">
+                        <option value="general">Общий вопрос</option>
+                        <option value="support">Техническая поддержка</option>
+                        <option value="feedback">Предложение/Отзыв</option>
+                        <option value="bug">Сообщить об ошибке</option>
+                        <option value="partnership">Сотрудничество</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Сообщение</label>
+                    <textarea class="form-control" placeholder="Опишите ваш вопрос или проблему..." required></textarea>
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                    <i class="bi bi-send me-2"></i>Отправить сообщение
+                </button>
+                
+                <p class="text-muted text-center mt-3 small">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
+                </p>
+            </form>
+            
+            <div class="alert alert-info mt-4">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                Форма обратной связи пока в разработке. Пожалуйста, используйте email или Telegram.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Карта -->
+<section class="map-section">
+    <div class="container">
+        <div class="map-container">
+            <div class="map-placeholder">
+                <i class="bi bi-geo-alt"></i>
+                <h3 class="h5">Самарский национальный исследовательский университет</h3>
+                <p>Московское шоссе, 34, Самара, Россия</p>
+                <a href="https://maps.yandex.ru" target="_blank" class="btn btn-outline-primary mt-3">
+                    <i class="bi bi-map me-2"></i>Открыть на карте
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Социальные сети -->
+<section class="social-section">
+    <div class="container">
+        <div class="social-container">
+            <h2 class="social-title">Мы в социальных сетях</h2>
+            <div class="social-grid">
+                <a href="#" class="social-item"><i class="bi bi-telegram"></i></a>
+                <a href="#" class="social-item"><i class="bi bi-github"></i></a>
+                <a href="#" class="social-item"><i class="bi bi-youtube"></i></a>
+                <a href="#" class="social-item"><i class="bi bi-discord"></i></a>
+                <a href="#" class="social-item"><i class="bi bi-vk"></i></a>
+                <a href="#" class="social-item"><i class="bi bi-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Обработка отправки формы
+document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Отправка...';
+    submitBtn.disabled = true;
+    
+    // Имитация отправки
+    setTimeout(() => {
+        submitBtn.innerHTML = '<i class="bi bi-check-circle me-2"></i>Отправлено!';
+        submitBtn.style.background = '#28a745';
+        
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.style.background = '';
+            submitBtn.disabled = false;
+            this.reset();
+        }, 2000);
+    }, 1500);
+});
+</script>
+{% endblock %}

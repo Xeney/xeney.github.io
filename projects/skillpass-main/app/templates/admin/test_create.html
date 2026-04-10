@@ -1,0 +1,136 @@
+{% extends 'admin/master.html' %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    .test-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .action-buttons {
+        position: sticky;
+        bottom: 20px;
+        background: white;
+        padding: 15px;
+        border-top: 1px solid #dee2e6;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>
+                    <i class="bi bi-journal-check"></i> 
+                    {% if request.args.get('id') %}
+                        Редактирование теста
+                    {% else %}
+                        Создание нового теста
+                    {% endif %}
+                </h1>
+                <a href="{{ url_for('admin_tests.index_view') }}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Назад к списку
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <form method="POST" action="" class="test-container">
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <h5>Ошибки валидации:</h5>
+            <ul>
+                {% for field, errors in form.errors.items() %}
+                    {% for error in errors %}
+                        <li>{{ field }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-link"></i> Привязка к шагу</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Выберите шаг для теста</label>
+                    <select name="step_id" class="form-control" required>
+                        <option value="">-- Выберите шаг --</option>
+                        {% for value, label in form.step_id.choices %}
+                        <option value="{{ value }}" {% if form.step_id.data == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <div class="form-text">Шаг должен быть типа "Тест"</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="bi bi-info-circle"></i> Основная информация</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Название теста</label>
+                    <input type="text" name="title" class="form-control" value="{{ form.title.data or '' }}" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Описание</label>
+                    <textarea name="description" class="form-control" rows="3">{{ form.description.data or '' }}</textarea>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Проходной балл (%)</label>
+                            <input type="number" name="passing_score" class="form-control" 
+                                   value="{{ form.passing_score.data or 80 }}" min="1" max="100" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Награда XP</label>
+                            <input type="number" name="xp_reward" class="form-control" 
+                                   value="{{ form.xp_reward.data or 50 }}" min="0" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('admin_tests.index_view') }}" class="btn btn-secondary btn-lg">
+                    <i class="bi bi-x-circle"></i> Отмена
+                </a>
+                <button type="submit" class="btn btn-success btn-lg">
+                    <i class="bi bi-check-circle"></i> 
+                    {% if request.args.get('id') %}
+                        Сохранить изменения
+                    {% else %}
+                        Создать тест
+                    {% endif %}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

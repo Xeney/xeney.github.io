@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - CRM Система{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 fw-bold text-primary">
+        <i class="fas fa-tachometer-alt me-2"></i>Главная панель
+    </h1>
+</div>
+
+<!-- Статистика в карточках с анимациями -->
+<div class="row mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-primary card-hover animate__animated animate__fadeInLeft">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title"><i class="fas fa-users me-2"></i>Всего должников</h5>
+                        <h2 class="card-text fw-bold">{{ stats.total_debtors }}</h2>
+                    </div>
+                    <div class="display-4 opacity-50">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-success card-hover animate__animated animate__fadeInUp">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title"><i class="fas fa-ruble-sign me-2"></i>Общая сумма долга</h5>
+                        <h2 class="card-text fw-bold">{{ "{:,.2f}".format(stats.total_debt) }} ₽</h2>
+                    </div>
+                    <div class="display-4 opacity-50">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-info card-hover animate__animated animate__fadeInRight">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title"><i class="fas fa-user-tag me-2"></i>Ваша роль</h5>
+                        <h2 class="card-text fw-bold text-capitalize">{{ current_user.role }}</h2>
+                    </div>
+                    <div class="display-4 opacity-50">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Последние взаимодействия -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm glass-effect animate__animated animate__fadeInUp">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold text-dark">
+                    <i class="fas fa-history me-2"></i>Последние взаимодействия
+                </h5>
+                <a href="{{ url_for('admin.debtors') }}" class="btn btn-outline-primary btn-sm btn-rounded">
+                    <i class="fas fa-list me-1"></i>Все взаимодействия
+                </a>
+            </div>
+            <div class="card-body">
+                {% if stats.recent_interactions %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th><i class="fas fa-user me-1"></i>Должник</th>
+                                <th><i class="fas fa-tag me-1"></i>Тип</th>
+                                <th><i class="fas fa-calendar me-1"></i>Дата</th>
+                                <th><i class="fas fa-bullseye me-1"></i>Результат</th>
+                                <th><i class="fas fa-user-cog me-1"></i>Сотрудник</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for interaction in stats.recent_interactions %}
+                            <tr class="animate__animated animate__fadeIn">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm bg-light rounded-circle d-flex align-items-center justify-content-center me-2">
+                                            <i class="fas fa-user text-muted"></i>
+                                        </div>
+                                        <span class="fw-medium">{{ interaction.debtor.full_name }}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge 
+                                        {% if interaction.interaction_type == 'call' %}bg-primary
+                                        {% elif interaction.interaction_type == 'sms' %}bg-success
+                                        {% elif interaction.interaction_type == 'email' %}bg-warning
+                                        {% else %}bg-info{% endif %}">
+                                        <i class="fas fa-{% if interaction.interaction_type == 'call' %}phone
+                                        {% elif interaction.interaction_type == 'sms' %}comment
+                                        {% elif interaction.interaction_type == 'email' %}envelope
+                                        {% else %}handshake{% endif %} me-1"></i>
+                                        {{ interaction.interaction_type }}
+                                    </span>
+                                </td>
+                                <td class="text-muted">{{ interaction.date_time.strftime('%d.%m.%Y %H:%M') }}</td>
+                                <td>
+                                    <span class="text-truncate" style="max-width: 200px;" title="{{ interaction.result }}">
+                                        {{ interaction.result }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark">
+                                        <i class="fas fa-user me-1"></i>{{ interaction.user.username }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-inbox display-4 text-muted mb-3"></i>
+                    <p class="text-muted">Взаимодействий пока нет.</p>
+                    <a href="{{ url_for('admin.debtors') }}" class="btn btn-primary btn-rounded">
+                        <i class="fas fa-plus me-1"></i>Добавить первое взаимодействие
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - CRM Система{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <nav aria-label="breadcrumb" class="animate__animated animate__fadeIn">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ url_for('admin.debtors') }}" class="text-decoration-none">
+                        <i class="fas fa-users me-1"></i>Должники
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-primary fw-medium">
+                    <i class="fas fa-{{ 'plus' if not debtor else 'edit' }} me-1"></i>{{ title }}
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm glass-effect animate__animated animate__fadeInUp">
+            <div class="card-header bg-white border-bottom-0">
+                <h5 class="mb-0 fw-bold text-dark">
+                    <i class="fas fa-{{ 'user-plus' if not debtor else 'user-edit' }} me-2 text-primary"></i>{{ title }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-user me-1 text-primary"></i>{{ form.full_name.label.text }}
+                            </label>
+                            {{ form.full_name(class="form-control form-control-lg" + (" is-invalid" if form.full_name.errors else ""), placeholder="Иванов Иван Иванович") }}
+                            {% if form.full_name.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.full_name.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-birthday-cake me-1 text-primary"></i>{{ form.birth_date.label.text }}
+                            </label>
+                            {{ form.birth_date(class="form-control form-control-lg" + (" is-invalid" if form.birth_date.errors else ""), type="date") }}
+                            {% if form.birth_date.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.birth_date.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">
+                            <i class="fas fa-id-card me-1 text-primary"></i>{{ form.passport_data.label.text }}
+                        </label>
+                        {{ form.passport_data(class="form-control form-control-lg" + (" is-invalid" if form.passport_data.errors else ""), placeholder="1234 567890") }}
+                        {% if form.passport_data.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.passport_data.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-file-contract me-1 text-primary"></i>{{ form.contract_number.label.text }}
+                            </label>
+                            {{ form.contract_number(class="form-control form-control-lg" + (" is-invalid" if form.contract_number.errors else ""), placeholder="DOG-2024-001") }}
+                            {% if form.contract_number.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.contract_number.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-money-bill-wave me-1 text-primary"></i>{{ form.debt_amount.label.text }}
+                            </label>
+                            {{ form.debt_amount(class="form-control form-control-lg" + (" is-invalid" if form.debt_amount.errors else ""), placeholder="150000.00") }}
+                            {% if form.debt_amount.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.debt_amount.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-medium">
+                            <i class="fas fa-university me-1 text-primary"></i>{{ form.bank_name.label.text }}
+                        </label>
+                        {{ form.bank_name(class="form-control form-control-lg" + (" is-invalid" if form.bank_name.errors else ""), placeholder="Сбербанк") }}
+                        {% if form.bank_name.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.bank_name.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">
+                            <i class="fas fa-flag me-1 text-primary"></i>{{ form.status.label.text }}
+                        </label>
+                        {{ form.status(class="form-select form-select-lg" + (" is-invalid" if form.status.errors else "")) }}
+                        {% if form.status.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.status.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('admin.debtors') }}" class="btn btn-outline-secondary btn-lg btn-rounded me-md-2">
+                            <i class="fas fa-arrow-left me-1"></i>Отмена
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-lg btn-rounded">
+                            <i class="fas fa-{{ 'save' if debtor else 'plus' }} me-1"></i>
+                            {{ 'Сохранить' if debtor else 'Создать' }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

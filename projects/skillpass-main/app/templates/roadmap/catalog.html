@@ -1,0 +1,686 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Анимации */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
+    /* Заголовок страницы */
+    .catalog-header {
+        position: relative;
+        background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
+        padding: 60px 0;
+        margin-bottom: 40px;
+        border-radius: 0 0 60px 60px;
+        overflow: hidden;
+    }
+    
+    .catalog-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 400px;
+        height: 400px;
+        background: rgba(13, 110, 253, 0.05);
+        border-radius: 50%;
+        transform: rotate(15deg);
+        animation: float 8s ease-in-out infinite;
+    }
+    
+    .catalog-header::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        left: -10%;
+        width: 500px;
+        height: 500px;
+        background: rgba(13, 110, 253, 0.05);
+        border-radius: 50%;
+        transform: rotate(-15deg);
+        animation: float 10s ease-in-out infinite reverse;
+    }
+    
+    .catalog-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #1e293b;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 2;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .catalog-subtitle {
+        font-size: 1.3rem;
+        color: #6c757d;
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+        animation: slideInUp 0.8s ease-out 0.1s both;
+    }
+    
+    /* Фильтры */
+    .filters-section {
+        margin-bottom: 40px;
+        animation: slideInUp 0.8s ease-out 0.2s both;
+    }
+    
+    .search-wrapper {
+        position: relative;
+        border-radius: 50px;
+        background: white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .search-wrapper:focus-within {
+        box-shadow: 0 10px 40px rgba(13, 110, 253, 0.15);
+        transform: translateY(-2px);
+    }
+    
+    .search-icon {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #0d6efd;
+        z-index: 10;
+    }
+    
+    .search-input {
+        border: 2px solid transparent;
+        border-radius: 50px;
+        padding: 15px 20px 15px 50px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+    }
+    
+    .search-input:focus {
+        border-color: #0d6efd;
+        box-shadow: none;
+        outline: none;
+    }
+    
+    .filter-select {
+        border: 2px solid #e9ecef;
+        border-radius: 50px;
+        padding: 15px 20px;
+        font-size: 1rem;
+        color: #1e293b;
+        background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%230d6efd' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E") no-repeat right 20px center;
+        background-size: 16px;
+        appearance: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    .filter-select:focus {
+        border-color: #0d6efd;
+        outline: none;
+        box-shadow: 0 10px 30px rgba(13, 110, 253, 0.1);
+    }
+    
+    /* Карточки */
+    .catalog-grid {
+        animation: slideInUp 0.8s ease-out 0.3s both;
+    }
+    
+    .path-card {
+        animation: slideInUp 0.6s ease-out;
+        animation-fill-mode: both;
+        height: 100%;
+    }
+    
+    {% for i in range(10) %}
+    .path-card:nth-child({{ i+1 }}) {
+        animation-delay: {{ 0.1 + i*0.05 }}s;
+    }
+    {% endfor %}
+    
+    .card {
+        border: none;
+        border-radius: 30px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        background: white;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        height: 100%;
+        position: relative;
+    }
+    
+    .card:hover {
+        transform: translateY(-15px) scale(1.02);
+        box-shadow: 0 30px 60px rgba(13, 110, 253, 0.15);
+    }
+    
+    .card-header {
+        position: relative;
+        padding: 30px 20px 20px;
+        border: none;
+        overflow: hidden;
+    }
+    
+    .card-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 150px;
+        height: 150px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: all 0.5s ease;
+    }
+    
+    .card:hover .card-header::before {
+        transform: scale(1.5) rotate(15deg);
+    }
+    
+    .card-header.bg-success {
+        background: linear-gradient(135deg, #28a745, #20c997) !important;
+    }
+    
+    .card-header.bg-warning {
+        background: linear-gradient(135deg, #ffc107, #fd7e14) !important;
+    }
+    
+    .card-header.bg-danger {
+        background: linear-gradient(135deg, #dc3545, #b02a37) !important;
+    }
+    
+    .difficulty-badge {
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+    }
+    
+    .steps-count {
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        padding: 8px 20px;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    
+    .card-body {
+        padding: 25px;
+    }
+    
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 15px;
+        line-height: 1.3;
+    }
+    
+    .card-text {
+        color: #6c757d;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    
+    .status-badge {
+        padding: 12px;
+        border-radius: 15px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .status-badge.completed {
+        background: linear-gradient(135deg, #d4edda, #c3e6cb);
+        color: #155724;
+        border: 1px solid #28a745;
+    }
+    
+    .status-badge.in-progress {
+        background: linear-gradient(135deg, #cce5ff, #b8daff);
+        color: #004085;
+        border: 1px solid #0d6efd;
+    }
+    
+    .status-badge.not-started {
+        background: linear-gradient(135deg, #e2e3e5, #d6d8d9);
+        color: #383d41;
+        border: 1px solid #6c757d;
+    }
+    
+    .progress-custom {
+        height: 10px;
+        border-radius: 10px;
+        background: #e9ecef;
+        overflow: hidden;
+        margin: 15px 0;
+    }
+    
+    .progress-bar-custom {
+        height: 100%;
+        border-radius: 10px;
+        background: linear-gradient(90deg, #0d6efd, #0a58ca);
+        transition: width 0.5s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .progress-bar-custom::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        animation: shimmer 2s infinite;
+    }
+    
+    .meta-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-top: 2px solid #f1f5f9;
+        border-bottom: 2px solid #f1f5f9;
+        margin-bottom: 20px;
+    }
+    
+    .meta-item {
+        text-align: center;
+        flex: 1;
+    }
+    
+    .meta-value {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #1e293b;
+    }
+    
+    .meta-label {
+        font-size: 0.8rem;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .btn-path {
+        background: linear-gradient(135deg, #f8faff, #e8f0ff);
+        color: #0d6efd;
+        border: none;
+        border-radius: 15px;
+        padding: 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+    }
+    
+    .btn-path::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(13, 110, 253, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .btn-path:hover {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
+    }
+    
+    .btn-path:hover::before {
+        left: 100%;
+    }
+    
+    .btn-path i {
+        transition: transform 0.3s ease;
+    }
+    
+    .btn-path:hover i {
+        transform: translateX(5px);
+    }
+    
+    /* Пустое состояние */
+    .empty-state {
+        text-align: center;
+        padding: 80px 20px;
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .empty-state-icon {
+        font-size: 5rem;
+        color: #0d6efd;
+        opacity: 0.3;
+        margin-bottom: 20px;
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    .empty-state h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 15px;
+    }
+    
+    .empty-state p {
+        color: #6c757d;
+        font-size: 1.1rem;
+        max-width: 500px;
+        margin: 0 auto 30px;
+    }
+    
+    .btn-reset {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 15px 40px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-reset:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
+        color: white;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .catalog-title {
+            font-size: 2.5rem;
+        }
+        
+        .catalog-subtitle {
+            font-size: 1.1rem;
+        }
+        
+        .card-header {
+            padding: 20px 15px;
+        }
+        
+        .difficulty-badge, .steps-count {
+            padding: 5px 15px;
+            font-size: 0.8rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Заголовок страницы -->
+<div class="catalog-header">
+    <div class="container text-center">
+        <h1 class="catalog-title">
+            <i class="bi bi-compass me-3"></i>Каталог путей
+        </h1>
+        <p class="catalog-subtitle">Выберите направление и начните свой путь к новым знаниям</p>
+    </div>
+</div>
+
+<div class="container pb-5">
+    <!-- Фильтры -->
+    <div class="filters-section">
+        <div class="row g-3">
+            <div class="col-md-8">
+                <div class="search-wrapper">
+                    <i class="bi bi-search search-icon"></i>
+                    <input type="text" 
+                           id="searchInput" 
+                           class="form-control search-input" 
+                           placeholder="Поиск по названию или описанию..."
+                           onkeyup="filterPaths()">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <select id="difficultyFilter" class="filter-select" onchange="filterPaths()">
+                    <option value="all">🎯 Все уровни сложности</option>
+                    <option value="beginner">🌱 Начинающий</option>
+                    <option value="intermediate">📊 Средний</option>
+                    <option value="advanced">🚀 Продвинутый</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Сетка карточек -->
+    <div class="row g-4 catalog-grid" id="catalogGrid">
+        {% for path in paths %}
+        {% set ns = namespace(steps=0, completed=0) %}
+        {% for stage in path.stages %}
+            {% set ns.steps = ns.steps + stage.steps|length %}
+            {% for step in stage.steps %}
+                {% if step.id in completed_steps %}
+                    {% set ns.completed = ns.completed + 1 %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        
+        {% set progress = (ns.completed / ns.steps * 100)|int if ns.steps > 0 else 0 %}
+        
+        <div class="col-lg-4 col-md-6 path-card" 
+             data-title="{{ path.title|lower }}"
+             data-description="{{ path.description|lower }}"
+             data-difficulty="{{ path.difficulty }}">
+            <div class="card h-100">
+                <!-- Шапка с градиентом -->
+                <div class="card-header 
+                    {% if path.difficulty == 'beginner' %}bg-success
+                    {% elif path.difficulty == 'intermediate' %}bg-warning
+                    {% else %}bg-danger{% endif %}">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="difficulty-badge">
+                            {% if path.difficulty == 'beginner' %}🌱 Начинающий
+                            {% elif path.difficulty == 'intermediate' %}📊 Средний
+                            {% else %}🚀 Продвинутый{% endif %}
+                        </span>
+                        <span class="steps-count">
+                            <i class="bi bi-list-check me-1"></i>{{ ns.steps }} шагов
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Тело карточки -->
+                <div class="card-body">
+                    <h5 class="card-title">{{ path.title }}</h5>
+                    <p class="card-text">{{ path.description[:120] }}{% if path.description|length > 120 %}...{% endif %}</p>
+                    
+                    <!-- Статус прохождения -->
+                    {% if progress == 100 %}
+                        <div class="status-badge completed">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <span>Пройдено полностью</span>
+                        </div>
+                    {% elif progress > 0 %}
+                        <div class="status-badge in-progress">
+                            <i class="bi bi-arrow-right-circle-fill"></i>
+                            <span>В процессе ({{ progress }}%)</span>
+                        </div>
+                    {% else %}
+                        <div class="status-badge not-started">
+                            <i class="bi bi-play-circle-fill"></i>
+                            <span>Не начато</span>
+                        </div>
+                    {% endif %}
+
+                    <!-- Прогресс бар -->
+                    {% if progress > 0 and progress < 100 %}
+                    <div class="progress-custom">
+                        <div class="progress-bar-custom" style="width: {{ progress }}%;"></div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Мета информация -->
+                    <div class="meta-info">
+                        <div class="meta-item">
+                            <div class="meta-value">{{ path.stages|length }}</div>
+                            <div class="meta-label">этапов</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-value">{{ ns.completed }}/{{ ns.steps }}</div>
+                            <div class="meta-label">пройдено</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-value">
+                                {% set total_xp = 0 %}
+                                {% for stage in path.stages %}
+                                    {% for step in stage.steps %}
+                                        {% set total_xp = total_xp + step.xp_reward %}
+                                    {% endfor %}
+                                {% endfor %}
+                                {{ total_xp }}
+                            </div>
+                            <div class="meta-label">всего XP</div>
+                        </div>
+                    </div>
+
+                    <!-- Кнопка действия -->
+                    <a href="{{ url_for('roadmap.view', path_id=path.id) }}" class="btn-path">
+                        {% if progress == 100 %}
+                            <i class="bi bi-arrow-repeat me-2"></i>Пройти заново
+                        {% elif progress > 0 %}
+                            <i class="bi bi-arrow-right me-2"></i>Продолжить
+                        {% else %}
+                            <i class="bi bi-play-fill me-2"></i>Начать обучение
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <!-- Пустое состояние -->
+        <div class="col-12">
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="bi bi-compass"></i>
+                </div>
+                <h3>Пока нет доступных путей</h3>
+                <p>Скоро здесь появятся новые курсы! Следите за обновлениями.</p>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Сообщение "Ничего не найдено" -->
+        <div id="noResultsMessage" class="col-12" style="display: none;">
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="bi bi-search"></i>
+                </div>
+                <h3>Ничего не найдено</h3>
+                <p class="mb-4">Попробуйте изменить параметры поиска</p>
+                <button onclick="resetFilters()" class="btn-reset">
+                    <i class="bi bi-arrow-counterclockwise me-2"></i>Сбросить фильтры
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function filterPaths() {
+    const searchText = document.getElementById('searchInput').value.toLowerCase();
+    const difficulty = document.getElementById('difficultyFilter').value;
+    const cards = document.querySelectorAll('.path-card');
+    const noResults = document.getElementById('noResultsMessage');
+    let visibleCount = 0;
+    
+    cards.forEach(card => {
+        const title = card.dataset.title;
+        const description = card.dataset.description;
+        const cardDifficulty = card.dataset.difficulty;
+        
+        const matchesSearch = title.includes(searchText) || description.includes(searchText);
+        const matchesDifficulty = difficulty === 'all' || cardDifficulty === difficulty;
+        
+        if (matchesSearch && matchesDifficulty) {
+            card.style.display = 'block';
+            visibleCount++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    
+    if (visibleCount === 0 && cards.length > 0) {
+        noResults.style.display = 'block';
+    } else {
+        noResults.style.display = 'none';
+    }
+}
+
+function resetFilters() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('difficultyFilter').value = 'all';
+    filterPaths();
+}
+
+// Запускаем фильтр при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    filterPaths();
+    
+    // Добавляем анимацию для карточек
+    const cards = document.querySelectorAll('.path-card');
+    cards.forEach((card, index) => {
+        card.style.animationDelay = `${0.1 + index * 0.05}s`;
+    });
+});
+</script>
+{% endblock %}

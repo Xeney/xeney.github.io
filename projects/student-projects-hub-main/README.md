@@ -1,0 +1,159 @@
+# 🎓 Student Projects Hub
+
+**Платформа для студентов-разработчиков, где можно делиться учебными проектами и вдохновляться работами других**
+
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/Xeney/student-projects-hub)
+[![Wiki](https://img.shields.io/badge/Docs-Wiki-green)](https://github.com/Xeney/student-projects-hub/wiki)
+[![Go](https://img.shields.io/badge/Backend-Go-blue)](https://golang.org/)
+[![JavaScript](https://img.shields.io/badge/Frontend-JavaScript-yellow)](https://developer.mozilla.org/ru/docs/Web/JavaScript)
+
+## 🌟 О проекте
+Student Projects Hub — это веб-приложение, созданное студентами для студентов. Платформа позволяет делиться своими учебными проектами, просматривать работы сокурсников и находить вдохновение для новых идей.
+
+### 🎯 Для кого этот проект?
+| 👨‍💻 **Для разработчиков** | 👥 **Для студентов** | 🎓 **Для преподавателей** |
+|-------------------------|---------------------|--------------------------|
+| Практика веб-разработки | Публикация проектов | Сбор студенческих работ |
+| Работа в команде | Поиск идей и вдохновения | Просмотр работ в одном месте |
+| Наполнение портфолио | Оценка уровня коллег | Учебный пример |
+
+
+## 🚀 Быстрый старт
+
+### Предварительные требования
+- **Backend:** Go 1.21 или выше
+- **Frontend:** Современный браузер
+- **Git:** Для работы с репозиторием
+
+### Установка и запуск
+```bash
+# 1. Клонируйте репозиторий
+git clone https://github.com/Xeney/student-projects-hub.git
+cd student-projects-hub
+
+# 2. Запустите backend
+cd backend
+go mod tidy
+go run main.go
+
+# Сервер запустится на http://localhost:8080
+
+# 3. Откройте frontend
+# Откройте frontend/index.html в браузере
+# Или используйте Live Server в VS Code
+```
+
+## 📱 Возможности платформы
+
+### Для пользователей:
+- ✅ **Просмотр** всех проектов в виде карточек
+- ✅ **Детальный просмотр** конкретного проекта
+- ✅ **Добавление** новых учебных проектов
+- ✅ **Редактирование** существующих проектов
+- ✅ **Удаление** своих проектов
+
+### Для разработчиков:
+- ✅ **Полный CRUD** через REST API
+- ✅ **Валидация данных** на стороне сервера
+- ✅ **CORS настройка** для взаимодействия frontend/backend
+- ✅ **Чистая архитектура** с разделением ответственности
+
+## 🔧 Технологический стек
+
+### Backend
+- **Язык:** Go (Golang)
+- **Фреймворк:** Gin Web Framework
+- **API:** RESTful с JSON
+- **Хранение:** In-memory → SQLite (планируется)
+
+### Frontend
+- **HTML5** — структура страниц
+- **CSS3** — стилизация (Flexbox, адаптивность)
+- **JavaScript** — клиентская логика (Fetch API)
+
+## 📚 Документация
+
+### 📖 Основная документация
+- **[Wiki проекта](https://github.com/Xeney/student-projects-hub/wiki)** — полная документация
+- **[Student Projects Hub](https://github.com/Xeney/student-projects-hub/wiki/%D0%94%D0%BE%D0%B1%D1%80%D0%BE-%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%B2-Student-Projects-Hub)** — описание проекта
+
+### 🔌 API Documentation
+- **[Backend API на Go](https://github.com/Xeney/student-projects-hub/wiki/Backend-API-%D0%BD%D0%B0-Go)** — полная документация API
+- **Примеры запросов:**
+
+```bash
+# Получить все проекты
+GET http://localhost:8080/api/projects
+
+# Создать проект
+POST http://localhost:8080/api/projects
+Content-Type: application/json
+{
+  "title": "Название проекта",
+  "description": "Описание",
+  "author": "Автор"
+}
+```
+
+## 🤝 Командная разработка
+
+### Участники команды
+| Роль     | Разработчик | Технологии            |
+| -------- | ----------- | --------------------- |
+| Frontend | Дима        | HTML, CSS, JavaScript |
+| Backend  | Дамир       | Go, Gin, REST API     |
+
+### Рабочий процесс
+1. **Ветвление:** Работа в отдельных ветках (`frontend-dima`, `backend-damir`)
+2. **Code Review:** Обязательный просмотр кода перед мержем
+3. **Тестирование:** Взаимная интеграция frontend/backend
+4. **Документация:** Обновление Wiki и README
+## 📊 Состояние разработки
+
+### ✅ Завершено
+- [x] Backend API с полным CRUD
+- [x] Базовая архитектура frontend
+- [x] Взаимодействие frontend/backend
+- [x] Документация API
+### 🚧 В процессе
+- [ ] Интеграция с SQLite базой данных
+- [ ] Улучшение UI/UX дизайна
+- [ ] Расширенная валидация
+- [ ] Тестирование
+
+### 📅 Планируется
+- [ ] Аутентификация пользователей
+- [ ] Поиск и фильтрация проектов
+- [ ] Загрузка изображений
+- [ ] Комментарии к проектам
+
+## 🤝 Вклад в проект
+Хотите внести свой вклад? Отлично!
+
+1. **Форкните** репозиторий
+2. **Создайте ветку** для вашей фичи:
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. **Закоммитьте изменения**:
+   ```bash
+   git commit -m 'Add some amazing feature'
+   ```
+4. **Отправьте изменения**:
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+5. **Откройте Pull Request**
+
+## 👥 Контакты
+- **Репозиторий:** [https://github.com/Xeney/student-projects-hub](https://github.com/Xeney/student-projects-hub)
+- **Issues:** Используйте Issues на GitHub для багов и предложений
+- **Wiki:** Полная документация в Wiki репозитория
+---
+## 🎓 Учебные цели проекта
+Этот проект создан для получения практического опыта в:
+- **Командной разработке** веб-приложений
+- **Работе с Git/GitHub** (ветвление, PR, code review)
+- **Разделении frontend/backend** разработки
+- **Создании REST API** на Go
+- **Интеграции** клиентской и серверной частей

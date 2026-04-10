@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Коллекторское агентство{% endblock %}</title>
+    
+    <!-- Bootstrap 5 (основной) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Animate.css для анимаций -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        body { 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            background-color: #f8f9fa;
+        }
+        main { flex: 1; }
+        .navbar-brand { font-weight: 600; }
+        .table-responsive { overflow-x: auto; }
+        
+        /* Кастомные стили */
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .btn-rounded {
+            border-radius: 50px;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    {% if current_user.is_authenticated %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{{ url_for('admin.dashboard') }}">
+            <i class="fas fa-chart-line me-2"></i>CRM Система
+        </a>
+        
+        <!-- Анимированная бургер-кнопка -->
+        <button class="navbar-toggler border-0 animated-toggler" 
+                type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Меню">
+            <i class="fas fa-bars text-white fs-4 toggle-icon"></i>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'admin.dashboard' %}active{% endif %}" href="{{ url_for('admin.dashboard') }}">
+                        <i class="fas fa-home me-1"></i>Главная
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint.startswith('admin.debtors') %}active{% endif %}" href="{{ url_for('admin.debtors') }}">
+                        <i class="fas fa-users me-1"></i>Должники
+                    </a>
+                </li>
+                {% if current_user.can_edit_debtors() %}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'admin.import_data' %}active{% endif %}" href="{{ url_for('admin.import_data') }}">
+                        <i class="fas fa-file-import me-1"></i>Импорт
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'admin.export_data' %}active{% endif %}" href="{{ url_for('admin.export_data') }}">
+                        <i class="fas fa-file-export me-1"></i>Экспорт
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if current_user.can_edit_debtors() %}
+                <!-- Новая кнопка: Аналитика (видна менеджерам и администраторам) -->
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint and (request.endpoint.startswith('admin.analytics') or request.endpoint == 'admin.analytics') %}active{% endif %}" 
+                       href="{{ url_for('admin.analytics') }}">
+                        <i class="fas fa-chart-pie me-1"></i>Аналитика
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if current_user.can_manage_users() %}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint.startswith('admin.users') %}active{% endif %}" href="{{ url_for('admin.users') }}">
+                        <i class="fas fa-user-cog me-1"></i>Пользователи
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <span class="navbar-text me-3">
+                        <i class="fas fa-user me-1"></i>
+                        {{ current_user.username }} 
+                        <span class="badge bg-light text-dark ms-1">{{ current_user.role }}</span>
+                    </span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('auth.logout') }}">
+                        <i class="fas fa-sign-out-alt me-1"></i>Выход
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<style>
+/* Анимации для бургер-кнопки */
+.animated-toggler {
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.animated-toggler:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.animated-toggler:active {
+    transform: scale(0.95);
+}
+
+.toggle-icon {
+    transition: all 0.3s ease;
+}
+
+.animated-toggler[aria-expanded="true"] .toggle-icon {
+    transform: rotate(90deg);
+    color: #ffd700 !important; /* Золотой цвет при открытии */
+}
+
+/* Анимация появления меню */
+.collapsing {
+    transition: height 0.35s ease;
+}
+
+.collapse.show {
+    animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Анимация пунктов меню при открытии */
+.collapse.show .nav-item {
+    animation: fadeInLeft 0.5s ease both;
+}
+
+.collapse.show .nav-item:nth-child(1) { animation-delay: 0.1s; }
+.collapse.show .nav-item:nth-child(2) { animation-delay: 0.15s; }
+.collapse.show .nav-item:nth-child(3) { animation-delay: 0.2s; }
+.collapse.show .nav-item:nth-child(4) { animation-delay: 0.25s; }
+.collapse.show .nav-item:nth-child(5) { animation-delay: 0.3s; }
+.collapse.show .nav-item:nth-child(6) { animation-delay: 0.35s; }
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Стили для мобильного меню */
+@media (max-width: 991.98px) {
+    #navbarNav {
+        background: linear-gradient(135deg, #2c5aa0 0%, #1e3a8a 100%);
+        margin: 10px -1rem 0 -1rem;
+        padding: 0 1rem;
+        border-radius: 0 0 1rem 1rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .navbar-nav .nav-link:hover {
+        background: rgba(255,255,255,0.1);
+        padding-left: 15px;
+        border-radius: 5px;
+    }
+    
+    .navbar-nav .nav-link:last-child {
+        border-bottom: none;
+    }
+    
+    .navbar-text {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+}
+</style>
+
+<script>
+// Дополнительная анимация при клике
+document.addEventListener('DOMContentLoaded', function() {
+    const toggler = document.querySelector('.animated-toggler');
+    const icon = document.querySelector('.toggle-icon');
+    
+    toggler.addEventListener('click', function() {
+        // Добавляем пульсацию при клике
+        icon.classList.add('animate__animated', 'animate__pulse');
+        setTimeout(() => {
+            icon.classList.remove('animate__animated', 'animate__pulse');
+        }, 300);
+    });
+});
+</script>
+{% endif %}
+
+    <main class="container my-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show animate__animated animate__fadeIn" role="alert">
+                        <i class="fas fa-{% if category == 'success' %}check-circle{% elif category == 'danger' %}exclamation-triangle{% elif category == 'warning' %}exclamation-circle{% else %}info-circle{% endif %} me-2"></i>
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-dark text-white py-4 mt-auto">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <h6 class="fw-bold">Коллекторское агентство</h6>
+                    <p class="mb-0 small">Профессиональное управление долговыми обязательствами</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="mb-1 small"><i class="fas fa-phone me-2"></i>+7 (495) 123-45-67</p>
+                    <p class="mb-0 small"><i class="fas fa-envelope me-2"></i>info@example.com</p>
+                </div>
+            </div>
+            <hr class="my-3">
+            <small>&copy; 2025 Коллекторское агентство. Все права защищены.</small>
+        </div>
+    </footer>
+
+    <!-- Подключаем JavaScript библиотеки -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

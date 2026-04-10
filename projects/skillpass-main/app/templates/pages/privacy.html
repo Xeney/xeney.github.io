@@ -1,0 +1,711 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Анимации */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+    
+    /* Герой секция */
+    .hero-section {
+        position: relative;
+        background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        color: white;
+        padding: 100px 0;
+        overflow: hidden;
+        border-radius: 0 0 60px 60px;
+        margin-bottom: 60px;
+    }
+    
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 600px;
+        height: 600px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(15deg);
+        animation: float 8s ease-in-out infinite;
+    }
+    
+    .hero-section::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        left: -10%;
+        width: 700px;
+        height: 700px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(-15deg);
+        animation: float 10s ease-in-out infinite reverse;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+        opacity: 0.95;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    /* Содержание */
+    .privacy-section {
+        padding: 60px 0;
+        background: white;
+    }
+    
+    .privacy-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    .privacy-card {
+        background: white;
+        border-radius: 60px;
+        padding: 60px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e9ecef;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .privacy-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f1f5f9;
+    }
+    
+    .privacy-version {
+        display: inline-block;
+        padding: 8px 20px;
+        background: #f8faff;
+        border-radius: 30px;
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+    
+    .privacy-date {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+    
+    .print-btn {
+        background: #f8faff;
+        border: 1px solid #e9ecef;
+        border-radius: 15px;
+        padding: 10px 20px;
+        color: #1e293b;
+        transition: all 0.3s ease;
+    }
+    
+    .print-btn:hover {
+        background: #0d6efd;
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .privacy-section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 40px 0 20px;
+    }
+    
+    .privacy-section-title:first-of-type {
+        margin-top: 0;
+    }
+    
+    .privacy-subtitle {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin: 30px 0 15px;
+    }
+    
+    .privacy-text {
+        color: #6c757d;
+        line-height: 1.8;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+    }
+    
+    .privacy-list {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+    }
+    
+    .privacy-list li {
+        padding: 12px 0;
+        padding-left: 35px;
+        position: relative;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    
+    .privacy-list li:last-child {
+        border-bottom: none;
+    }
+    
+    .privacy-list li::before {
+        content: '•';
+        color: #0d6efd;
+        font-size: 1.5rem;
+        position: absolute;
+        left: 10px;
+        top: 5px;
+    }
+    
+    .privacy-highlight {
+        background: #f8faff;
+        border-left: 4px solid #0d6efd;
+        padding: 25px;
+        border-radius: 20px;
+        margin: 30px 0;
+    }
+    
+    .privacy-highlight p {
+        margin-bottom: 0;
+        font-style: italic;
+    }
+    
+    .privacy-badge {
+        display: inline-block;
+        padding: 5px 15px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-right: 10px;
+    }
+    
+    .privacy-badge.success {
+        background: #d4edda;
+        color: #28a745;
+    }
+    
+    .privacy-badge.warning {
+        background: #fff3cd;
+        color: #856404;
+    }
+    
+    .privacy-badge.info {
+        background: #d1ecf1;
+        color: #0c5460;
+    }
+    
+    .privacy-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 30px 0;
+    }
+    
+    .privacy-table th {
+        background: #f8faff;
+        padding: 15px;
+        font-weight: 600;
+        color: #1e293b;
+    }
+    
+    .privacy-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    
+    .privacy-table tr:hover td {
+        background: #f8faff;
+    }
+    
+    /* Блоки прав */
+    .rights-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+    }
+    
+    .rights-card {
+        background: #f8faff;
+        border-radius: 30px;
+        padding: 25px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    .rights-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(13, 110, 253, 0.1);
+    }
+    
+    .rights-icon {
+        width: 60px;
+        height: 60px;
+        background: white;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        font-size: 1.5rem;
+        color: #0d6efd;
+    }
+    
+    .rights-title {
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 5px;
+    }
+    
+    .rights-text {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+    
+    /* Навигация по странице */
+    .privacy-nav {
+        position: sticky;
+        top: 20px;
+        background: white;
+        border-radius: 30px;
+        padding: 25px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e9ecef;
+        margin-bottom: 30px;
+    }
+    
+    .privacy-nav-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 20px;
+    }
+    
+    .privacy-nav-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .privacy-nav-list li {
+        margin-bottom: 10px;
+    }
+    
+    .privacy-nav-list a {
+        color: #6c757d;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: block;
+        padding: 8px 15px;
+        border-radius: 15px;
+    }
+    
+    .privacy-nav-list a:hover {
+        background: #f8faff;
+        color: #0d6efd;
+        padding-left: 20px;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+        
+        .privacy-card {
+            padding: 30px 20px;
+        }
+        
+        .privacy-section-title {
+            font-size: 1.8rem;
+        }
+        
+        .privacy-nav {
+            position: static;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Герой секция -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title">Политика конфиденциальности</h1>
+            <p class="hero-subtitle">Как мы собираем, используем и защищаем ваши данные</p>
+        </div>
+    </div>
+</section>
+
+<!-- Содержание -->
+<section class="privacy-section">
+    <div class="container">
+        <div class="row">
+            <!-- Навигация (для больших экранов) -->
+            <div class="col-lg-3">
+                <div class="privacy-nav d-none d-lg-block">
+                    <h3 class="privacy-nav-title">Содержание</h3>
+                    <ul class="privacy-nav-list">
+                        <li><a href="#section1">1. Общие положения</a></li>
+                        <li><a href="#section2">2. Сбор информации</a></li>
+                        <li><a href="#section3">3. Использование данных</a></li>
+                        <li><a href="#section4">4. Защита данных</a></li>
+                        <li><a href="#section5">5. Cookie и трекеры</a></li>
+                        <li><a href="#section6">6. Передача данных</a></li>
+                        <li><a href="#section7">7. Ваши права</a></li>
+                        <li><a href="#section8">8. Удаление аккаунта</a></li>
+                        <li><a href="#section9">9. Изменения политики</a></li>
+                        <li><a href="#section10">10. Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Основной контент -->
+            <div class="col-lg-9">
+                <div class="privacy-card">
+                    <div class="privacy-header">
+                        <div>
+                            <span class="privacy-version">Версия 2.0</span>
+                            <span class="privacy-date">Последнее обновление: 3 марта 2026 г.</span>
+                        </div>
+                        <button onclick="window.print()" class="print-btn">
+                            <i class="bi bi-printer me-2"></i>Распечатать
+                        </button>
+                    </div>
+                    
+                    <section id="section1">
+                        <h2 class="privacy-section-title">1. Общие положения</h2>
+                        <p class="privacy-text">
+                            Настоящая Политика конфиденциальности (далее — «Политика») действует в отношении всей информации, 
+                            которую платформа SkillPass (далее — «Платформа») может получить о пользователе во время использования 
+                            сайта, программ и продуктов Платформы.
+                        </p>
+                        
+                        <div class="privacy-highlight">
+                            <p>
+                                <i class="bi bi-shield-check text-primary me-2"></i>
+                                Используя Платформу, вы соглашаетесь с условиями настоящей Политики конфиденциальности. 
+                                Если вы не согласны с условиями, пожалуйста, прекратите использование Платформы.
+                            </p>
+                        </div>
+                    </section>
+                    
+                    <section id="section2">
+                        <h2 class="privacy-section-title">2. Сбор информации</h2>
+                        <p class="privacy-text">Мы собираем следующие типы информации:</p>
+                        
+                        <table class="privacy-table">
+                            <thead>
+                                <tr>
+                                    <th>Тип данных</th>
+                                    <th>Описание</th>
+                                    <th>Цель сбора</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="privacy-badge info">Регистрационные</span></td>
+                                    <td>Имя, email, пароль (в зашифрованном виде)</td>
+                                    <td>Создание и управление аккаунтом</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="privacy-badge info">Профильные</span></td>
+                                    <td>Имя, фамилия, био, аватар, соцсети</td>
+                                    <td>Формирование публичного профиля</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="privacy-badge info">Образовательные</span></td>
+                                    <td>Пройденные шаги, результаты тестов, XP</td>
+                                    <td>Отслеживание прогресса, геймификация</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="privacy-badge info">Технические</span></td>
+                                    <td>IP-адрес, браузер, время посещения</td>
+                                    <td>Аналитика, безопасность</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="privacy-highlight">
+                            <p>
+                                <i class="bi bi-exclamation-triangle text-warning me-2"></i>
+                                Пароли хранятся только в зашифрованном виде. Даже администраторы не имеют доступа к вашим паролям.
+                            </p>
+                        </div>
+                    </section>
+                    
+                    <section id="section3">
+                        <h2 class="privacy-section-title">3. Использование информации</h2>
+                        <p class="privacy-text">Собранная информация используется для:</p>
+                        
+                        <ul class="privacy-list">
+                            <li>Предоставления доступа к Платформе и её функциям</li>
+                            <li>Отслеживания прогресса обучения и начисления XP</li>
+                            <li>Формирования публичного профиля и портфолио</li>
+                            <li>Улучшения пользовательского опыта</li>
+                            <li>Связи с пользователем (уведомления, поддержка)</li>
+                            <li>Обеспечения безопасности и предотвращения мошенничества</li>
+                            <li>Анализа статистики использования Платформы</li>
+                        </ul>
+                    </section>
+                    
+                    <section id="section4">
+                        <h2 class="privacy-section-title">4. Защита данных</h2>
+                        
+                        <div class="rights-grid">
+                            <div class="rights-card">
+                                <div class="rights-icon">
+                                    <i class="bi bi-shield-lock"></i>
+                                </div>
+                                <h4 class="rights-title">Шифрование</h4>
+                                <p class="rights-text">Все данные передаются по защищенному протоколу HTTPS</p>
+                            </div>
+                            
+                            <div class="rights-card">
+                                <div class="rights-icon">
+                                    <i class="bi bi-incognito"></i>
+                                </div>
+                                <h4 class="rights-title">Приватность</h4>
+                                <p class="rights-text">Вы можете скрыть профиль от других пользователей</p>
+                            </div>
+                            
+                            <div class="rights-card">
+                                <div class="rights-icon">
+                                    <i class="bi bi-database"></i>
+                                </div>
+                                <h4 class="rights-title">Безопасность БД</h4>
+                                <p class="rights-text">Защита от SQL-инъекций и других атак</p>
+                            </div>
+                            
+                            <div class="rights-card">
+                                <div class="rights-icon">
+                                    <i class="bi bi-file-lock"></i>
+                                </div>
+                                <h4 class="rights-title">152-ФЗ</h4>
+                                <p class="rights-text">Соответствие требованиям российского законодательства</p>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section id="section5">
+                        <h2 class="privacy-section-title">5. Cookie и трекеры</h2>
+                        <p class="privacy-text">Мы используем файлы cookie для:</p>
+                        
+                        <ul class="privacy-list">
+                            <li>Поддержания сессии пользователя (вход в систему)</li>
+                            <li>Запоминания настроек интерфейса</li>
+                            <li>Сбора анонимной статистики использования</li>
+                        </ul>
+                        
+                        <div class="privacy-highlight">
+                            <p>
+                                <i class="bi bi-info-circle text-primary me-2"></i>
+                                Вы можете отключить cookie в настройках браузера, но это может повлиять на функциональность Платформы.
+                            </p>
+                        </div>
+                    </section>
+                    
+                    <section id="section6">
+                        <h2 class="privacy-section-title">6. Передача данных третьим лицам</h2>
+                        <p class="privacy-text">Мы не передаём персональные данные третьим лицам, за исключением случаев:</p>
+                        
+                        <ul class="privacy-list">
+                            <li>С явного согласия пользователя</li>
+                            <li>По требованию законодательства РФ</li>
+                            <li>Для защиты прав и безопасности Платформы</li>
+                            <li>При реорганизации или продаже бизнеса (с уведомлением пользователей)</li>
+                        </ul>
+                    </section>
+                    
+                    <section id="section7">
+                        <h2 class="privacy-section-title">7. Ваши права</h2>
+                        <p class="privacy-text">Вы имеете право:</p>
+                        
+                        <div class="rights-grid">
+                            <div class="rights-card">
+                                <div class="rights-icon">
+                                    <i class="bi bi-eye"></i>
+                                </div>
+                                <h4 class="rights-title">Просмотр</h4>
+                                <p class="rights-text">В любое время просматривать свои данные</p>
+                            </div>
+                            
+                            <div class="rights-card">
+                                <div class="rights-icon">
+                                    <i class="bi bi-pencil"></i>
+                                </div>
+                                <h4 class="rights-title">Редактирование</h4>
+                                <p class="rights-text">Изменять информацию в профиле</p>
+                            </div>
+                            
+                            <div class="rights-card">
+                                <div class="rights-icon">
+                                    <i class="bi bi-trash"></i>
+                                </div>
+                                <h4 class="rights-title">Удаление</h4>
+                                <p class="rights-text">Удалить аккаунт и все данные</p>
+                            </div>
+                            
+                            <div class="rights-card">
+                                <div class="rights-icon">
+                                    <i class="bi bi-file-earmark-text"></i>
+                                </div>
+                                <h4 class="rights-title">Экспорт</h4>
+                                <p class="rights-text">Получить копию своих данных</p>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section id="section8">
+                        <h2 class="privacy-section-title">8. Удаление аккаунта</h2>
+                        <p class="privacy-text">
+                            Вы можете удалить свой аккаунт в любое время через настройки профиля. 
+                            При удалении:
+                        </p>
+                        
+                        <ul class="privacy-list">
+                            <li>Ваш профиль становится недоступным для других пользователей</li>
+                            <li>Персональные данные удаляются из системы</li>
+                            <li>Анонимная статистика (количество пройденных шагов и т.п.) может сохраняться в обезличенном виде</li>
+                        </ul>
+                        
+                        <div class="privacy-highlight">
+                            <p>
+                                <i class="bi bi-exclamation-triangle text-warning me-2"></i>
+                                Удаление аккаунта необратимо. Прогресс обучения не может быть восстановлен.
+                            </p>
+                        </div>
+                    </section>
+                    
+                    <section id="section9">
+                        <h2 class="privacy-section-title">9. Изменения в политике</h2>
+                        <p class="privacy-text">
+                            Мы можем обновлять Политику конфиденциальности время от времени. 
+                            При значительных изменениях мы уведомим пользователей через:
+                        </p>
+                        
+                        <ul class="privacy-list">
+                            <li>Уведомление на сайте</li>
+                            <li>Email-рассылку</li>
+                            <li>Уведомление в профиле</li>
+                        </ul>
+                        
+                        <p class="privacy-text">
+                            Рекомендуем периодически просматривать эту страницу для отслеживания изменений.
+                        </p>
+                    </section>
+                    
+                    <section id="section10">
+                        <h2 class="privacy-section-title">10. Контактная информация</h2>
+                        
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="bg-light p-4 rounded-4">
+                                    <h3 class="h5 mb-3">По вопросам конфиденциальности</h3>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <i class="bi bi-envelope text-primary me-2"></i>
+                                            <a href="mailto:privacy@skillpass.ru">privacy@skillpass.ru</a>
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-telegram text-primary me-2"></i>
+                                            @skillpass_privacy
+                                        </li>
+                                        <li>
+                                            <i class="bi bi-person text-primary me-2"></i>
+                                            damir.itwar@yandex.ru
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="bg-light p-4 rounded-4">
+                                    <h3 class="h5 mb-3">Администратор данных</h3>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <i class="bi bi-building text-primary me-2"></i>
+                                            ИП Варламов Д.А.
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-geo-alt text-primary me-2"></i>
+                                            Самара, Московское шоссе, 34
+                                        </li>
+                                        <li>
+                                            <i class="bi bi-telephone text-primary me-2"></i>
+                                            +7 (987) 816-65-33
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <div class="text-center mt-5">
+                        <div class="d-inline-block bg-light p-3 rounded-4">
+                            <i class="bi bi-calendar-check text-primary me-2"></i>
+                            <span>Версия политики: 2.0 от 03.03.2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Плавная прокрутка к разделам
+document.querySelectorAll('.privacy-nav-list a').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

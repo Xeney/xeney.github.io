@@ -1,0 +1,163 @@
+{% extends 'admin/master.html' %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    .stat-card {
+        transition: transform 0.2s;
+        border: none;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .stat-icon {
+        font-size: 2.5rem;
+        opacity: 0.3;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1 class="mb-4">Панель управления SkillPass</h1>
+    
+    <!-- Статистика -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card bg-primary text-white">
+                <div class="card-body">
+                    <i class="bi bi-people-fill stat-icon"></i>
+                    <h5 class="card-title">Пользователи</h5>
+                    <h2 class="display-4">{{ stats.users }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card bg-success text-white">
+                <div class="card-body">
+                    <i class="bi bi-diagram-3-fill stat-icon"></i>
+                    <h5 class="card-title">Пути обучения</h5>
+                    <h2 class="display-4">{{ stats.paths }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card bg-info text-white">
+                <div class="card-body">
+                    <i class="bi bi-pencil-square stat-icon"></i>
+                    <h5 class="card-title">Тесты</h5>
+                    <h2 class="display-4">{{ stats.tests }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card bg-warning text-white">
+                <div class="card-body">
+                    <i class="bi bi-question-circle-fill stat-icon"></i>
+                    <h5 class="card-title">Вопросы</h5>
+                    <h2 class="display-4">{{ stats.questions }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Последние пользователи -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="bi bi-person-plus-fill"></i> Последние регистрации</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Дата</th>
+                                <th>Роль</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in recent_users %}
+                            <tr>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.created_at.strftime('%d.%m.%Y %H:%M') }}</td>
+                                <td>
+                                    {% if user.role == 'admin' %}
+                                        <span class="badge bg-danger">Админ</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Студент</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Последние действия -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="bi bi-star-fill"></i> Последние действия (XP)</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Пользователь</th>
+                                <th>Действие</th>
+                                <th>XP</th>
+                                <th>Время</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for log in recent_xp %}
+                            <tr>
+                                <td>{{ log.user.email }}</td>
+                                <td>{{ log.reason[:30] }}...</td>
+                                <td><span class="badge bg-success">+{{ log.amount }}</span></td>
+                                <td>{{ log.timestamp.strftime('%d.%m.%Y %H:%M') }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Быстрые действия -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="bi bi-lightning-charge-fill"></i> Быстрые действия</h5>
+                </div>
+                <div class="card-body">
+                    <a href="{{ url_for('admin_paths.create_view') }}" class="btn btn-primary me-2 mb-2">
+                        <i class="bi bi-plus-circle"></i> Новый путь
+                    </a>
+                    <a href="{{ url_for('admin_tests.create_view') }}" class="btn btn-success me-2 mb-2">
+                        <i class="bi bi-plus-circle"></i> Новый тест
+                    </a>
+                    <a href="{{ url_for('admin_questions.create_view') }}" class="btn btn-info me-2 mb-2">
+                        <i class="bi bi-plus-circle"></i> Новый вопрос
+                    </a>
+                    <a href="{{ url_for('admin_steps.create_view') }}" class="btn btn-warning me-2 mb-2">
+                        <i class="bi bi-plus-circle"></i> Новый шаг
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

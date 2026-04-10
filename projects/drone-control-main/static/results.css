@@ -1,0 +1,454 @@
+/* results.css — простой чистый стиль для отображения результатов */
+body {
+    margin: 0;
+    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    background: #f6f8fb;
+    color: #111827;
+  }
+  
+  header {
+    padding: 18px 28px;
+    background: linear-gradient(90deg,#0f172a,#0b1220);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(2,6,23,0.2);
+  }
+  header h1 { margin: 0; font-size: 20px; }
+  header .subtitle { margin: 4px 0 0; font-size: 13px; color: #cbd5e1; }
+  
+  main {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 18px;
+    padding: 18px;
+  }
+  
+  #map-section {
+    position: relative;
+    border-radius: 12px;  
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.08);
+  }
+  #map { width: 100%; height: 100%; min-height: 680px; }
+  
+  #map-legend {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    background: rgba(255,255,255,0.95);
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+    font-size: 13px;
+  }
+  .dot { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:8px; vertical-align:middle; }
+  .dot.hub { background:#0b84ff; }
+  .dot.order { background:#ff6b6b; }
+  .dot.route { background:#16a34a; width:14px; height:4px; border-radius:4px; }
+  
+  #panels {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .panel {
+    background: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.04);
+    max-height: 300px;
+    overflow:auto;
+  }
+  #summary h2, #operations-panel h2, #orders-panel h2 { margin-top: 0; }
+  
+  #ops-table, #orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  #ops-table th, #ops-table td, #orders-table th, #orders-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #eef2f7;
+    text-align: left;
+  }
+  #ops-table thead th { position: sticky; top: 0; background: #fff; z-index: 2; }
+  
+  footer {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    padding: 8px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .controls { display:flex; gap:12px; align-items:center; }
+  button, .btn {
+    background: #0b84ff;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor:pointer;
+    text-decoration:none;
+  }
+  button:hover, .btn:hover { opacity: 0.95; }
+  
+  .note { color:#64748b; font-size:13px; }
+  
+/* Дополнительные стили для панели дронов */
+#drones-panel {
+  grid-column: 1 / -1;
+}
+
+#drones-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px 50px;
+}
+
+.drone-p {
+  overflow: scroll;
+  max-height: 500px;
+}
+
+.drone-block {
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: #f8f9fa;
+}
+
+.drone-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e1e5e9;
+}
+
+.drone-header h3 {
+  margin: 0;
+  color: #1a365d;
+  font-size: 1.1em;
+}
+
+.drone-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.drone-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.stat-label {
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.drone-orders, .drone-schedule {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e1e5e9;
+}
+
+.order-item {
+  padding: 4px 8px;
+  margin: 2px 0;
+  background: white;
+  border-radius: 4px;
+  border-left: 3px solid #4299e1;
+  font-size: 0.9em;
+}
+
+.no-orders {
+  color: #a0aec0;
+  font-style: italic;
+  padding: 8px;
+  text-align: center;
+}
+
+.schedule-item {
+  padding: 4px 0;
+  font-size: 0.9em;
+}
+
+.map-popup {
+  min-width: 200px;
+}
+
+.map-popup h4 {
+  margin: 0 0 8px 0;
+  color: #2d3748;
+}
+
+.map-popup p {
+  margin: 4px 0;
+  font-size: 0.9em;
+}
+
+/* Адаптивность для панелей */
+@media (max-width: 768px) {
+  .drone-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .drone-block {
+    padding: 10px;
+  }
+}
+/* Стили для панели логов планирования */
+#planning-log-panel {
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.log-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.log-controls button {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  color: black;
+}
+
+.log-controls button.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.log-controls button:hover {
+  background: #e9ecef;
+}
+
+.log-controls button.active:hover {
+  background: #0056b3;
+}
+
+.log-container {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  background: #fafafa;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.log-placeholder {
+  color: #6c757d;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+.log-entry {
+  margin-bottom: 5px;
+  padding: 3px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.log-time {
+  color: #6c757d;
+  font-size: 11px;
+  margin-right: 8px;
+}
+
+.log-info .log-message {
+  color: #17a2b8;
+}
+
+.log-success .log-message {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.log-warning .log-message {
+  color: #ffc107;
+}
+
+.log-error .log-message {
+  color: #dc3545;
+  font-weight: 500;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  #planning-log-panel {
+    max-height: 300px;
+  }
+  
+  .log-container {
+    font-size: 11px;
+  }
+}
+
+
+/* Стили для информации по дронам */
+.drone-p {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.drone-block {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: #fafafa;
+}
+
+.drone-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.drone-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.drone-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.drone-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 12px;
+}
+
+.stat-value {
+  color: #333;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.drone-orders {
+  margin-bottom: 15px;
+}
+
+.drone-orders strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 14px;
+}
+
+.orders-list {
+  max-height: 120px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px;
+  background: white;
+}
+
+.order-item {
+  padding: 4px 8px;
+  margin-bottom: 4px;
+  background: #f8f9fa;
+  border-radius: 3px;
+  font-size: 11px;
+  border-left: 3px solid #007bff;
+}
+
+.order-item:last-child {
+  margin-bottom: 0;
+}
+
+.no-orders {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.drone-schedule {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+}
+
+.drone-schedule strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 14px;
+}
+
+.schedule-item {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+/* Адаптивность для дронов */
+@media (max-width: 768px) {
+  .drone-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .drone-block {
+    padding: 10px;
+  }
+  
+  .orders-list {
+    max-height: 80px;
+  }
+}

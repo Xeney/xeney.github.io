@@ -1,0 +1,594 @@
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 20px;
+}
+:root{
+    --dark: #000000;
+    --gray: #464646;
+    --green: #B9FF66;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    font-family: "Space Grotesk",sans-serif;
+}
+.hat{
+    padding-block: 40px;
+}
+.header__container, .hero__container, .services__content, .advantages__content, .create__content, .examples__content, .feedback__content, .steps__content, .team__content, .means__content, .connect__content, .teammates__content, .footer__container{
+    max-width: 1440px;
+    margin-inline: auto;
+    
+}
+
+.header__nav{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__list{
+    display: flex;
+    gap: 40px;
+    
+}
+ul{
+    list-style: none;
+}
+.header__list-link{
+       font-weight: 600;
+       font-size: 20px;
+       color: var(--gray);
+       transition: all 0.5s;
+       border-bottom: 3px solid #000000;
+}
+
+.header__list-link:hover{
+    color: var(--dark);
+    border-bottom: 3px solid var(--green);
+    font-weight: 700;
+}
+a{
+    text-decoration: none;
+}
+
+.header__button{
+    padding: 20px 35px;
+    border: 2px solid var(--dark);
+    border-radius: 14px;
+    color: var(--dark);
+    transition: 0.3s;
+}
+
+.header__button:active{
+    background-color: var(--green);
+    color: var(--dark);
+    border: 2px solid var(--green);
+}
+
+.header__button:hover{
+    opacity: 60%;
+    
+}
+
+
+
+.hero{
+    padding-block: 30px 65px;   
+}
+.hero__container{
+    position: relative;
+}
+
+.hero__button-projects{
+    padding: 20px 35px;
+    border: 2px solid var(--dark);
+    border-radius: 14px;
+    background-color: var(--dark);
+    transition: 0.3s;
+    color:white
+}
+.hero__button{
+    margin-top: 65px;
+    text-align: left;
+}
+.hero__button:hover{
+    opacity: 75%;
+}
+
+.hero__image{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.hero__title{
+    max-width: 380px;
+    font-size:60px;
+    font-weight: 700;
+    line-height: 77px;
+}
+
+.hero__descriprion{
+    max-width: 500px;
+    font-size: 22px;
+    line-height: 28px;
+    margin-top: 35px;
+}
+
+
+
+.services__content{
+    padding-block: 65px 188px;
+    display:flex;
+   
+}
+.services__descriptoin, .examples__descriptoin{
+    font-size: 18px;
+    line-height: 23px;
+}
+.services__logo, .examples__logo {
+    margin-right: 40px;
+    font-size: 40px;
+    line-height: 51px;
+    font-weight: 500;
+    border: 4px solid var(--green);
+    background-color: var(--green);
+    border-radius: 7px;
+     white-space: nowrap;
+    
+}
+
+.examples__content{
+    margin-top:140px ;
+    margin-bottom: 80px;
+    display:flex;
+}
+
+
+
+.advantages__list{
+    display: flex;          
+    flex-wrap: wrap;       
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 187px;
+    gap: 40px 30px; 
+}
+
+
+.create__content{
+    position: relative;
+    border: 50px solid #F3F3F3;
+    background-color: #F3F3F3;
+    border-radius: 45px;
+    margin-bottom: 140px;
+}
+.create__title{
+    max-width: 500px;
+    font-size:30px;
+    font-weight: 600;
+    line-height: 38px;
+    margin-bottom: 26px;
+}
+
+.create__description{
+    max-width: 500px;
+    font-size:18px;
+    font-weight: 500;
+    line-height: 23px;
+    margin-bottom: 46px;
+}
+
+.create__button{
+    padding: 20px 35px;
+    border: 2px solid var(--dark);
+    border-radius: 14px;
+    background-color: var(--dark);
+    transition: 0.3s;
+    color:white;
+    margin-top: 26px;
+    font-size:20px ;
+}
+.create__button:hover{
+    opacity: 75%;
+}
+
+.create__logo{
+    position: absolute;
+    top:-90px;
+    right: 0;
+}
+
+
+
+
+
+
+
+
+/* ===== STEPS / АККОРДЕОН ===== */
+.steps__content {
+    max-width: 1234px;
+    margin: 0 auto;
+    padding: 20px;
+    
+}
+
+.step {
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.steps-default {
+    display: flex;
+    align-items: center;
+    padding: 41px 60px;
+    background: #F3F3F3;
+    border: 1px solid #191A23;
+    border-radius: 45px;
+    box-shadow: 0px 5px 0px #191A23;
+    position: relative;
+}
+
+/* Зеленая карточка при открытии */
+.step.active .steps-default {
+    background: var(--green);
+    border-radius: 45px 45px 0 0;
+    border-bottom: none;
+    box-shadow: none;
+}
+
+/* Номер этапа */
+.steps__num {
+    font-size: 60px;
+    font-weight: 700;
+    margin-right: 20px;
+}
+
+/* Заголовок этапа */
+.steps__title-text {
+    font-size: 30px;
+    font-weight: 600;
+    flex-grow: 1;
+}
+
+/* Скрытое описание */
+.steps__description {
+    background: var(--green);
+    border: 1px solid #191A23;
+    border-top: none;
+    border-radius: 0 0 45px 45px;
+    box-shadow: 0px 5px 0px #191A23;
+    padding: 0 60px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+/* Показанное описание */
+.step.active .steps__description {
+    max-height: 500px;
+    padding: 30px 60px;
+    opacity: 1;
+}
+/* Линия сверху описания */
+.steps__description {
+    background: var(--green);
+    border: 2px solid #191A23;
+    border-top: none;
+    border-radius: 0 0 45px 45px;
+    box-shadow: 0px 5px 0px #191A23;
+    padding: 30px 60px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+/* Добавляем линию через border-top */
+.step.active .steps__description {
+    max-height: 500px;
+    opacity: 1;
+    padding-top: 60px; /* Больше отступ сверху */
+}
+
+/* Линия как верхняя граница текста */
+.steps__description::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 60px;
+    right: 60px;
+    height: 1px;
+    background: var(--dark);
+}
+/* Стрелка как псевдоэлемент - размер 58x58 */
+.steps__arrow {
+    position: absolute;
+    right: 60px;
+    width: 58px;
+    height: 58px;
+}
+
+/* Плюс по умолчанию */
+.steps__arrow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('listcards/Plus icon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Минус при открытии */
+.steps__arrow::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('listcards/minus\ icon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.step.active .steps__arrow::before {
+    opacity: 0;
+}
+
+.step.active .steps__arrow::after {
+    opacity: 1;
+}
+
+/*=== Team ===*/
+.team__descriptoin{
+    font-size: 18px;
+    line-height: 23px;
+}
+.team__logo{
+    margin-right: 40px;
+    font-size: 40px;
+    line-height: 51px;
+    font-weight: 500;
+    border: 4px solid var(--green);
+    background-color: var(--green);
+    border-radius: 7px;
+     white-space: nowrap;
+    
+}
+.team__content{
+    margin-top:10px ;
+    margin-bottom: 70px;
+    display:flex;
+}
+
+
+/*=== Means ===*/
+.means__descriptoin{
+    font-size: 18px;
+    line-height: 23px;
+}
+.means__logo{
+    margin-right: 40px;
+    font-size: 40px;
+    line-height: 51px;
+    font-weight: 500;
+    border: 4px solid var(--green);
+    background-color: var(--green);
+    border-radius: 7px;
+     white-space: nowrap;  
+}
+.means__content{
+    margin-top:130px ;
+    margin-bottom: 80px;
+    display:flex;
+}
+
+/*=== connect ===*/
+.connect__descriptoin{
+    font-size: 18px;
+    line-height: 23px;
+}
+.connect__logo{
+    margin-right: 40px;
+    font-size: 40px;
+    line-height: 51px;
+    font-weight: 500;
+    border: 4px solid var(--green);
+    background-color: var(--green);
+    border-radius: 7px;
+     white-space: nowrap;  
+}
+.connect__content{
+    margin-top:120px ;
+    margin-bottom: 80px;
+    display:flex;
+}
+
+.teammates__list ul {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+
+.slider {
+    padding: 80px 20px;
+    position: relative;
+}
+
+.slider__background {
+    position: absolute;
+    width: 1240px;
+    height: 625px;
+    background: #191A23;
+    border-radius: 45px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+/* КОНТЕЙНЕР С ОБРЕЗКОЙ */
+.slider__container {
+    position: relative;
+    max-width: 1240px;
+    margin: 0 auto;
+    height: 500px; /* Уменьшаем высоту */
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* ← ВАЖНО: обрезает всё что выходит */
+}
+
+/* Дорожка внутри контейнера */
+.slider__track {
+    display: flex;
+    align-items: center;
+    transition: transform 0.5s ease;
+    width: 100%;
+    height: 100%;
+}
+
+/* Карточка */
+.slide {
+    flex: 0 0 33.333%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
+    padding: 0;
+    height: 100%; /* Занимает всю высоту контейнера */
+}
+
+/* Боковые карточки - опускаем чтобы не выходили */
+.slide:not(.active) {
+    transform: scale(0.6) translateY(10%); /* Опускаем боковые */
+    opacity: 0.35;
+}
+
+/* Центральная карточка - центрируем */
+.slide.active {
+    transform: scale(1.4) translateY(0%); /* Центрируем по вертикали */
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Картинки */
+.slide img {
+    width: 380px;
+    max-width: 100%;
+    border-radius: 20px;
+}
+
+/* Кнопки - опускаем ниже */
+.slider__btn {
+    position: absolute;
+    top: 50%; /* Возвращаем на середину */
+    transform: translateY(-50%);
+    background: #B9FF66;
+    border: 2px solid #000;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.slider__btn.prev {
+    left: 10px;
+}
+
+.slider__btn.next {
+    right: 10px;
+}
+
+.slider__dots {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #B9FF66;
+}
+
+
+
+
+
+
+.footer__container{
+    margin-top: 141px;
+    background-color: #292A32;
+    max-width: 1241px;
+    height: 135px;
+    border-top-left-radius: 45px;
+    border-top-right-radius: 45px;
+    
+}
+.footer__nav{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.footer__list{
+    display: flex;
+    gap: 40px;
+    
+}
+
+.footer__list-link{
+       font-weight: 600;
+       font-size: 20px;
+       color: white;
+       transition: all 0.5s;
+       border-bottom: 3px solid white;
+}
+
+.footer__list-link:hover{
+    color: var(--green);
+    border-bottom: 3px solid var(--green);
+    font-weight: 700;
+}
+.footer__logo{
+    padding-right: 155px;
+    
+}
+
+

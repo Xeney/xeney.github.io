@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Коллекторское агентство{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Герой секция -->
+            <div class="text-center mb-5 animate__animated animate__fadeInDown">
+                <div class="avatar-xl bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-4">
+                    <i class="fas fa-balance-scale text-white display-4"></i>
+                </div>
+                <h1 class="display-5 fw-bold text-dark mb-3">{{ agency.name }}</h1>
+                <p class="lead text-muted">Профессиональное управление долговыми обязательствами в соответствии с действующим законодательством</p>
+            </div>
+
+            <!-- Основная информация -->
+            <div class="card shadow-lg glass-effect animate__animated animate__fadeInUp mb-5">
+                <div class="card-body p-5">
+                    <div class="row">
+                        <div class="col-lg-6 mb-4">
+                            <h4 class="fw-bold text-primary mb-4">
+                                <i class="fas fa-building me-2"></i>Реквизиты компании
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="d-flex align-items-center p-3 bg-light rounded">
+                                    <i class="fas fa-fingerprint text-primary fs-5 me-3"></i>
+                                    <div>
+                                        <small class="text-muted d-block">ИНН</small>
+                                        <span class="fw-medium text-dark">{{ agency.inn }}</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center p-3 bg-light rounded">
+                                    <i class="fas fa-file-alt text-primary fs-5 me-3"></i>
+                                    <div>
+                                        <small class="text-muted d-block">ОГРН</small>
+                                        <span class="fw-medium text-dark">{{ agency.ogrn }}</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center p-3 bg-light rounded">
+                                    <i class="fas fa-map-marker-alt text-primary fs-5 me-3"></i>
+                                    <div>
+                                        <small class="text-muted d-block">Юридический адрес</small>
+                                        <span class="fw-medium text-dark">{{ agency.legal_address }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            <h4 class="fw-bold text-primary mb-4">
+                                <i class="fas fa-address-card me-2"></i>Контактная информация
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="d-flex align-items-center p-3 bg-light rounded">
+                                    <i class="fas fa-phone text-primary fs-5 me-3"></i>
+                                    <div>
+                                        <small class="text-muted d-block">Телефон</small>
+                                        <span class="fw-medium text-dark">{{ agency.phone }}</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center p-3 bg-light rounded">
+                                    <i class="fas fa-envelope text-primary fs-5 me-3"></i>
+                                    <div>
+                                        <small class="text-muted d-block">Email</small>
+                                        <span class="fw-medium text-dark">{{ agency.email }}</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center p-3 bg-light rounded">
+                                    <i class="fas fa-clock text-primary fs-5 me-3"></i>
+                                    <div>
+                                        <small class="text-muted d-block">Режим работы</small>
+                                        <span class="fw-medium text-dark">{{ agency.working_hours }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Информационный блок -->
+            <div class="alert alert-info border-0 bg-info bg-opacity-10 animate__animated animate__fadeInUp mb-5">
+                <div class="d-flex">
+                    <i class="fas fa-gavel fs-2 text-info me-4"></i>
+                    <div>
+                        <h5 class="alert-heading fw-bold text-info mb-2">Информация для должников</h5>
+                        <p class="mb-2">Наше агентство действует в соответствии с действующим законодательством и стандартами корпоративной этики при работе с должниками.</p>
+                        <p class="mb-0">Сведения о юридическом лице, осуществляющем деятельность по возврату просроченной задолженности, доступны по запросу и предоставляются в полном объёме при официальном обращении.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Кнопки действий -->
+            <div class="text-center animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+                    <a href="{{ agency.fedresurs_link }}" target="_blank" class="btn btn-outline-primary btn-lg btn-rounded">
+                        <i class="fas fa-external-link-alt me-2"></i>Проверить в Федресурс
+                    </a>
+                    {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg btn-rounded animate__pulse">
+                        <i class="fas fa-sign-in-alt me-2"></i>Вход в CRM систему
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

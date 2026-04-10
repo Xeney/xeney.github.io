@@ -1,0 +1,1169 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Анимации */
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(2deg); }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.05); opacity: 0.8; }
+    }
+    
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
+    /* Герой секция */
+    .hero-section {
+        position: relative;
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        color: white;
+        padding: 100px 0;
+        overflow: hidden;
+        border-radius: 0 0 60px 60px;
+        margin-bottom: 40px;
+        box-shadow: 0 20px 40px rgba(13, 110, 253, 0.3);
+    }
+    
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 600px;
+        height: 600px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(15deg);
+        animation: float 8s ease-in-out infinite;
+    }
+    
+    .hero-section::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        left: -10%;
+        width: 700px;
+        height: 700px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(-15deg);
+        animation: float 10s ease-in-out infinite reverse;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        animation: slideInLeft 1s ease-out;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .hero-title span {
+        display: inline-block;
+        animation: pulse 2s ease-in-out infinite;
+        color: white;  /* Вместо градиента */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+        opacity: 0.95;
+        line-height: 1.6;
+    }
+    
+    .hero-buttons {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .hero-buttons .btn {
+        border-radius: 50px;
+        padding: 16px 40px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-buttons .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .hero-buttons .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .hero-buttons .btn:hover::before {
+        left: 100%;
+    }
+    
+    .hero-buttons .btn-light {
+        background: white;
+        color: #0d6efd;
+    }
+    
+    .hero-buttons .btn-outline-light:hover {
+        background: white;
+        color: #0d6efd;
+    }
+    
+    /* Статистика */
+    .stats-grid {
+        animation: slideInRight 1s ease-out;
+    }
+    
+    .stat-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 30px;
+        padding: 30px 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        background: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.4);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .stat-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transform: translateX(-100%);
+        transition: transform 0.5s ease;
+    }
+    
+    .stat-card:hover::after {
+        transform: translateX(100%);
+    }
+    
+    .stat-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    .stat-number {
+        font-size: 2.8rem;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 5px;
+        color: white;  /* Вместо градиента */
+    }
+    
+    .stat-label {
+        font-size: 1rem;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    /* Преимущества */
+    .features-section {
+        padding: 80px 0;
+        background: #f8faff;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .features-section::before {
+        content: '';
+        position: absolute;
+        top: -100px;
+        left: -100px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(13, 110, 253, 0.1), transparent);
+        border-radius: 50%;
+        animation: float 8s ease-in-out infinite;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        color: #1e293b;  /* Темно-серый/черный вместо синего градиента */
+    }
+
+    .section-title.black {
+        color: #1e293b;  /* Черный цвет для заголовков */
+    }
+
+    .section-subtitle {
+        font-size: 1.3rem;
+        color: #6c757d;
+        margin-bottom: 50px;
+        animation: slideInUp 0.8s ease-out 0.1s both;
+    }
+    
+    .feature-card {
+        background: white;
+        border-radius: 40px;
+        padding: 40px 30px;
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid rgba(13, 110, 253, 0.1);
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .feature-card:nth-child(2) { animation-delay: 0.1s; }
+    .feature-card:nth-child(3) { animation-delay: 0.2s; }
+    .feature-card:nth-child(4) { animation-delay: 0.3s; }
+    
+    .feature-card:hover {
+        transform: translateY(-20px);
+        box-shadow: 0 30px 50px rgba(13, 110, 253, 0.2);
+        border-color: #0d6efd;
+    }
+    
+    .feature-icon-wrapper {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 30px;
+        background: linear-gradient(135deg, #e8f0ff, #d4e2ff);
+        border-radius: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .feature-card:hover .feature-icon-wrapper {
+        transform: rotate(5deg) scale(1.1);
+        background: #f8faff;  /* Светлый фон вместо синего */
+    }
+    
+    .feature-icon {
+        font-size: 3.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover .feature-icon {
+        color: #0d6efd !important;  /* Синий цвет иконки при наведении (опционально) */
+        transform: rotate(-5deg) scale(1.1);
+    }
+    
+    .feature-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #1e293b;
+    }
+    
+    .feature-description {
+        color: #6c757d;
+        line-height: 1.7;
+        margin-bottom: 0;
+    }
+    
+    /* Популярные пути */
+    .paths-section {
+        padding: 80px 0;
+        background: white;
+    }
+    
+    .path-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid #e9ecef;
+        overflow: hidden;
+        height: 100%;
+        position: relative;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    
+    
+    .path-card:hover {
+        transform: translateY(-15px) scale(1.02);
+        box-shadow: 0 30px 60px rgba(13, 110, 253, 0.15);
+        border-color: #0d6efd;
+    }
+    
+    .path-badge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 2;
+        padding: 8px 20px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        animation: pulse 2s ease-in-out infinite;
+    }
+    
+    .path-badge.beginner { background: #28a745; color: white; }
+    .path-badge.intermediate { background: #ffc107; color: #1e293b; }
+    .path-badge.advanced { background: #dc3545; color: white; }
+    
+    .path-icon {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        width: 60px;
+        height: 60px;
+        background: white;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        z-index: 2;
+        transition: all 0.3s ease;
+    }
+    
+    .path-card:hover .path-icon {
+        transform: rotate(10deg) scale(1.1);
+    }
+    
+    .path-icon i {
+        font-size: 2rem;
+    }
+    
+    .path-icon.beginner i { color: #28a745; }
+    .path-icon.intermediate i { color: #ffc107; }
+    .path-icon.advanced i { color: #dc3545; }
+    
+    .path-content {
+        padding: 100px 30px 30px;
+    }
+    
+    .path-title {
+        margin-top: 10px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #1e293b;
+    }
+    
+    .path-description {
+        color: #6c757d;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+    
+    .path-stats {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0;
+        border-top: 2px solid #f1f5f9;
+        border-bottom: 2px solid #f1f5f9;
+        margin-bottom: 20px;
+    }
+    
+    .path-stat {
+        text-align: center;
+    }
+    
+    .path-stat-value {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #1e293b;
+    }
+    
+    .path-stat-label {
+        font-size: 0.8rem;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .btn-path {
+        background: linear-gradient(135deg, #f8faff, #e8f0ff);
+        color: #0d6efd;
+        border: none;
+        border-radius: 20px;
+        padding: 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+    }
+    
+    .btn-path::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(13, 110, 253, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .btn-path:hover {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
+    }
+    
+    .btn-path:hover::before {
+        left: 100%;
+    }
+    
+    /* Как это работает */
+    .how-it-works-section {
+        padding: 80px 0;
+        background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
+    }
+    
+    .step-card {
+        text-align: center;
+        padding: 40px 30px;
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        position: relative;
+        height: 100%;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .step-card:nth-child(2) { animation-delay: 0.1s; }
+    .step-card:nth-child(3) { animation-delay: 0.2s; }
+    .step-card:nth-child(4) { animation-delay: 0.3s; }
+    
+    .step-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px rgba(13, 110, 253, 0.1);
+    }
+    
+    .step-number {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 25px;
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
+    }
+    
+    .step-card:hover .step-number {
+        transform: rotate(360deg) scale(1.1);
+    }
+    
+    .step-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #1e293b;
+    }
+    
+    .step-description {
+        color: #6c757d;
+        line-height: 1.7;
+    }
+    
+    /* Лидерборд */
+    .leaderboard-section {
+        padding: 80px 0;
+        background: white;
+    }
+    
+    .leaderboard-card {
+        background: linear-gradient(135deg, #f8faff, #f0f4ff);
+        border-radius: 50px;
+        padding: 30px;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .leaderboard-table {
+        border-radius: 40px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    }
+    
+    .leaderboard-table thead {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+    }
+    
+    .leaderboard-table th {
+        padding: 20px;
+        font-weight: 600;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border: none;
+    }
+    
+    .leaderboard-table td {
+        padding: 15px 20px;
+        background: white;
+        border-bottom: 1px solid #e9ecef;
+        vertical-align: middle;
+    }
+    
+    .leaderboard-table tr:last-child td {
+        border-bottom: none;
+    }
+    
+    .leaderboard-table tr:hover td {
+        background: #f8faff;
+    }
+    
+    .rank-badge {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+    
+    .rank-1 { background: linear-gradient(135deg, #ffd700, #ffb347); color: #1e293b; }
+    .rank-2 { background: linear-gradient(135deg, #c0c0c0, #a0a0a0); color: white; }
+    .rank-3 { background: linear-gradient(135deg, #cd7f32, #b06d28); color: white; }
+    
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .user-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+        object-fit: cover;
+        border: 3px solid white;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .user-name {
+        font-weight: 600;
+        color: #1e293b;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .user-name:hover {
+        color: #0d6efd;
+    }
+    
+    .user-username {
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+    
+    .level-badge {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-block;
+    }
+    
+    .xp-badge {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-block;
+    }
+    
+    .btn-leaderboard {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 16px 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-leaderboard::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .btn-leaderboard:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 20px 30px rgba(13, 110, 253, 0.4);
+        color: white;
+    }
+    
+    .btn-leaderboard:hover::before {
+        left: 100%;
+    }
+    
+    /* Призыв к действию */
+    .cta-section {
+        padding: 80px 0;
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        position: relative;
+        overflow: hidden;
+        border-radius: 60px 60px 0 0;
+        margin-top: 40px;
+    }
+    
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: -100px;
+        left: -100px;
+        width: 400px;
+        height: 400px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 8s ease-in-out infinite;
+    }
+    
+    .cta-section::after {
+        content: '';
+        position: absolute;
+        bottom: -100px;
+        right: -100px;
+        width: 400px;
+        height: 400px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 10s ease-in-out infinite reverse;
+    }
+    
+    .cta-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: white;
+    }
+    
+    .cta-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .cta-subtitle {
+        font-size: 1.5rem;
+        margin-bottom: 40px;
+        opacity: 0.95;
+        animation: slideInUp 0.8s ease-out 0.1s both;
+    }
+    
+    .cta-button {
+        background: white;
+        color: #0d6efd;
+        border: none;
+        border-radius: 50px;
+        padding: 20px 60px;
+        font-weight: 700;
+        font-size: 1.3rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        animation: slideInUp 0.8s ease-out 0.2s both;
+    }
+    
+    .cta-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(13, 110, 253, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .cta-button:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+        color: #0a58ca;
+    }
+    
+    .cta-button:hover::before {
+        left: 100%;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+        }
+        
+        .cta-title {
+            font-size: 2.2rem;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.2rem;
+        }
+        
+        .cta-button {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Герой секция -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span>SkillPass</span>
+                    </h1>
+                    <p class="hero-subtitle">Платформа для структурированного обучения с геймификацией и верификацией навыков. Учись, получай опыт и становись лучше!</p>
+                    <div class="hero-buttons">
+                        {% if not current_user.is_authenticated %}
+                            <a href="{{ url_for('auth.register') }}" class="btn btn-light">
+                                <i class="bi bi-rocket-takeoff me-2"></i>Начать обучение
+                            </a>
+                            <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Войти
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('roadmap.catalog') }}" class="btn btn-light">
+                                <i class="bi bi-compass me-2"></i>Перейти к каталогу
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="stats-grid">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-people-fill"></i>
+                                </div>
+                                <div class="stat-number">{{ stats.users }}</div>
+                                <div class="stat-label">пользователей</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-diagram-3-fill"></i>
+                                </div>
+                                <div class="stat-number">{{ stats.paths }}</div>
+                                <div class="stat-label">путей</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-journal-check"></i>
+                                </div>
+                                <div class="stat-number">{{ stats.steps }}</div>
+                                <div class="stat-label">шагов</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-trophy-fill"></i>
+                                </div>
+                                <div class="stat-number">{{ stats.xp_count }}</div>
+                                <div class="stat-label">всего XP</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Преимущества -->
+<section class="features-section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">Почему выбирают SkillPass?</h2>
+            <p class="section-subtitle">Четыре главных преимущества нашей платформы</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="bi bi-lightning-charge-fill feature-icon text-primary"></i>
+                    </div>
+                    <h3 class="feature-title">Быстрый старт</h3>
+                    <p class="feature-description">Начните обучение сразу после регистрации. Никакой сложной настройки.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="bi bi-diagram-3 feature-icon text-success"></i>
+                    </div>
+                    <h3 class="feature-title">Структура</h3>
+                    <p class="feature-description">Четкая система путей, этапов и шагов для эффективного обучения.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="bi bi-trophy-fill feature-icon text-warning"></i>
+                    </div>
+                    <h3 class="feature-title">Геймификация</h3>
+                    <p class="feature-description">Получайте XP, повышайте уровень и соревнуйтесь с другими.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="bi bi-shield-check feature-icon text-info"></i>
+                    </div>
+                    <h3 class="feature-title">Верификация</h3>
+                    <p class="feature-description">Подтверждайте свои навыки и показывайте их в профиле.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Популярные пути -->
+{% if popular_paths %}
+<section class="paths-section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">Популярные направления</h2>
+            <p class="section-subtitle">Выберите путь, который подходит именно вам</p>
+        </div>
+        <div class="row g-4">
+            {% for path in popular_paths %}
+            <div class="col-md-4">
+                <div class="path-card">
+                    <!-- Градиент для каждой карточки индивидуально -->
+                    <style>
+                        .path-card-{{ loop.index }}::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            height: 100px;
+                            background: {% if path.difficulty == 'beginner' %}linear-gradient(135deg, #28a745, #20c997){% elif path.difficulty == 'intermediate' %}linear-gradient(135deg, #ffc107, #fd7e14){% else %}linear-gradient(135deg, #dc3545, #b02a37){% endif %};
+                            opacity: 0.9;
+                            z-index: 1;
+                        }
+                    </style>
+                    
+                    <div class="path-card-{{ loop.index }}">
+                        <span class="path-badge 
+                            {% if path.difficulty == 'beginner' %}beginner
+                            {% elif path.difficulty == 'intermediate' %}intermediate
+                            {% else %}advanced{% endif %}">
+                            {% if path.difficulty == 'beginner' %}🌱 Начинающий
+                            {% elif path.difficulty == 'intermediate' %}📊 Средний
+                            {% else %}🚀 Продвинутый{% endif %}
+                        </span>
+                        
+                        <div class="path-icon 
+                            {% if path.difficulty == 'beginner' %}beginner
+                            {% elif path.difficulty == 'intermediate' %}intermediate
+                            {% else %}advanced{% endif %}">
+                            <i class="bi 
+                                {% if path.difficulty == 'beginner' %}bi-egg
+                                {% elif path.difficulty == 'intermediate' %}bi-graph-up
+                                {% else %}bi-rocket-takeoff{% endif %}">
+                            </i>
+                        </div>
+                        
+                        <div class="path-content">
+                            <h3 class="path-title">{{ path.title }}</h3>
+                            <p class="path-description">{{ path.description[:100] }}...</p>
+                            
+                            <div class="path-stats">
+                                <div class="path-stat">
+                                    <div class="path-stat-value">{{ path.stages|length }}</div>
+                                    <div class="path-stat-label">этапов</div>
+                                </div>
+                                <div class="path-stat">
+                                    <div class="path-stat-value">{{ path.students_count or 0 }}</div>
+                                    <div class="path-stat-label">студентов</div>
+                                </div>
+                                <div class="path-stat">
+                                    <div class="path-stat-value">
+                                        {% set total_xp = 0 %}
+                                        {% for stage in path.stages %}
+                                            {% for step in stage.steps %}
+                                                {% set total_xp = total_xp + step.xp_reward %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                        {{ total_xp }}
+                                    </div>
+                                    <div class="path-stat-label">XP</div>
+                                </div>
+                            </div>
+                            
+                            <a href="{{ url_for('roadmap.view', path_id=path.id) }}" class="btn-path">
+                                <i class="bi bi-eye me-2"></i>Подробнее
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Как это работает -->
+<section class="how-it-works-section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">Как это работает</h2>
+            <p class="section-subtitle">Четыре простых шага к новым знаниям</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Регистрация</h3>
+                    <p class="step-description">Создайте аккаунт и заполните профиль</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Выбор пути</h3>
+                    <p class="step-description">Найдите подходящее направление</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Прохождение</h3>
+                    <p class="step-description">Изучайте теорию и проходите тесты</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Рост</h3>
+                    <p class="step-description">Получайте XP и повышайте уровень</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Лидерборд -->
+{% if top_users %}
+<section class="leaderboard-section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">Таблица лидеров</h2>
+            <p class="section-subtitle">Лучшие студенты нашей платформы</p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="leaderboard-card">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="text-white">
+                                <tr>
+                                    <th class="text-center" style="width: 80px; border-radius: 15px 0 0 0;">#</th>
+                                    <th style="border-radius: 0 15px 0 0;">Студент</th>
+                                    <th class="text-center">Уровень</th>
+                                    <th class="text-end pe-4">XP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in top_users %}
+                                <tr>
+                                    <td class="text-center">
+                                        {% if loop.index == 1 %}
+                                            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">
+                                                <i class="bi bi-trophy-fill me-1"></i> 1
+                                            </span>
+                                        {% elif loop.index == 2 %}
+                                            <span class="badge bg-secondary px-3 py-2 rounded-pill">
+                                                <i class="bi bi-trophy me-1"></i> 2
+                                            </span>
+                                        {% elif loop.index == 3 %}
+                                            <span class="badge bg-danger px-3 py-2 rounded-pill">
+                                                <i class="bi bi-trophy me-1"></i> 3
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-light text-dark px-3 py-2 rounded-pill">
+                                                {{ loop.index }}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="{{ user.profile.avatar_url }}" 
+                                                 alt="{{ user.full_name }}" 
+                                                 class="rounded-circle" 
+                                                 style="width: 50px; height: 50px; object-fit: cover; border: 3px solid #fff; box-shadow: 0 5px 10px rgba(0,0,0,0.1);">
+                                            <div>
+                                                <a href="{{ url_for('profile.view', username=user.profile.username) }}" 
+                                                   class="text-decoration-none text-dark fw-bold">
+                                                    {{ user.full_name }}
+                                                </a>
+                                                <br>
+                                                <small class="text-muted">@{{ user.profile.username }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge bg-primary px-3 py-2 rounded-pill">
+                                            <i class="bi bi-star-fill me-1"></i> {{ user.profile.level }}
+                                        </span>
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <span class="badge bg-success px-3 py-2 rounded-pill">
+                                            <i class="bi bi-lightning-charge-fill me-1"></i> {{ user.profile.xp }} XP
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <a href="{{ url_for('profile.leaderboard') }}" class="btn btn-primary btn-lg px-5 rounded-pill">
+                            <i class="bi bi-trophy me-2"></i>Смотреть всех
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Призыв к действию -->
+{% if not current_user.is_authenticated %}
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="cta-title">Готовы начать?</h2>
+            <p class="cta-subtitle">Присоединяйтесь к сообществу и начните свой путь к новым знаниям</p>
+            <a href="{{ url_for('auth.register') }}" class="cta-button">
+                <i class="bi bi-rocket-takeoff me-2"></i>Создать аккаунт
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="project__style.css">
+    <title>Student Projects Hub - проект</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="hat">
+        <div class="header__container">
+            <nav class="header__nav">
+                <a href="index.html" class="header__logo"><img src="logo/Logo__White-projects.png" alt="Логотип"></a>
+                <ul class="header__list">
+                    <li class="header__list-item">
+                        <a href="projects.html" class="header__list-link">Каталог проектов</a>
+                    </li>
+                    <li class="header__list-item">
+                        <a href="#about__ID" class="header__list-link">Обратная связь</a>
+                    </li>
+                    <li class="header__list-item" id="Exit__button">
+                        <a href="/" class="header__button">Выйти</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="project-details">
+            <div class="project-header">
+                <h1 id="project-title">Загрузка...</h1>
+                <div class="project-meta">
+                    <span class="project-author">Автор: <strong id="author-name">...</strong></span>
+                    <span class="project-date">Дата: <strong id="project-date">...</strong></span>
+                </div>
+            </div>
+    
+            <div class="project-description">
+                <h2>Описание проекта</h2>
+                <p id="project-desc">Загрузка описания...</p>
+            </div>
+    
+            <div class="project-actions">
+                <a id="edit-link" href="#" class="project-btn project-btn--edit">
+                    Редактировать
+                </a>
+                <a id="github-link" href="#" target="_blank" class="project-btn project-btn--github" style="display: none;">
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </main>
+
+
+    
+    <footer>
+        <section class="footer">
+            <div class="footer__container">
+                <img src="" alt="">
+                <nav class="footer__nav">
+                    <a href="index.html" class="footer__logo"><img src="logo/Logo__white.png" alt="Логотип"></a>
+                    <ul class="footer__list">
+                        <li class="footer__list-item">
+                            <a href="#about__ID" class="footer__list-link">О проекте </a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="#team__ID" class="footer__list-link">Команда </a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="#feedback__ID" class="footer__list-link">Примеры проектов</a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="#means__ID" class="footer__list-link">Отзывы </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer__content"></div>
+
+        </section>
+    </footer>
+
+    <script>
+                // project.js
+
+        // Функция получения ID из URL
+        function getProjectId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        // Функция загрузки данных проекта
+        async function loadProject() {
+            try {
+                // 1. Получаем ID
+                const projectId = getProjectId();
+                
+                // Проверяем что ID есть
+                if (!projectId) {
+                    alert('ID проекта не указан!');
+                    return;
+                }
+                
+                console.log('Загружаем проект с ID:', projectId);
+                
+                // 2. Запрашиваем данные с бэкенда
+                const response = await fetch(`http://localhost:8080/api/projects/${projectId}`);
+                const result = await response.json();
+                
+                console.log('Получен проект:', result);
+                
+                // 3. Отображаем данные
+                showProject(result.data);
+                
+            } catch (error) {
+                console.error('Ошибка загрузки:', error);
+                alert('Не удалось загрузить проект');
+            }
+        }
+
+       
+       // Функция отображения проекта
+        function showProject(project) {
+            // Заполняем заголовок
+            document.getElementById('project-title').textContent = project.title;
+
+            // Заполняем автора
+            document.getElementById('author-name').textContent = project.author;
+
+            // Заполняем дату (форматируем)
+            const date = new Date(project.created_at);
+            document.getElementById('project-date').textContent = date.toLocaleDateString('ru-RU');
+
+            // Заполняем описание
+            document.getElementById('project-desc').textContent = project.description;
+
+            // Настраиваем кнопку редактирования
+            const editLink = document.getElementById('edit-link');
+            editLink.href = `edit.html?id=${project.id}`;
+
+            // Если есть GitHub ссылка - показываем кнопку
+            if (project.githubUrl) {
+                const githubLink = document.getElementById('github-link');
+                githubLink.href = project.githubUrl;
+                githubLink.style.display = 'inline-block';
+            }
+        }
+
+        
+        // Запускаем при загрузке страницы
+        document.addEventListener('DOMContentLoaded', loadProject);
+
+    </script>
+</body>
+
+</html>

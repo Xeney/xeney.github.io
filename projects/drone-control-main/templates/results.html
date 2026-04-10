@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Результаты планирования — Рой БПЛА</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="/static/results.css" />
+  <!-- Leaflet CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Рой БПЛА — План полётов</h1>
+    <p class="subtitle">Визуализация маршрутов, операций и статистики</p>
+  </header>
+
+  <main>
+    <section id="map-section">
+      <div id="map"></div>
+      <div id="map-legend">
+        <div><span class="dot hub"></span> Хаб</div>
+        <div><span class="dot order"></span> Заказ</div>
+        <div><span class="dot route"></span> Маршрут дрона</div>
+      </div>
+    </section>
+
+    <section id="panels">
+      <div class="panel" id="summary">
+        <h2>Статистика</h2>
+        <div id="stats">
+          <div>Дронов: <span id="stat-drones">—</span></div>
+          <div>Заказов: <span id="stat-orders">—</span></div>
+          <div>Операций: <span id="stat-ops">—</span></div>
+        </div>
+      </div>
+
+      <div class="panel" id="operations-panel">
+        <h2>План операций</h2>
+        <table id="ops-table">
+          <thead>
+            <tr>
+              <th>ID</th><th>Тип</th><th>Дрон</th><th>Время начала</th><th>Время конца</th><th>Заказы</th><th>Координаты</th><th>Вес</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="panel" id="planning-log-panel">
+        <h2>Процесс планирования</h2>
+        <div class="log-controls">
+          <button id="clear-log">Очистить</button>
+          <button id="auto-scroll" class="active">Автопрокрутка</button>
+        </div>
+        <div id="planning-log" class="log-container">
+          <div class="log-placeholder">Запустите планирование для просмотра процесса...</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="controls">
+        <button id="refresh">Обновить</button>
+        <a class="btn" id="download-csv" href="/download-csv">Скачать plan.csv</a>
+        <a class="btn" id="download-csv" href="/download/report">Скачать report.txt</a>
+      </div>
+      <p class="note">Хаб: <span id="hub-coords"></span></p>
+    </footer>
+
+    <section>
+      <!-- Информация по дронам -->
+      <div class="panel drone-p" id="drones-panel">
+        <h2>Информация по дронам</h2>
+        <div id="drones-info"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/results.js"></script>
+</body>
+</html>

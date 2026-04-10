@@ -1,0 +1,688 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Анимации */
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+    
+    /* Заголовок */
+    .edit-header {
+        position: relative;
+        background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
+        padding: 40px 0;
+        margin-bottom: 40px;
+        border-radius: 0 0 40px 40px;
+        overflow: hidden;
+    }
+    
+    .edit-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -5%;
+        width: 300px;
+        height: 300px;
+        background: rgba(13, 110, 253, 0.05);
+        border-radius: 50%;
+        transform: rotate(15deg);
+        animation: pulse 4s ease-in-out infinite;
+    }
+    
+    .edit-header::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        left: -5%;
+        width: 300px;
+        height: 300px;
+        background: rgba(13, 110, 253, 0.05);
+        border-radius: 50%;
+        transform: rotate(-15deg);
+        animation: pulse 6s ease-in-out infinite reverse;
+    }
+    
+    .edit-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #1e293b;
+        position: relative;
+        z-index: 2;
+        animation: slideInUp 0.6s ease-out;
+    }
+    
+    .edit-subtitle {
+        color: #6c757d;
+        font-size: 1.1rem;
+        position: relative;
+        z-index: 2;
+        animation: slideInUp 0.6s ease-out 0.1s both;
+    }
+    
+    /* Карточки */
+    .edit-card {
+        background: white;
+        border-radius: 30px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(13, 110, 253, 0.1);
+        margin-bottom: 25px;
+        animation: slideInUp 0.6s ease-out;
+        transition: all 0.3s ease;
+    }
+    
+    .edit-card:hover {
+        box-shadow: 0 25px 50px rgba(13, 110, 253, 0.1);
+        border-color: #0d6efd;
+    }
+    
+    .edit-card-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f1f5f9;
+    }
+    
+    .edit-card-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #f8faff, #f0f4ff);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: #0d6efd;
+    }
+    
+    .edit-card-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0;
+    }
+    
+    .edit-card-subtitle {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+    
+    /* Аватарка */
+    .avatar-section {
+        position: sticky;
+        top: 20px;
+        animation: slideInUp 0.6s ease-out 0.2s both;
+    }
+    
+    .avatar-card {
+        background: white;
+        border-radius: 40px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(13, 110, 253, 0.1);
+        text-align: center;
+    }
+    
+    .avatar-wrapper {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+    
+    .avatar-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 30px;
+        object-fit: cover;
+        border: 4px solid white;
+        box-shadow: 0 20px 40px rgba(13, 110, 253, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .avatar-img:hover {
+        transform: scale(1.05) rotate(5deg);
+    }
+    
+    .avatar-delete {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        width: 40px;
+        height: 40px;
+        background: #dc3545;
+        border: 3px solid white;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+    }
+    
+    .avatar-delete:hover {
+        transform: rotate(90deg) scale(1.1);
+        background: #bb2d3b;
+    }
+    
+    .avatar-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 5px;
+    }
+    
+    .avatar-username {
+        color: #6c757d;
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    .avatar-stats {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    
+    .stat-badge {
+        padding: 8px 15px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    
+    .stat-badge.level {
+        background: linear-gradient(135deg, #f8faff, #f0f4ff);
+        color: #0d6efd;
+    }
+    
+    .stat-badge.xp {
+        background: linear-gradient(135deg, #fff3cd, #ffe69c);
+        color: #856404;
+    }
+    
+    .avatar-note {
+        background: #f8faff;
+        border-radius: 20px;
+        padding: 15px;
+        text-align: left;
+        font-size: 0.9rem;
+    }
+    
+    /* Форма */
+    .form-label {
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+    
+    .form-label i {
+        color: #0d6efd;
+        margin-right: 5px;
+    }
+    
+    .form-control, .form-select {
+        border: 2px solid #e9ecef;
+        border-radius: 15px;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 5px 20px rgba(13, 110, 253, 0.1);
+        outline: none;
+    }
+    
+    .form-control-lg {
+        padding: 15px 20px;
+        font-size: 1.1rem;
+    }
+    
+    .form-text {
+        color: #6c757d;
+        font-size: 0.85rem;
+        margin-top: 5px;
+    }
+    
+    /* Социальные сети */
+    .social-card {
+        background: #f8faff;
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 15px;
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+    
+    .social-card:hover {
+        background: white;
+        border-color: #0d6efd;
+        transform: translateX(5px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.1);
+    }
+    
+    .social-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .social-title i {
+        color: #0d6efd;
+    }
+    
+    /* Переключатель приватности */
+    .privacy-switch {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        background: #f8faff;
+        border-radius: 20px;
+    }
+    
+    .form-switch .form-check-input {
+        width: 60px;
+        height: 30px;
+        cursor: pointer;
+    }
+    
+    .form-switch .form-check-input:checked {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    
+    .privacy-label {
+        font-weight: 600;
+        color: #1e293b;
+    }
+    
+    .privacy-text {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+    
+    /* Кнопки */
+    .btn-action {
+        padding: 15px 35px;
+        border-radius: 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(13, 110, 253, 0.3);
+        color: white;
+    }
+    
+    .btn-outline-secondary {
+        background: white;
+        color: #6c757d;
+        border: 2px solid #e9ecef;
+    }
+    
+    .btn-outline-secondary:hover {
+        background: #f8faff;
+        border-color: #6c757d;
+        transform: translateY(-3px);
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .edit-header {
+            padding: 30px 0;
+        }
+        
+        .edit-title {
+            font-size: 2rem;
+        }
+        
+        .edit-card {
+            padding: 20px;
+        }
+        
+        .avatar-section {
+            position: static;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Заголовок -->
+<div class="edit-header">
+    <div class="container">
+        <h1 class="edit-title">
+            <i class="bi bi-pencil-square me-3"></i>
+            Редактирование профиля
+        </h1>
+        <p class="edit-subtitle">Заполните информацию о себе, чтобы другие пользователи могли вас узнать</p>
+    </div>
+</div>
+
+<div class="container pb-5">
+    <div class="row">
+        <!-- Левая колонка с аватаркой -->
+        <div class="col-md-4">
+            <div class="avatar-section">
+                <div class="avatar-card">
+                    <div class="avatar-wrapper">
+                        <img src="{{ current_user.profile.avatar_url }}" 
+                             alt="Avatar" 
+                             class="avatar-img"
+                             id="avatarPreview">
+                        
+                        {% if current_user.profile.avatar != 'default-avatar.png' %}
+                        <form action="{{ url_for('profile.delete_avatar') }}" 
+                              method="post" 
+                              class="d-inline">
+                            <button type="submit" class="avatar-delete" onclick="return confirm('Удалить аватарку?');">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
+                    
+                    <h3 class="avatar-name">{{ current_user.full_name }}</h3>
+                    <p class="avatar-username">@{{ current_user.profile.username }}</p>
+                    
+                    <div class="avatar-stats">
+                        <span class="stat-badge level">
+                            <i class="bi bi-trophy me-1"></i> Ур. {{ current_user.profile.level }}
+                        </span>
+                        <span class="stat-badge xp">
+                            <i class="bi bi-star me-1"></i> {{ current_user.profile.xp }} XP
+                        </span>
+                    </div>
+                    
+                    <div class="avatar-note">
+                        <i class="bi bi-info-circle-fill text-primary me-2"></i>
+                        <strong>Важно!</strong><br>
+                        <small>Имя пользователя и email нельзя изменить. Они используются для входа в систему.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Правая колонка с формой -->
+        <div class="col-md-8">
+            <form method="post" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                
+                <!-- Личная информация -->
+                <div class="edit-card">
+                    <div class="edit-card-header">
+                        <div class="edit-card-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <div>
+                            <h2 class="edit-card-title">Личная информация</h2>
+                            <p class="edit-card-subtitle">Основные данные о вас</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                <i class="bi bi-person"></i>Имя
+                            </label>
+                            {{ form.first_name(class="form-control", placeholder="Введите ваше имя") }}
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                <i class="bi bi-person"></i>Фамилия
+                            </label>
+                            {{ form.last_name(class="form-control", placeholder="Введите вашу фамилию") }}
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                <i class="bi bi-gender-ambiguous"></i>Пол
+                            </label>
+                            {{ form.gender(class="form-select") }}
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                <i class="bi bi-calendar"></i>Дата рождения
+                            </label>
+                            {{ form.birth_date(class="form-control", type="date") }}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Контактная информация -->
+                <div class="edit-card">
+                    <div class="edit-card-header">
+                        <div class="edit-card-icon" style="color: #28a745;">
+                            <i class="bi bi-telephone"></i>
+                        </div>
+                        <div>
+                            <h2 class="edit-card-title">Контактная информация</h2>
+                            <p class="edit-card-subtitle">Как с вами связаться</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                <i class="bi bi-phone"></i>Телефон
+                            </label>
+                            {{ form.phone(class="form-control", placeholder="+7 (999) 123-45-67") }}
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                <i class="bi bi-globe"></i>Страна
+                            </label>
+                            {{ form.country(class="form-control", placeholder="Россия") }}
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                <i class="bi bi-building"></i>Город
+                            </label>
+                            {{ form.city(class="form-control", placeholder="Москва") }}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Социальные сети -->
+                <div class="edit-card">
+                    <div class="edit-card-header">
+                        <div class="edit-card-icon" style="color: #17a2b8;">
+                            <i class="bi bi-share"></i>
+                        </div>
+                        <div>
+                            <h2 class="edit-card-title">Социальные сети</h2>
+                            <p class="edit-card-subtitle">Добавьте до 5 ссылок</p>
+                        </div>
+                    </div>
+                    
+                    {% for i in range(1, 6) %}
+                    <div class="social-card">
+                        <div class="social-title">
+                            <i class="bi bi-link-45deg"></i>
+                            Социальная сеть {{ i }}
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Платформа</label>
+                                {{ form['social_' ~ i ~ '_platform'](class="form-select") }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Имя пользователя</label>
+                                {{ form['social_' ~ i ~ '_username'](class="form-control", placeholder="@username") }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Ссылка</label>
+                                {{ form['social_' ~ i ~ '_url'](class="form-control", placeholder="https://...") }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- О себе -->
+                <div class="edit-card">
+                    <div class="edit-card-header">
+                        <div class="edit-card-icon" style="color: #ffc107;">
+                            <i class="bi bi-chat-text"></i>
+                        </div>
+                        <div>
+                            <h2 class="edit-card-title">О себе</h2>
+                            <p class="edit-card-subtitle">Расскажите о своих интересах</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="form-label">Биография</label>
+                        {{ form.bio(class="form-control", rows=5, placeholder="Расскажите о себе...") }}
+                        <div class="form-text">Максимум 500 символов</div>
+                    </div>
+                </div>
+                
+                <!-- Аватарка -->
+                <div class="edit-card">
+                    <div class="edit-card-header">
+                        <div class="edit-card-icon" style="color: #dc3545;">
+                            <i class="bi bi-image"></i>
+                        </div>
+                        <div>
+                            <h2 class="edit-card-title">Аватарка</h2>
+                            <p class="edit-card-subtitle">Загрузите новое фото</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <label class="form-label">Выберите файл</label>
+                            {{ form.avatar(class="form-control", accept="image/*") }}
+                            <div class="form-text">Форматы: JPG, PNG, GIF. Макс. 2MB</div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <img src="{{ current_user.profile.avatar_url }}" 
+                                 alt="Preview" 
+                                 class="rounded-3 border border-3 border-primary"
+                                 style="width: 100px; height: 100px; object-fit: cover;"
+                                 id="preview">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Приватность -->
+                <div class="edit-card">
+                    <div class="edit-card-header">
+                        <div class="edit-card-icon" style="color: #6c757d;">
+                            <i class="bi bi-shield-lock"></i>
+                        </div>
+                        <div>
+                            <h2 class="edit-card-title">Приватность</h2>
+                            <p class="edit-card-subtitle">Настройки видимости профиля</p>
+                        </div>
+                    </div>
+                    
+                    <div class="privacy-switch">
+                        <div class="form-check form-switch">
+                            {{ form.is_public(class="form-check-input", role="switch", id="privacySwitch") }}
+                        </div>
+                        <div>
+                            <div class="privacy-label" id="privacyLabel">
+                                {% if form.is_public.data %}Публичный профиль{% else %}Приватный профиль{% endif %}
+                            </div>
+                            <div class="privacy-text">
+                                {% if form.is_public.data %}
+                                    Ваш профиль видят все пользователи
+                                {% else %}
+                                    Ваш профиль видите только вы и администраторы
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Кнопки -->
+                <div class="d-flex gap-3 justify-content-end">
+                    <a href="{{ url_for('profile.view', username=current_user.profile.username) }}" 
+                       class="btn-action btn-outline-secondary">
+                        <i class="bi bi-x-circle"></i>
+                        Отмена
+                    </a>
+                    <button type="submit" class="btn-action btn-primary">
+                        <i class="bi bi-check-circle"></i>
+                        Сохранить изменения
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// Предпросмотр аватарки
+document.getElementById('avatar')?.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('avatarPreview').src = e.target.result;
+            document.getElementById('preview').src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Обновление текста переключателя приватности
+document.getElementById('privacySwitch')?.addEventListener('change', function(e) {
+    const label = document.getElementById('privacyLabel');
+    const text = this.nextElementSibling;
+    
+    if (this.checked) {
+        label.textContent = 'Публичный профиль';
+        text.textContent = 'Ваш профиль видят все пользователи';
+    } else {
+        label.textContent = 'Приватный профиль';
+        text.textContent = 'Ваш профиль видите только вы и администраторы';
+    }
+});
+</script>
+{% endblock %}

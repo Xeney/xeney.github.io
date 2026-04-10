@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Projects Hub - Все проекты</title>
+    <link rel="stylesheet" href="allProjects__style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="hat">
+        <div class="header__container">
+            <nav class="header__nav">
+                <a href="index.html" class="header__logo"><img src="logo/Logo__White-projects.png" alt="Логотип"></a>
+                <ul class="header__list">
+                    <li class="header__list-item">
+                        <a href="projects.html" class="header__list-link">Каталог проектов</a>
+                    </li>
+                    <li class="header__list-item">
+                        <a href="#about__ID" class="header__list-link">Обратная связь</a>  
+                    </li>
+                    <li class="header__list-item" id="Exit__button">
+                        <a href="/" class="header__button">Выйти</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="profile">
+            <div class="profile__content">
+                <div class="profile__avatar">
+                    <img src="all__projects/avatar.png" alt="Аватар">
+                    <div class="profile__role"><h4>Backend Developer</h4></div>
+                    <div class="profile__edit"><button class="profile__edit-button">Изменить профиль</button></div>
+                </div>
+                <div class="about">
+                    <h1 class="profile__name">Фамилия Имя Отчество</h1>
+                    <h3 class="profile__description">Описание автора Описание автора е авторОписание автораа Описание автора <h3>
+                </div>
+                <div class="social">
+                    <img src="all__projects/vk.svg" alt="">
+                </div>
+                <div class="profile__image"><img src="all__projects/profile__img-space.png" alt=""></div>
+            </div>
+        </section>
+
+        <section class="AddProject">
+            <div class="AddProject__content">
+                <div class="AddProject__text">
+                    <h4 class="text-head">Добавить новый проект</h4>
+                    <h6 class="text-description">Внимание платформа работает в тестовом режиме</h6>
+                </div>
+                <div class="AddProject__add">
+                    <a href="edit.html">
+                        <button class="AddProject__add-button">
+                            <img src="all__projects/plus.png" alt="Добавить проект" class="AddProject__plus-img">
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="cards-container">
+            <!-- Здесь появятся карточки из бекенда -->
+        </section>
+
+        
+
+
+        
+    </main>
+
+
+
+    <footer>
+        <section class="footer">
+            <div class="footer__container">
+                <img src="" alt="">
+                <nav class="footer__nav">
+                    <a href="index.html" class="footer__logo"><img src="logo/Logo__white.png" alt="Логотип"></a>
+                    <ul class="footer__list">
+                        <li class="footer__list-item">
+                            <a href="#about__ID" class="footer__list-link">О проекте </a>  
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="#team__ID" class="footer__list-link">Команда </a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="#feedback__ID" class="footer__list-link">Примеры проектов</a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="#means__ID" class="footer__list-link">Отзывы </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer__content"></div>
+
+        </section>
+    </footer>
+
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Открытие/закрытие меню
+            const menuButtons = document.querySelectorAll('.Card__menu-button');
+
+            menuButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const dropdown = this.nextElementSibling;
+                    dropdown.classList.toggle('show');
+                });
+            });
+
+            // Закрытие меню при клике вне
+            document.addEventListener('click', function () {
+                document.querySelectorAll('.Card__dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('show');
+                });
+            });
+
+            // Действия меню
+            document.querySelectorAll('.Card__dropdown-item').forEach(item => {
+                item.addEventListener('click', function () {
+                    if (this.classList.contains('delete')) {
+                        if (confirm('Удалить эту карточку?')) {
+                            this.closest('.Card__Content').remove();
+                        }
+                    } else {
+                        alert('Редактирование (будет реализовано)');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script src="projects.js"></script>
+
+</body>
+</html>

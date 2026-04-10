@@ -1,0 +1,707 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Анимации */
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+    
+    /* Основной контейнер */
+    .profile-main {
+        padding: 3rem 0;
+        min-height: calc(100vh - 300px);
+    }
+    
+    /* Верхняя карточка профиля */
+    .profile-header-card {
+        background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
+        border-radius: 40px;
+        padding: 3rem;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+        animation: slideInUp 0.6s ease-out;
+        border: none;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    }
+    
+    .profile-header-card::before {
+        content: '';
+        position: absolute;
+        top: -30%;
+        right: -5%;
+        width: 300px;
+        height: 300px;
+        background: rgba(13, 110, 253, 0.05);
+        border-radius: 50%;
+        transform: rotate(15deg);
+        animation: pulse 4s ease-in-out infinite;
+    }
+    
+    .avatar-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .profile-avatar {
+        width: 180px;
+        height: 180px;
+        border-radius: 40px;
+        object-fit: cover;
+        border: 4px solid white;
+        box-shadow: 0 20px 40px rgba(13, 110, 253, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .profile-avatar:hover {
+        transform: scale(1.05) rotate(5deg);
+    }
+    
+    .admin-badge {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #dc3545, #b02a37);
+        border: 3px solid white;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3);
+    }
+    
+    .profile-name {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+    }
+    
+    .profile-username {
+        font-size: 1.2rem;
+        color: #6c757d;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .profile-bio {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 1.25rem;
+        margin: 1.25rem 0;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    
+    .stats-wrapper {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .stat-item {
+        background: white;
+        border-radius: 20px;
+        padding: 0.75rem 1.5rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #f8faff, #f0f4ff);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        color: #0d6efd;
+    }
+    
+    .stat-info h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0;
+        line-height: 1.2;
+    }
+    
+    .stat-info p {
+        color: #6c757d;
+        margin: 0;
+        font-size: 0.85rem;
+    }
+    
+    .btn-edit {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .btn-edit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(13, 110, 253, 0.3);
+        color: white;
+    }
+    
+    /* Карточки информации */
+    .info-card {
+        background: white;
+        border-radius: 30px;
+        padding: 1.5rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(13, 110, 253, 0.1);
+        height: 100%;
+        transition: all 0.3s ease;
+        animation: slideInUp 0.6s ease-out;
+    }
+    
+    .info-card:hover {
+        box-shadow: 0 25px 50px rgba(13, 110, 253, 0.1);
+        border-color: #0d6efd;
+    }
+    
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .card-title i {
+        color: #0d6efd;
+        font-size: 1.3rem;
+    }
+    
+    .info-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .info-list li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    
+    .info-list li:last-child {
+        border-bottom: none;
+    }
+    
+    .info-list i {
+        width: 20px;
+        color: #0d6efd;
+        font-size: 1rem;
+    }
+    
+    /* Социальные сети внутри личной информации */
+    .social-section {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 2px solid #f1f5f9;
+    }
+    
+    .social-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .social-title i {
+        color: #0d6efd;
+        font-size: 1rem;
+    }
+    
+    .social-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .social-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 0.5rem;
+        background: #f8faff;
+        border-radius: 10px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+    }
+    
+    .social-link:hover {
+        background: white;
+        border-color: #0d6efd;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(13, 110, 253, 0.1);
+    }
+    
+    .social-icon {
+        width: 24px;
+        height: 24px;
+        background: white;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        color: #0d6efd;
+        flex-shrink: 0;
+    }
+    
+    .social-info {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .social-platform {
+        font-weight: 600;
+        color: #1e293b;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2;
+    }
+    
+    .social-username {
+        font-size: 0.65rem;
+        color: #6c757d;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2;
+    }
+    
+    /* Таблица прогресса */
+    .progress-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+    }
+    
+    .progress-table th {
+        background: #f8faff;
+        padding: 0.6rem;
+        font-weight: 600;
+        color: #1e293b;
+        font-size: 0.85rem;
+    }
+    
+    .progress-table td {
+        padding: 0.6rem;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    
+    .progress-table tr:hover td {
+        background: #f8faff;
+    }
+    
+    .xp-badge {
+        background: #d4edda;
+        color: #28a745;
+        padding: 0.2rem 0.6rem;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.75rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+    
+    /* Пустое состояние */
+    .empty-state {
+        text-align: center;
+        padding: 2rem 1rem;
+        background: #f8faff;
+        border-radius: 20px;
+    }
+    
+    .empty-state i {
+        font-size: 2.5rem;
+        color: #0d6efd;
+        opacity: 0.3;
+        margin-bottom: 0.75rem;
+    }
+    
+    .empty-state h4 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+    }
+    
+    .empty-state p {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-bottom: 0;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .profile-header-card {
+            padding: 1.5rem;
+        }
+        
+        .profile-name {
+            font-size: 2rem;
+        }
+        
+        .stats-wrapper {
+            flex-direction: column;
+        }
+        
+        .stat-item {
+            width: 100%;
+        }
+        
+        .social-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="profile-main">
+    <div class="container">
+        <!-- Верхняя часть профиля -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="profile-header-card">
+                    <div class="row align-items-center">
+                        <div class="col-md-3 text-center mb-4 mb-md-0">
+                            <div class="avatar-wrapper">
+                                <img src="{{ profile_user.profile.avatar_url }}" 
+                                     alt="Avatar" 
+                                     class="profile-avatar">
+                                {% if profile_user.is_admin() %}
+                                <span class="admin-badge">
+                                    <i class="bi bi-shield-fill-check"></i>
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h1 class="profile-name">{{ profile_user.full_name }}</h1>
+                            <div class="profile-username">
+                                <i class="bi bi-at"></i>{{ profile_user.profile.username }}
+                            </div>
+                            
+                            {% if profile_user.profile.bio %}
+                            <div class="profile-bio">
+                                {{ profile_user.profile.bio }}
+                            </div>
+                            {% endif %}
+                            
+                            <div class="stats-wrapper">
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="bi bi-trophy"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h3>{{ profile_user.profile.level }}</h3>
+                                        <p>Уровень</p>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="bi bi-star"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h3>{{ profile_user.profile.xp }}</h3>
+                                        <p>XP</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-md-end">
+                            {% if current_user.is_authenticated and current_user.id == profile_user.id %}
+                            <a href="{{ url_for('profile.edit') }}" class="btn-edit">
+                                <i class="bi bi-pencil-square"></i>
+                                Редактировать
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основная информация -->
+        <div class="row">
+            <!-- Левая колонка - Личная информация + Соцсети -->
+            <div class="col-md-4">
+                <div class="info-card" style="height: auto;">
+                    <h5 class="card-title">
+                        <i class="bi bi-info-circle"></i>
+                        Личная информация
+                    </h5>
+                    
+                    <ul class="info-list">
+                        {% if profile_user.profile.first_name or profile_user.profile.last_name %}
+                        <li>
+                            <i class="bi bi-person"></i>
+                            <strong>{{ profile_user.profile.first_name }} {{ profile_user.profile.last_name }}</strong>
+                        </li>
+                        {% endif %}
+                        
+                        {% if profile_user.profile.gender %}
+                        <li>
+                            <i class="bi bi-gender-{{ profile_user.profile.gender }}"></i>
+                            {{ profile_user.profile.gender_display }}
+                        </li>
+                        {% endif %}
+                        
+                        {% if profile_user.profile.age %}
+                        <li>
+                            <i class="bi bi-calendar-heart"></i>
+                            {{ profile_user.profile.age }} лет
+                        </li>
+                        {% endif %}
+                        
+                        {% if profile_user.profile.country or profile_user.profile.city %}
+                        <li>
+                            <i class="bi bi-geo-alt"></i>
+                            {% if profile_user.profile.city %}{{ profile_user.profile.city }}{% endif %}
+                            {% if profile_user.profile.city and profile_user.profile.country %}, {% endif %}
+                            {% if profile_user.profile.country %}{{ profile_user.profile.country }}{% endif %}
+                        </li>
+                        {% endif %}
+                        
+                        {% if profile_user.profile.phone %}
+                        <li>
+                            <i class="bi bi-telephone"></i>
+                            {{ profile_user.profile.phone }}
+                        </li>
+                        {% endif %}
+                        
+                        <li>
+                            <i class="bi bi-envelope"></i>
+                            {{ profile_user.email }}
+                        </li>
+                        
+                        <li>
+                            <i class="bi bi-calendar-check"></i>
+                            С нами с {{ profile_user.created_at.strftime('%d.%m.%Y') }}
+                        </li>
+                    </ul>
+
+                    <style>
+                        /* Увеличенные кнопки для соцсетей */
+                        .social-grid {
+                            display: grid;
+                            grid-template-columns: repeat(1, 1fr);
+                            gap: 0.5rem;
+                        }
+
+                        .social-link {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                            padding: 0.6rem 1rem;
+                            background: #f8faff;
+                            border-radius: 12px;
+                            text-decoration: none;
+                            transition: all 0.2s ease;
+                            border: 1px solid transparent;
+                            width: 100%;
+                        }
+
+                        .social-icon {
+                            width: 36px;
+                            height: 36px;
+                            background: white;
+                            border-radius: 8px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.2rem;
+                            color: #0d6efd;
+                            flex-shrink: 0;
+                            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+                        }
+
+                        .social-info {
+                            flex: 1;
+                            min-width: 0;
+                        }
+
+                        .social-platform {
+                            font-weight: 600;
+                            color: #1e293b;
+                            font-size: 0.9rem;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            line-height: 1.3;
+                        }
+
+                        .social-username {
+                            font-size: 0.75rem;
+                            color: #6c757d;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            line-height: 1.2;
+                        }
+
+                        /* Для экранов побольше - две колонки */
+                        @media (min-width: 768px) {
+                            .social-grid {
+                                grid-template-columns: repeat(2, 1fr);
+                            }
+                        }
+                    </style>
+                    <!-- Социальные сети внутри личной информации -->
+                    {% if profile_user.profile.social_links %}
+                    <div class="social-section">
+                        <div class="social-title">
+                            <i class="bi bi-share"></i>
+                            Социальные сети
+                        </div>
+                        
+                        <div class="social-grid">
+                            {% for link in profile_user.profile.social_links %}
+                            <a href="{{ link.url }}" target="_blank" class="social-link">
+                                <div class="social-icon">
+                                    {% if link.platform == 'telegram' %}
+                                        <i class="bi bi-telegram"></i>
+                                    {% elif link.platform == 'github' %}
+                                        <i class="bi bi-github"></i>
+                                    {% elif link.platform == 'gitlab' %}
+                                        <i class="bi bi-gitlab"></i>
+                                    {% elif link.platform == 'linkedin' %}
+                                        <i class="bi bi-linkedin"></i>
+                                    {% elif link.platform == 'twitter' %}
+                                        <i class="bi bi-twitter-x"></i>
+                                    {% elif link.platform == 'instagram' %}
+                                        <i class="bi bi-instagram"></i>
+                                    {% elif link.platform == 'facebook' %}
+                                        <i class="bi bi-facebook"></i>
+                                    {% elif link.platform == 'youtube' %}
+                                        <i class="bi bi-youtube"></i>
+                                    {% elif link.platform == 'discord' %}
+                                        <i class="bi bi-discord"></i>
+                                    {% elif link.platform == 'twitch' %}
+                                        <i class="bi bi-twitch"></i>
+                                    {% elif link.platform == 'tiktok' %}
+                                        <i class="bi bi-tiktok"></i>
+                                    {% elif link.platform == 'vk' %}
+                                        <i class="bi bi-vk"></i>
+                                    {% else %}
+                                        <i class="bi bi-link-45deg"></i>
+                                    {% endif %}
+                                </div>
+                                <div class="social-info">
+                                    <div class="social-platform">{{ link.platform_display }}</div>
+                                    <div class="social-username">@{{ link.username }}</div>
+                                </div>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Правая колонка - Прогресс -->
+            <div class="col-md-8">
+                <!-- Прогресс -->
+                <div class="info-card">
+                    <h5 class="card-title">
+                        <i class="bi bi-graph-up"></i>
+                        Прогресс обучения
+                    </h5>
+
+                    {% if profile_user.profile.is_public or (current_user.is_authenticated and current_user.id == profile_user.id) %}
+                        {% if completed_steps %}
+                        <div class="table-responsive">
+                            <table class="progress-table">
+                                <thead>
+                                    <tr>
+                                        <th>Шаг</th>
+                                        <th>Путь</th>
+                                        <th class="text-end">XP</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for step in completed_steps[:5] %}
+                                    <tr>
+                                        <td>{{ step.title }}</td>
+                                        <td>{{ step.stage.path.title }}</td>
+                                        <td class="text-end">
+                                            <span class="xp-badge">
+                                                <i class="bi bi-star-fill"></i>
+                                                +{{ step.xp_reward }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="empty-state">
+                            <i class="bi bi-journal"></i>
+                            <h4>Пока нет пройденных шагов</h4>
+                            <p class="mb-0">Начните обучение, чтобы увидеть прогресс</p>
+                        </div>
+                        {% endif %}
+                    {% else %}
+                    <div class="empty-state">
+                        <i class="bi bi-incognito"></i>
+                        <h4>Профиль скрыт</h4>
+                        <p class="mb-0">Пользователь ограничил доступ к своей информации</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

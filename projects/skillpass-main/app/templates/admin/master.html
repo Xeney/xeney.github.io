@@ -1,0 +1,358 @@
+{% extends 'admin/base.html' %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Стили как на странице входа */
+    .admin-wrapper {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    }
+
+    .admin-navbar {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        padding: 1rem 0;
+        box-shadow: 0 2px 20px rgba(13, 110, 253, 0.2);
+    }
+
+    .admin-navbar .navbar-brand {
+        color: white;
+        font-weight: 700;
+        font-size: 1.5rem;
+        text-decoration: none;
+    }
+
+    .admin-navbar .nav-link {
+        color: rgba(255,255,255,0.9);
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+        transition: all 0.2s ease;
+        text-decoration: none;
+    }
+
+    .admin-navbar .nav-link:hover {
+        color: white;
+        background: rgba(255,255,255,0.1);
+    }
+
+    .admin-sidebar {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        margin: 20px;
+        padding: 25px 20px;
+        height: fit-content;
+        border: 1px solid #e9ecef;
+    }
+
+    .admin-sidebar .user-info {
+        padding-bottom: 25px;
+        margin-bottom: 25px;
+        border-bottom: 1px solid #e9ecef;
+        display: flex;
+        align-items: center;
+    }
+
+    .admin-sidebar .user-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 18px;
+        object-fit: cover;
+        border: 3px solid #0d6efd;
+        margin-right: 20px;
+    }
+
+    .admin-sidebar .user-details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .admin-sidebar .user-name {
+        font-weight: 700;
+        color: #1e293b;
+        font-size: 1.1rem;
+        margin-bottom: 4px;
+    }
+
+    .admin-sidebar .user-role {
+        color: #6c757d;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .admin-sidebar .user-role i {
+        color: #0d6efd;
+        margin-right: 6px;
+        font-size: 0.9rem;
+    }
+
+    .admin-sidebar .nav-section {
+        margin-bottom: 25px;
+    }
+
+    .admin-sidebar .nav-section:last-child {
+        margin-bottom: 0;
+    }
+
+    .admin-sidebar .nav-section-title {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #94a3b8;
+        font-weight: 600;
+        margin-bottom: 12px;
+        padding-left: 15px;
+    }
+
+    .admin-sidebar .nav-link {
+        color: #475569;
+        padding: 12px 15px;
+        border-radius: 12px;
+        margin-bottom: 4px;
+        transition: all 0.2s ease;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .admin-sidebar .nav-link i {
+        margin-right: 15px;
+        width: 20px;
+        color: #64748b;
+        font-size: 1.1rem;
+    }
+
+    .admin-sidebar .nav-link:hover {
+        background: #f1f5f9;
+        color: #0d6efd;
+    }
+
+    .admin-sidebar .nav-link:hover i {
+        color: #0d6efd;
+    }
+
+    .admin-sidebar .nav-link.active {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        color: white;
+    }
+
+    .admin-sidebar .nav-link.active i {
+        color: white;
+    }
+
+    .admin-content {
+        padding: 20px 20px 20px 0;
+    }
+
+    .admin-content .card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: 1px solid #e9ecef;
+        margin-bottom: 20px;
+    }
+
+    .admin-content .card-header {
+        background: white;
+        border-bottom: 1px solid #e9ecef;
+        padding: 1.2rem 1.5rem;
+        border-radius: 20px 20px 0 0;
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    .admin-content .table {
+        margin-bottom: 0;
+    }
+
+    .admin-content .table thead th {
+        background: #f8fafc;
+        border-bottom: 2px solid #e9ecef;
+        color: #475569;
+        font-weight: 600;
+        padding: 1rem;
+    }
+
+    .admin-content .table td {
+        padding: 1rem;
+        vertical-align: middle;
+        color: #1e293b;
+    }
+
+    .admin-content .badge {
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+        font-weight: 500;
+    }
+
+    .admin-content .btn {
+        border-radius: 12px;
+        padding: 0.5rem 1.2rem;
+        font-weight: 500;
+    }
+
+    .admin-content .btn-primary {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        border: none;
+    }
+
+    .admin-content .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+    }
+
+    .alert {
+        border-radius: 15px;
+        border: none;
+        padding: 1rem 1.5rem;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block page_body %}
+<div class="admin-wrapper">
+    <!-- Верхняя навигация -->
+    <nav class="admin-navbar">
+        <div class="container-fluid px-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <a class="navbar-brand" href="{{ url_for('admin.index') }}">
+                    <i class="bi bi-shield-lock-fill me-2"></i>SkillPass Admin
+                </a>
+                
+                <div class="d-flex align-items-center gap-3">
+                    <a href="{{ url_for('main.index') }}" class="nav-link" target="_blank">
+                        <i class="bi bi-box-arrow-up-right me-1"></i>На сайт
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid px-4">
+        <div class="row">
+            <!-- Боковое меню -->
+            <div class="col-lg-2">
+                <div class="admin-sidebar">
+                    <div class="user-info">
+                        <img src="{{ current_user.profile.avatar_url }}" 
+                             alt="Avatar" 
+                             class="user-avatar">
+                        <div class="user-details">
+                            <div class="user-name">{{ current_user.full_name }}</div>
+                            <div class="user-role">
+                                <i class="bi bi-shield-fill-check"></i>
+                                Администратор
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Главная -->
+                    <div class="nav-section">
+                        <div class="nav-section-title">Главная</div>
+                        <a href="{{ url_for('admin.index') }}" class="nav-link {% if request.endpoint == 'admin.index' %}active{% endif %}">
+                            <i class="bi bi-speedometer2"></i>
+                            Дашборд
+                        </a>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-title">Конструктор</div>
+                        <a href="{{ url_for('constructor.index') }}" class="nav-link">
+                            <i class="bi bi-tools"></i>
+                            Конструктор путей
+                        </a>
+                    </div>
+                    
+                    <!-- Управление -->
+                    <div class="nav-section">
+                        <div class="nav-section-title">Управление</div>
+                        <a href="{{ url_for('admin_users.index_view') }}" class="nav-link {% if request.endpoint == 'admin_users.index_view' %}active{% endif %}">
+                            <i class="bi bi-people"></i>
+                            Пользователи
+                        </a>
+                        <a href="{{ url_for('admin_profiles.index_view') }}" class="nav-link {% if request.endpoint == 'admin_profiles.index_view' %}active{% endif %}">
+                            <i class="bi bi-person-badge"></i>
+                            Профили
+                        </a>
+                    </div>
+                    
+                    <!-- Обучение -->
+                    <div class="nav-section">
+                        <div class="nav-section-title">Обучение</div>
+                        <a href="{{ url_for('admin_paths.index_view') }}" class="nav-link {% if request.endpoint == 'admin_paths.index_view' %}active{% endif %}">
+                            <i class="bi bi-diagram-3"></i>
+                            Пути
+                        </a>
+                        <a href="{{ url_for('admin_stages.index_view') }}" class="nav-link {% if request.endpoint == 'admin_stages.index_view' %}active{% endif %}">
+                            <i class="bi bi-layers"></i>
+                            Этапы
+                        </a>
+                        <a href="{{ url_for('admin_steps.index_view') }}" class="nav-link {% if request.endpoint == 'admin_steps.index_view' %}active{% endif %}">
+                            <i class="bi bi-list-check"></i>
+                            Шаги
+                        </a>
+                    </div>
+                    
+                    <!-- Тестирование -->
+                    <div class="nav-section">
+                        <div class="nav-section-title">Тестирование</div>
+                        <a href="{{ url_for('admin_tests.index_view') }}" class="nav-link {% if request.endpoint == 'admin_tests.index_view' %}active{% endif %}">
+                            <i class="bi bi-question-circle"></i>
+                            Тесты
+                        </a>
+                        <a href="{{ url_for('admin_questions.index_view') }}" class="nav-link {% if request.endpoint == 'admin_questions.index_view' %}active{% endif %}">
+                            <i class="bi bi-patch-question"></i>
+                            Вопросы
+                        </a>
+                        <a href="{{ url_for('admin_answers.index_view') }}" class="nav-link {% if request.endpoint == 'admin_answers.index_view' %}active{% endif %}">
+                            <i class="bi bi-check2-circle"></i>
+                            Ответы
+                        </a>
+                    </div>
+                    
+                    <!-- Статистика -->
+                    <div class="nav-section">
+                        <div class="nav-section-title">Статистика</div>
+                        <a href="{{ url_for('admin_xp_logs.index_view') }}" class="nav-link {% if request.endpoint == 'admin_xp_logs.index_view' %}active{% endif %}">
+                            <i class="bi bi-graph-up"></i>
+                            Логи XP
+                        </a>
+                        <a href="{{ url_for('admin_saved_paths.index_view') }}" class="nav-link {% if request.endpoint == 'admin_saved_paths.index_view' %}active{% endif %}">
+                            <i class="bi bi-bookmark"></i>
+                            Сохранения
+                        </a>
+                        <a href="{{ url_for('admin_user_answers.index_view') }}" class="nav-link {% if request.endpoint == 'admin_user_answers.index_view' %}active{% endif %}">
+                            <i class="bi bi-chat"></i>
+                            Ответы пользователей
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Основной контент -->
+            <div class="col-lg-10">
+                <div class="admin-content">
+                    <!-- Flash сообщения -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category if category != 'message' else 'info' }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

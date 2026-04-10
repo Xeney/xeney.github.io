@@ -1,0 +1,728 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Анимации */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Герой секция */
+    .hero-section {
+        position: relative;
+        background: linear-gradient(135deg, #343a40 0%, #212529 100%);
+        color: white;
+        padding: 100px 0;
+        overflow: hidden;
+        border-radius: 0 0 60px 60px;
+        margin-bottom: 60px;
+    }
+    
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 600px;
+        height: 600px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(15deg);
+        animation: float 8s ease-in-out infinite;
+    }
+    
+    .hero-section::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        left: -10%;
+        width: 700px;
+        height: 700px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(-15deg);
+        animation: float 10s ease-in-out infinite reverse;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+        opacity: 0.95;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    /* Содержание */
+    .terms-section {
+        padding: 60px 0;
+        background: white;
+    }
+    
+    .terms-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    .terms-card {
+        background: white;
+        border-radius: 60px;
+        padding: 60px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e9ecef;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .terms-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f1f5f9;
+    }
+    
+    .terms-version {
+        display: inline-block;
+        padding: 8px 20px;
+        background: #f8faff;
+        border-radius: 30px;
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+    
+    .terms-date {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+    
+    .print-btn {
+        background: #f8faff;
+        border: 1px solid #e9ecef;
+        border-radius: 15px;
+        padding: 10px 20px;
+        color: #1e293b;
+        transition: all 0.3s ease;
+    }
+    
+    .print-btn:hover {
+        background: #0d6efd;
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .terms-section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 40px 0 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .terms-section-title:first-of-type {
+        margin-top: 0;
+    }
+    
+    .terms-section-number {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 1.5rem;
+    }
+    
+    .terms-subtitle {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin: 25px 0 15px;
+    }
+    
+    .terms-text {
+        color: #6c757d;
+        line-height: 1.8;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+    }
+    
+    .terms-list {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+    }
+    
+    .terms-list li {
+        padding: 10px 0;
+        padding-left: 30px;
+        position: relative;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    
+    .terms-list li::before {
+        content: '✓';
+        color: #28a745;
+        font-weight: bold;
+        position: absolute;
+        left: 5px;
+        top: 8px;
+    }
+    
+    .terms-highlight {
+        background: #f8faff;
+        border-radius: 20px;
+        padding: 25px;
+        margin: 30px 0;
+        border: 1px solid #e9ecef;
+    }
+    
+    .terms-highlight.warning {
+        background: #fff3cd;
+        border-color: #ffc107;
+    }
+    
+    .terms-highlight.info {
+        background: #d1ecf1;
+        border-color: #17a2b8;
+    }
+    
+    .terms-definition {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 15px;
+        align-items: start;
+        margin: 20px 0;
+        padding: 15px;
+        background: #f8faff;
+        border-radius: 20px;
+    }
+    
+    .terms-term {
+        font-weight: 700;
+        color: #0d6efd;
+        min-width: 120px;
+    }
+    
+    .terms-definition p {
+        margin: 0;
+        color: #6c757d;
+    }
+    
+    .rights-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+    }
+    
+    .rights-card {
+        background: #f8faff;
+        border-radius: 30px;
+        padding: 25px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    .rights-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(13, 110, 253, 0.1);
+    }
+    
+    .rights-icon {
+        width: 60px;
+        height: 60px;
+        background: white;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        font-size: 1.5rem;
+        color: #0d6efd;
+    }
+    
+    .rights-title {
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 10px;
+    }
+    
+    .rights-text {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+        
+        .terms-card {
+            padding: 30px 20px;
+        }
+        
+        .terms-section-title {
+            font-size: 1.5rem;
+        }
+        
+        .terms-section-number {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Герой секция -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title">Пользовательское соглашение</h1>
+            <p class="hero-subtitle">Правила использования платформы SkillPass</p>
+        </div>
+    </div>
+</section>
+
+<!-- Содержание -->
+<section class="terms-section">
+    <div class="container">
+        <div class="terms-container">
+            <div class="terms-card">
+                <div class="terms-header">
+                    <div>
+                        <span class="terms-version">Версия 2.0</span>
+                        <span class="terms-date">Последнее обновление: 3 марта 2026 г.</span>
+                    </div>
+                    <button onclick="window.print()" class="print-btn">
+                        <i class="bi bi-printer me-2"></i>Распечатать
+                    </button>
+                </div>
+                
+                <!-- Термины и определения -->
+                <section>
+                    <h2 class="terms-section-title">
+                        <span class="terms-section-number">1</span>
+                        Термины и определения
+                    </h2>
+                    
+                    <div class="terms-definition">
+                        <span class="terms-term">Платформа</span>
+                        <p>веб-сайт SkillPass, доступный по адресу skillpass.ru, предоставляющий услуги по структурированному обучению.</p>
+                    </div>
+                    
+                    <div class="terms-definition">
+                        <span class="terms-term">Пользователь</span>
+                        <p>лицо, прошедшее регистрацию на Платформе и использующее её функционал.</p>
+                    </div>
+                    
+                    <div class="terms-definition">
+                        <span class="terms-term">Администрация</span>
+                        <p>владельцы и разработчики Платформы, осуществляющие управление и поддержку.</p>
+                    </div>
+                    
+                    <div class="terms-definition">
+                        <span class="terms-term">Аккаунт</span>
+                        <p>учетная запись Пользователя, содержащая его персональные данные и прогресс обучения.</p>
+                    </div>
+                    
+                    <div class="terms-definition">
+                        <span class="terms-term">Контент</span>
+                        <p>все материалы, размещенные на Платформе, включая тексты, изображения, видео, тесты.</p>
+                    </div>
+                    
+                    <div class="terms-definition">
+                        <span class="terms-term">XP (опыт)</span>
+                        <p>очки опыта, начисляемые за прохождение шагов и тестов.</p>
+                    </div>
+                </section>
+                
+                <!-- Общие положения -->
+                <section>
+                    <h2 class="terms-section-title">
+                        <span class="terms-section-number">2</span>
+                        Общие положения
+                    </h2>
+                    
+                    <p class="terms-text">
+                        2.1. Настоящее Пользовательское соглашение (далее — «Соглашение») регулирует отношения между 
+                        Администрацией и Пользователем по использованию Платформы.
+                    </p>
+                    
+                    <p class="terms-text">
+                        2.2. Использование Платформы регулируется настоящим Соглашением, Политикой конфиденциальности 
+                        и применимым законодательством Российской Федерации.
+                    </p>
+                    
+                    <div class="terms-highlight">
+                        <p class="mb-0">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                            Регистрируясь на Платформе, Пользователь подтверждает, что ознакомлен с условиями Соглашения 
+                            и принимает их безоговорочно.
+                        </p>
+                    </div>
+                    
+                    <p class="terms-text">
+                        2.3. Администрация оставляет за собой право вносить изменения в Соглашение с обязательным 
+                        уведомлением Пользователей не менее чем за 14 дней до вступления изменений в силу.
+                    </p>
+                    
+                    <p class="terms-text">
+                        2.4. Продолжение использования Платформы после вступления изменений в силу означает согласие 
+                        с новой редакцией Соглашения.
+                    </p>
+                </section>
+                
+                <!-- Регистрация и аккаунт -->
+                <section>
+                    <h2 class="terms-section-title">
+                        <span class="terms-section-number">3</span>
+                        Регистрация и аккаунт
+                    </h2>
+                    
+                    <ul class="terms-list">
+                        <li>Для использования полного функционала Платформы необходима регистрация.</li>
+                        <li>При регистрации Пользователь обязуется предоставлять достоверную информацию.</li>
+                        <li>Пользователь несет ответственность за сохранность своих учетных данных.</li>
+                        <li>Запрещена передача доступа к аккаунту третьим лицам.</li>
+                        <li>В случае утери доступа Пользователь может восстановить его через электронную почту.</li>
+                    </ul>
+                    
+                    <div class="terms-highlight warning">
+                        <p class="mb-0">
+                            <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+                            Администрация не несет ответственности за ущерб, причиненный в результате несанкционированного 
+                            доступа к аккаунту Пользователя.
+                        </p>
+                    </div>
+                </section>
+                
+                <!-- Права и обязанности -->
+                <section>
+                    <h2 class="terms-section-title">
+                        <span class="terms-section-number">4</span>
+                        Права и обязанности
+                    </h2>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="rights-card">
+                                <div class="rights-icon">
+                                    <i class="bi bi-check-circle text-success"></i>
+                                </div>
+                                <h4 class="rights-title">Права Пользователя</h4>
+                                <ul class="text-start">
+                                    <li>Просматривать материалы</li>
+                                    <li>Проходить тесты</li>
+                                    <li>Отслеживать прогресс</li>
+                                    <li>Редактировать профиль</li>
+                                    <li>Удалить аккаунт</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="rights-card">
+                                <div class="rights-icon">
+                                    <i class="bi bi-shield-check text-primary"></i>
+                                </div>
+                                <h4 class="rights-title">Обязанности Пользователя</h4>
+                                <ul class="text-start">
+                                    <li>Предоставлять достоверные данные</li>
+                                    <li>Не передавать доступ</li>
+                                    <li>Не нарушать работу</li>
+                                    <li>Не копировать материалы</li>
+                                    <li>Не использовать ботов</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-4 mt-2">
+                        <div class="col-md-6">
+                            <div class="rights-card">
+                                <div class="rights-icon">
+                                    <i class="bi bi-gear text-warning"></i>
+                                </div>
+                                <h4 class="rights-title">Права Администрации</h4>
+                                <ul class="text-start">
+                                    <li>Блокировать аккаунты</li>
+                                    <li>Изменять материалы</li>
+                                    <li>Проводить техработы</li>
+                                    <li>Удалять неактивные аккаунты</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="rights-card">
+                                <div class="rights-icon">
+                                    <i class="bi bi-shield text-danger"></i>
+                                </div>
+                                <h4 class="rights-title">Обязанности Администрации</h4>
+                                <ul class="text-start">
+                                    <li>Обеспечивать доступ</li>
+                                    <li>Защищать данные</li>
+                                    <li>Предоставлять поддержку</li>
+                                    <li>Уведомлять об изменениях</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Интеллектуальная собственность -->
+                <section>
+                    <h2 class="terms-section-title">
+                        <span class="terms-section-number">5</span>
+                        Интеллектуальная собственность
+                    </h2>
+                    
+                    <p class="terms-text">
+                        5.1. Все материалы, размещенные на Платформе, являются интеллектуальной собственностью Администрации 
+                        и защищены авторским правом.
+                    </p>
+                    
+                    <p class="terms-text">
+                        5.2. Пользователь может использовать материалы исключительно в личных некоммерческих целях.
+                    </p>
+                    
+                    <p class="terms-text">
+                        5.3. Запрещено копирование, распространение, публичный показ или модификация материалов без 
+                        письменного согласия Администрации.
+                    </p>
+                    
+                    <p class="terms-text">
+                        5.4. Пользователь сохраняет права на созданный им контент (комментарии, посты в обсуждениях), 
+                        но предоставляет Администрации право на его использование.
+                    </p>
+                </section>
+                
+                <!-- Система прогресса и XP -->
+                <section>
+                    <h2 class="terms-section-title">
+                        <span class="terms-section-number">6</span>
+                        Система прогресса и XP
+                    </h2>
+                    
+                    <p class="terms-text">
+                        6.1. XP (очки опыта) начисляются за прохождение теоретических шагов и успешную сдачу тестов.
+                    </p>
+                    
+                    <p class="terms-text">
+                        6.2. Количество начисляемых XP определяется Администрацией и может меняться для улучшения баланса.
+                    </p>
+                    
+                    <p class="terms-text">
+                        6.3. Уровень Пользователя рассчитывается автоматически на основе накопленного опыта по формуле: 
+                        <code>Level = √XP + 1</code>.
+                    </p>
+                    
+                    <div class="terms-highlight info">
+                        <p class="mb-0">
+                            <i class="bi bi-info-circle-fill text-info me-2"></i>
+                            Администрация не несет ответственности за временные сбои в начислении XP при технических работах. 
+                            Все данные восстанавливаются после завершения работ.
+                        </p>
+                    </div>
+                </section>
+                
+                <!-- Ответственность -->
+                <section>
+                    <h2 class="terms-section-title">
+                        <span class="terms-section-number">7</span>
+                        Ответственность сторон
+                    </h2>
+                    
+                    <p class="terms-text">
+                        7.1. Пользователь несет ответственность за сохранность своих учетных данных и все действия, 
+                        совершенные с его аккаунта.
+                    </p>
+                    
+                    <p class="terms-text">
+                        7.2. Администрация не несет ответственности за прямой или косвенный ущерб, возникший в результате 
+                        использования или невозможности использования Платформы.
+                    </p>
+                    
+                    <p class="terms-text">
+                        7.3. При нарушении правил Соглашения Администрация вправе заблокировать аккаунт Пользователя 
+                        без возможности восстановления прогресса.
+                    </p>
+                    
+                    <p class="terms-text">
+                        7.4. Администрация не отвечает за временные сбои в работе Платформы, связанные с проведением 
+                        технических работ или действиями третьих лиц.
+                    </p>
+                </section>
+                
+                <!-- Разрешение споров -->
+                <section>
+                    <h2 class="terms-section-title">
+                        <span class="terms-section-number">8</span>
+                        Разрешение споров
+                    </h2>
+                    
+                    <p class="terms-text">
+                        8.1. Все споры решаются путем переговоров между сторонами.
+                    </p>
+                    
+                    <p class="terms-text">
+                        8.2. При невозможности достижения согласия споры передаются в судебные органы по месту 
+                        нахождения Администрации в соответствии с законодательством Российской Федерации.
+                    </p>
+                    
+                    <p class="terms-text">
+                        8.3. Досудебный порядок урегулирования споров является обязательным. Срок ответа на претензию — 
+                        30 календарных дней.
+                    </p>
+                </section>
+                
+                <!-- Срок действия и расторжение -->
+                <section>
+                    <h2 class="terms-section-title">
+                        <span class="terms-section-number">9</span>
+                        Срок действия и расторжение
+                    </h2>
+                    
+                    <p class="terms-text">
+                        9.1. Соглашение вступает в силу с момента регистрации Пользователя на Платформе.
+                    </p>
+                    
+                    <p class="terms-text">
+                        9.2. Пользователь может расторгнуть Соглашение в любое время, удалив свой аккаунт в настройках профиля.
+                    </p>
+                    
+                    <p class="terms-text">
+                        9.3. Администрация может расторгнуть Соглашение в одностороннем порядке при нарушении Пользователем 
+                        его условий с предварительным уведомлением.
+                    </p>
+                    
+                    <p class="terms-text">
+                        9.4. При расторжении Соглашения прогресс пользователя и все связанные данные удаляются без возможности восстановления.
+                    </p>
+                </section>
+                
+                <!-- Заключительные положения -->
+                <section>
+                    <h2 class="terms-section-title">
+                        <span class="terms-section-number">10</span>
+                        Заключительные положения
+                    </h2>
+                    
+                    <p class="terms-text">
+                        10.1. Признание недействительности отдельных пунктов не отменяет действие остальных положений Соглашения.
+                    </p>
+                    
+                    <p class="terms-text">
+                        10.2. Настоящее Соглашение составлено на русском языке. В случае перевода на другие языки, 
+                        русскоязычная версия имеет преимущественную силу.
+                    </p>
+                    
+                    <p class="terms-text">
+                        10.3. Все уведомления направляются на электронную почту Пользователя, указанную при регистрации.
+                    </p>
+                    
+                    <p class="terms-text">
+                        10.4. Бездействие Администрации не лишает ее права на защиту своих интересов в будущем.
+                    </p>
+                </section>
+                
+                <!-- Контакты -->
+                <section>
+                    <h2 class="terms-section-title">
+                        <span class="terms-section-number">11</span>
+                        Контактная информация
+                    </h2>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="bg-light p-4 rounded-4">
+                                <h3 class="h5 mb-3">По юридическим вопросам</h3>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="bi bi-envelope text-primary me-2"></i>
+                                        <a href="mailto:legal@skillpass.ru">legal@skillpass.ru</a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-telegram text-primary me-2"></i>
+                                        @skillpass_legal
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="bg-light p-4 rounded-4">
+                                <h3 class="h5 mb-3">Администратор</h3>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="bi bi-person text-primary me-2"></i>
+                                        Варламов Дамир
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-envelope text-primary me-2"></i>
+                                        damir.itwar@yandex.ru
+                                    </li>
+                                    <li>
+                                        <i class="bi bi-geo-alt text-primary me-2"></i>
+                                        Самара, Московское шоссе, 34
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <div class="text-center mt-5">
+                    <div class="d-inline-block bg-light p-3 rounded-4">
+                        <i class="bi bi-calendar-check text-primary me-2"></i>
+                        <span>Версия соглашения: 2.0 от 03.03.2026</span>
+                    </div>
+                </div>
+                
+                <div class="alert alert-warning mt-4">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    <strong>Важно:</strong> Данное соглашение является официальным документом. Используя платформу, 
+                    вы подтверждаете согласие со всеми его условиями.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

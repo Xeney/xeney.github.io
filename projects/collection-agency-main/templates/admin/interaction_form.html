@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Добавить взаимодействие - CRM Система{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <nav aria-label="breadcrumb" class="animate__animated animate__fadeIn">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ url_for('admin.debtors') }}" class="text-decoration-none">
+                        <i class="fas fa-users me-1"></i>Должники
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ url_for('admin.debtor_detail', debtor_id=debtor.id) }}" class="text-decoration-none">
+                        <i class="fas fa-user me-1"></i>{{ debtor.full_name }}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-primary fw-medium">
+                    <i class="fas fa-plus me-1"></i>Добавить взаимодействие
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm glass-effect animate__animated animate__fadeInUp">
+            <div class="card-header bg-white border-bottom-0">
+                <h5 class="mb-0 fw-bold text-dark">
+                    <i class="fas fa-comments me-2 text-primary"></i>Добавить взаимодействие с {{ debtor.full_name }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-tag me-1 text-primary"></i>{{ form.interaction_type.label.text }}
+                            </label>
+                            {{ form.interaction_type(class="form-select form-select-lg" + (" is-invalid" if form.interaction_type.errors else "")) }}
+                            {% if form.interaction_type.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.interaction_type.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-calendar me-1 text-primary"></i>{{ form.date.label.text }}
+                            </label>
+                            {{ form.date(class="form-control form-control-lg" + (" is-invalid" if form.date.errors else ""), placeholder="ДД.ММ.ГГГГ") }}
+                            {% if form.date.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.date.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text text-muted">
+                                <i class="fas fa-info-circle me-1"></i>Формат: ДД.ММ.ГГГГ
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-clock me-1 text-primary"></i>{{ form.time.label.text }}
+                            </label>
+                            {{ form.time(class="form-control form-control-lg" + (" is-invalid" if form.time.errors else ""), placeholder="ЧЧ:ММ") }}
+                            {% if form.time.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.time.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text text-muted">
+                                <i class="fas fa-info-circle me-1"></i>Формат: ЧЧ:ММ
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-medium">
+                            <i class="fas fa-bullseye me-1 text-primary"></i>{{ form.result.label.text }}
+                        </label>
+                        {{ form.result(class="form-control form-control-lg" + (" is-invalid" if form.result.errors else ""), placeholder="Опишите результат взаимодействия") }}
+                        {% if form.result.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.result.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-medium">
+                            <i class="fas fa-comment-dots me-1 text-primary"></i>{{ form.comment.label.text }}
+                        </label>
+                        {{ form.comment(class="form-control" + (" is-invalid" if form.comment.errors else ""), rows="4", placeholder="Дополнительные заметки (необязательно)") }}
+                        {% if form.comment.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.comment.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('admin.debtor_detail', debtor_id=debtor.id) }}" class="btn btn-outline-secondary btn-lg btn-rounded me-md-2">
+                            <i class="fas fa-arrow-left me-1"></i>Отмена
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-lg btn-rounded">
+                            <i class="fas fa-plus me-1"></i>Добавить взаимодействие
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

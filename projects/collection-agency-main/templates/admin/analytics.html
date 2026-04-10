@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+
+{% block title %}Аналитика - CRM{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 fw-bold text-primary"><i class="fas fa-chart-pie me-2"></i>Аналитика</h1>
+    <div class="d-flex gap-2">
+        <input type="date" id="startDate" class="form-control form-control-sm" />
+        <input type="date" id="endDate" class="form-control form-control-sm" />
+        <button id="applyRange" class="btn btn-primary btn-sm">Применить</button>
+        <div class="btn-group ms-2">
+            <button class="btn btn-outline-secondary btn-sm quick-range" data-days="7">7Д</button>
+            <button class="btn btn-outline-secondary btn-sm quick-range" data-days="30">30Д</button>
+            <button class="btn btn-outline-secondary btn-sm quick-range" data-days="90">90Д</button>
+            <button class="btn btn-outline-secondary btn-sm quick-range" data-months="12">12М</button>
+        </div>
+        <div class="dropdown ms-2">
+            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown">Экспорт</button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" id="exportTop" href="#">Крупнейшие должники (CSV)</a></li>
+                <li><a class="dropdown-item" id="exportInteractions" href="#">Взаимодействия пользователя (CSV)</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- KPI row -->
+<div class="row g-3 mb-3">
+    <div class="col-md-3">
+        <div class="card p-3 shadow-sm">
+            <small class="text-muted">Всего должников</small>
+            <h3 id="k_total_debtors">—</h3>
+            <small class="text-muted">Всего / в период</small>
+            <div class="small text-muted"><span id="k_total_all">—</span> / <span id="k_total_period">—</span></div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 shadow-sm">
+            <small class="text-muted">Общая сумма долга</small>
+            <h3 id="k_total_debt" class="text-danger">—</h3>
+            <small class="text-muted">Всего / в период</small>
+            <div class="small text-muted"><span id="k_debt_all">—</span> / <span id="k_debt_period">—</span></div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 shadow-sm">
+            <small class="text-muted">Средняя / медиана</small>
+            <h4 id="k_avg_median">—</h4>
+            <div class="small text-muted">avg: <span id="k_avg">—</span> / med: <span id="k_med">—</span></div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 shadow-sm">
+            <small class="text-muted">Коэффициент</small>
+            <h3 id="k_recovery">—</h3>
+            <div class="small text-muted">Процент погашенных</div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts row -->
+<div class="row g-3">
+    <div class="col-lg-6">
+        <div class="card p-3 shadow-sm mb-3">
+            <small class="text-muted">Распределение по статусам</small>
+            <canvas id="statusChart" height="120"></canvas>
+        </div>
+        <div class="card p-3 shadow-sm">
+            <small class="text-muted">Топ банков по сумме долга</small>
+            <canvas id="bankChart" height="180"></canvas>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card p-3 shadow-sm mb-3">
+            <small class="text-muted">Новые должники (месяцы)</small>
+            <canvas id="newDebtorsChart" height="180"></canvas>
+        </div>
+        <div class="card p-3 shadow-sm">
+            <small class="text-muted">Взаимодействия за период (по дням)</small>
+            <canvas id="interactionsChart" height="120"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Top debtors table and interactions by user -->
+<div class="row g-3 mt-3">
+    <div class="col-lg-6">
+        <div class="card p-3 shadow-sm">
+            <div class="d-flex justify-content-between">
+                <small class="text-muted">Топ должников (по сумме)</small>
+                <small class="text-muted">Топ 20</small>
+            </div>
+            <div id="topDebtors" class="mt-3 table-responsive"></div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card p-3 shadow-sm">
+            <small class="text-muted">Взаимодействия по сотрудникам</small>
+            <canvas id="interactionsUserChart" height="240"></canvas>
+            <div id="interactionsUserList" class="mt-3 small text-muted"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+function formatCurrency(val) {
+    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 2 }).format(val);
+}
+
+let charts = {};
+
+function buildOrUpdateChart(id, cfg) {
+    if (charts[id]) {
+        charts[id].data = cfg.data;
+        charts[id].options = cfg.options || {};
+        charts[id].update();
+    } else {
+        charts[id] = new Chart(document.getElementById(id), cfg);
+    }
+}
+
+async function fetchData(params = {}) {
+    const url = new URL("{{ url_for('admin.analytics_data') }}", window.location.origin);
+    Object.keys(params).forEach(k => url.searchParams.set(k, params[k]));
+    const resp = await fetch(url, {credentials: 'same-origin'});
+    if (!resp.ok) {
+        console.error('Failed to fetch analytics data', resp.status);
+        return null;
+    }
+    return await resp.json();
+}
+
+function renderTopDebtors(top) {
+    const container = document.getElementById('topDebtors');
+    if (!top || top.length === 0) {
+        container.innerHTML = '<p class="text-muted">Должников нет</p>';
+        return;
+    }
+    let html = '<table class="table table-hover table-sm"><thead><tr><th>#</th><th>ФИО</th><th>Сумма</th><th>Банк</th><th>Статус</th></tr></thead><tbody>';
+    top.forEach((d, i) => {
+        const statusLabel = d.status === 'paid' ? 'Погашен' : (d.status === 'archived' ? 'Архив' : 'Активный');
+        const badgeClass = d.status === 'paid' ? 'bg-success' : (d.status === 'archived' ? 'bg-secondary' : 'bg-info text-white');
+        // Формируем корректную ссылку на карточку должника без использования .replace в шаблоне
+        const href = `/admin/debtors/${d.id}`;
+        // Экранируем текст имени при вставке в HTML (простая замена)
+        const nameSafe = (d.full_name || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+        html += `<tr>
+            <td>${i+1}</td>
+            <td><a href="${href}">${nameSafe}</a></td>
+            <td class="text-danger">${formatCurrency(d.debt_amount)}</td>
+            <td>${d.bank || ''}</td>
+            <td><span class="badge ${badgeClass}">${statusLabel}</span></td>
+        </tr>`;
+    });
+    html += '</tbody></table>';
+    container.innerHTML = html;
+}
+
+function renderInteractionsUser(list) {
+    const labels = list.map(l => l.username);
+    const counts = list.map(l => l.count);
+    buildOrUpdateChart('interactionsUserChart', {
+        type: 'bar',
+        data: { labels, datasets: [{ label: 'Взаимодействия', data: counts, backgroundColor: '#0d6efd' }] },
+        options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } } }
+    });
+    const listEl = document.getElementById('interactionsUserList');
+    listEl.innerHTML = list.map(l => `<div>${l.username}: <strong>${l.count}</strong></div>`).join('');
+}
+
+async function refresh(params = {}) {
+    const data = await fetchData(params);
+    if (!data) return;
+
+    // KPIs
+    document.getElementById('k_total_debtors').textContent = data.total_debtors_all;
+    document.getElementById('k_total_all').textContent = data.total_debtors_all;
+    document.getElementById('k_total_period').textContent = data.total_debtors_period;
+    document.getElementById('k_total_debt').textContent = formatCurrency(data.total_debt_all);
+    document.getElementById('k_debt_all').textContent = formatCurrency(data.total_debt_all);
+    document.getElementById('k_debt_period').textContent = formatCurrency(data.total_debt_period);
+    document.getElementById('k_avg').textContent = formatCurrency(data.kpis.avg_debt || 0);
+    document.getElementById('k_med').textContent = formatCurrency(data.kpis.median_debt || 0);
+    document.getElementById('k_avg_median').textContent = `${formatCurrency(data.kpis.avg_debt || 0)} / ${formatCurrency(data.kpis.median_debt || 0)}`;
+    document.getElementById('k_recovery').textContent = ((data.kpis.recovery_rate || 0) * 100).toFixed(1) + '%';
+
+    // status chart
+    const statusLabels = data.by_status.map(s => s.status || 'Не указан');
+    const statusCounts = data.by_status.map(s => s.count);
+    const statusColors = statusLabels.map(l => (l === 'paid' || l === 'Погашен') ? '#198754' : (l === 'archived' ? '#6c757d' : '#0dcaf0'));
+    buildOrUpdateChart('statusChart', {
+        type: 'doughnut',
+        data: { labels: statusLabels, datasets: [{ data: statusCounts, backgroundColor: statusColors }] },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+
+    // bank chart
+    const bankLabels = data.debt_by_bank.map(b => b.bank);
+    const bankTotals = data.debt_by_bank.map(b => b.total_debt);
+    buildOrUpdateChart('bankChart', {
+        type: 'bar',
+        data: { labels: bankLabels, datasets: [{ label: 'Сумма долга', data: bankTotals, backgroundColor: '#0d6efd' }] },
+        options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } } }
+    });
+
+    // new debtors monthly
+    const months = data.new_debtors_month.map(m => m.month);
+    const monthsCounts = data.new_debtors_month.map(m => m.count);
+    buildOrUpdateChart('newDebtorsChart', {
+        type: 'line',
+        data: { labels: months, datasets: [{ label: 'Новые должники', data: monthsCounts, fill: true, borderColor: '#20c997', backgroundColor: 'rgba(32,201,151,0.08)' }] },
+        options: { responsive: true, plugins: { legend: { display: false } } }
+    });
+
+    // interactions by day
+    const days = data.interactions_by_day.map(d => d.date);
+    const dayCounts = data.interactions_by_day.map(d => d.count);
+    buildOrUpdateChart('interactionsChart', {
+        type: 'line',
+        data: { labels: days, datasets: [{ label: 'Взаимодействия', data: dayCounts, fill: true, borderColor: '#ffc107', backgroundColor: 'rgba(255,193,7,0.08)' }] },
+        options: { responsive: true, plugins: { legend: { display: false } } }
+    });
+
+    // top debtors & interactions by user
+    renderTopDebtors(data.top_debtors);
+    renderInteractionsUser(data.interactions_by_user);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Quick range handlers
+    document.querySelectorAll('.quick-range').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const days = btn.dataset.days ? parseInt(btn.dataset.days) : null;
+            const months = btn.dataset.months ? parseInt(btn.dataset.months) : null;
+            const end = new Date();
+            let start = new Date();
+            if (days) {
+                start.setDate(end.getDate() - days + 1);
+            } else if (months) {
+                start.setMonth(end.getMonth() - months + 1);
+            } else {
+                start = new Date(end.getFullYear(), end.getMonth(), 1);
+            }
+            document.getElementById('startDate').value = start.toISOString().slice(0,10);
+            document.getElementById('endDate').value = end.toISOString().slice(0,10);
+            refresh({ start_date: document.getElementById('startDate').value, end_date: document.getElementById('endDate').value });
+        });
+    });
+
+    // Apply button
+    document.getElementById('applyRange').addEventListener('click', () => {
+        const sd = document.getElementById('startDate').value;
+        const ed = document.getElementById('endDate').value;
+        refresh({ start_date: sd, end_date: ed });
+    });
+
+    // Export handlers
+    document.getElementById('exportTop').addEventListener('click', (e) => {
+        e.preventDefault();
+        const sd = document.getElementById('startDate').value;
+        const ed = document.getElementById('endDate').value;
+        const url = new URL("{{ url_for('admin.analytics_export') }}", window.location.origin);
+        url.searchParams.set('what', 'top_debtors');
+        if (sd) url.searchParams.set('start_date', sd);
+        if (ed) url.searchParams.set('end_date', ed);
+        window.location = url.toString();
+    });
+    document.getElementById('exportInteractions').addEventListener('click', (e) => {
+        e.preventDefault();
+        const sd = document.getElementById('startDate').value;
+        const ed = document.getElementById('endDate').value;
+        const url = new URL("{{ url_for('admin.analytics_export') }}", window.location.origin);
+        url.searchParams.set('what', 'interactions_by_user');
+        if (sd) url.searchParams.set('start_date', sd);
+        if (ed) url.searchParams.set('end_date', ed);
+        window.location = url.toString();
+    });
+
+    // Initial load: last 30 days
+    const end = new Date();
+    const start = new Date();
+    start.setDate(end.getDate() - 29);
+    document.getElementById('startDate').value = start.toISOString().slice(0,10);
+    document.getElementById('endDate').value = end.toISOString().slice(0,10);
+    refresh({ start_date: document.getElementById('startDate').value, end_date: document.getElementById('endDate').value });
+});
+</script>
+{% endblock %}

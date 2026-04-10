@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Создать пользователя - CRM Система{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 fw-bold text-primary">
+        <i class="fas fa-user-plus me-2"></i>Создать пользователя
+    </h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card shadow-sm glass-effect animate__animated animate__fadeInUp">
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-medium">
+                            <i class="fas fa-user me-1 text-primary"></i>{{ form.username.label.text }}
+                        </label>
+                        {{ form.username(class="form-control form-control-lg" + (" is-invalid" if form.username.errors else ""), placeholder="Введите логин") }}
+                        {% if form.username.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.username.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-medium">
+                            <i class="fas fa-lock me-1 text-primary"></i>{{ form.password.label.text }}
+                        </label>
+                        {{ form.password(class="form-control form-control-lg" + (" is-invalid" if form.password.errors else ""), placeholder="Введите пароль") }}
+                        {% if form.password.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text text-muted">
+                            <i class="fas fa-info-circle me-1"></i>Минимум 6 символов
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-medium">
+                            <i class="fas fa-shield-alt me-1 text-primary"></i>{{ form.role.label.text }}
+                        </label>
+                        {{ form.role(class="form-select form-select-lg" + (" is-invalid" if form.role.errors else "")) }}
+                        {% if form.role.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.role.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="mt-3 p-3 bg-light rounded">
+                            <h6 class="fw-bold text-dark mb-2">
+                                <i class="fas fa-info-circle me-1 text-info"></i>Описание ролей:
+                            </h6>
+                            <div class="mb-2">
+                                <span class="badge bg-danger me-2">Администратор</span>
+                                <small class="text-muted">Полный доступ ко всем функциям системы</small>
+                            </div>
+                            <div class="mb-2">
+                                <span class="badge bg-warning me-2">Менеджер</span>
+                                <small class="text-muted">Редактирование данных, импорт/экспорт</small>
+                            </div>
+                            <div>
+                                <span class="badge bg-info me-2">Оператор</span>
+                                <small class="text-muted">Просмотр и добавление взаимодействий</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('admin.users') }}" class="btn btn-outline-secondary btn-lg btn-rounded me-md-2">
+                            <i class="fas fa-arrow-left me-1"></i>Отмена
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-lg btn-rounded">
+                            <i class="fas fa-user-plus me-1"></i>Создать пользователя
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

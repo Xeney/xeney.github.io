@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+
+{% block title %}{{ debtor.full_name }} - CRM Система{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <nav aria-label="breadcrumb" class="animate__animated animate__fadeIn">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ url_for('admin.debtors') }}" class="text-decoration-none">
+                        <i class="fas fa-users me-1"></i>Должники
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-primary fw-medium">
+                    <i class="fas fa-user me-1"></i>{{ debtor.full_name }}
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col">
+        <div class="d-flex justify-content-between align-items-center animate__animated animate__fadeInDown">
+            <h1 class="h2 fw-bold text-dark mb-0">
+                <i class="fas fa-user-circle me-2 text-primary"></i>{{ debtor.full_name }}
+                {% if debtor.status == 'paid' %}
+                    <span class="badge bg-success ms-3">Погашен</span>
+                {% elif debtor.status == 'archived' %}
+                    <span class="badge bg-secondary ms-3">Архив</span>
+                {% else %}
+                    <span class="badge bg-primary ms-3">Активный</span>
+                {% endif %}
+            </h1>
+            <div class="btn-group">
+                {% if current_user.can_edit_debtors() %}
+                <a href="{{ url_for('admin.edit_debtor', debtor_id=debtor.id) }}" 
+                   class="btn btn-warning btn-rounded">
+                    <i class="fas fa-edit me-1"></i>Редактировать
+                </a>
+                {% endif %}
+                <a href="{{ url_for('admin.add_interaction', debtor_id=debtor.id) }}" 
+                   class="btn btn-primary btn-rounded animate__pulse">
+                    <i class="fas fa-plus me-1"></i>Добавить контакт
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <!-- Информация о должнике -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm glass-effect animate__animated animate__fadeInLeft">
+            <div class="card-header bg-white border-bottom-0">
+                <h5 class="mb-0 fw-bold text-dark">
+                    <i class="fas fa-info-circle me-2 text-primary"></i>Информация о должнике
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="d-flex align-items-center p-3 bg-light rounded">
+                            <i class="fas fa-birthday-cake text-primary me-3 fs-5"></i>
+                            <div>
+                                <small class="text-muted d-block">Дата рождения</small>
+                                <span class="fw-medium">{{ debtor.birth_date.strftime('%d.%m.%Y') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex align-items-center p-3 bg-light rounded">
+                            <i class="fas fa-id-card text-primary me-3 fs-5"></i>
+                            <div>
+                                <small class="text-muted d-block">Паспортные данные</small>
+                                <span class="fw-medium">{{ debtor.passport_data }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex align-items-center p-3 bg-light rounded">
+                            <i class="fas fa-file-contract text-primary me-3 fs-5"></i>
+                            <div>
+                                <small class="text-muted d-block">Номер договора</small>
+                                <span class="fw-medium">{{ debtor.contract_number }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex align-items-center p-3 bg-danger bg-opacity-10 rounded">
+                            <i class="fas fa-money-bill-wave text-danger me-3 fs-5"></i>
+                            <div>
+                                <small class="text-muted d-block">Сумма долга</small>
+                                <span class="fw-bold fs-5 text-danger">{{ "{:,.2f}".format(debtor.debt_amount) }} ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex align-items-center p-3 bg-light rounded">
+                            <i class="fas fa-flag text-primary me-3 fs-5"></i>
+                            <div>
+                                <small class="text-muted d-block">Статус</small>
+                                <span class="fw-medium">
+                                    {% if debtor.status == 'paid' %}Погашен{% elif debtor.status == 'archived' %}Архив{% else %}Активный{% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex align-items-center p-3 bg-light rounded">
+                            <i class="fas fa-university text-primary me-3 fs-5"></i>
+                            <div>
+                                <small class="text-muted d-block">Банк-кредитор</small>
+                                <span class="fw-medium">{{ debtor.bank_name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex align-items-center p-3 bg-light rounded">
+                            <i class="fas fa-calendar-plus text-primary me-3 fs-5"></i>
+                            <div>
+                                <small class="text-muted d-block">Добавлен в систему</small>
+                                <span class="fw-medium">{{ debtor.created_at.strftime('%d.%m.%Y %H:%M') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Статистика и опасная зона -->
+    <div class="col-lg-6">
+        <div class="card shadow-sm glass-effect animate__animated animate__fadeInRight mb-4">
+            <div class="card-header bg-white border-bottom-0">
+                <h5 class="mb-0 fw-bold text-dark">
+                    <i class="fas fa-chart-bar me-2 text-success"></i>Статистика
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3 text-center">
+                    <div class="col-6">
+                        <div class="p-3 bg-primary bg-opacity-10 rounded">
+                            <i class="fas fa-history fs-2 text-primary mb-2"></i>
+                            <h4 class="fw-bold text-primary">{{ interactions|length }}</h4>
+                            <small class="text-muted">Всего контактов</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 bg-success bg-opacity-10 rounded">
+                            <i class="fas fa-clock fs-2 text-success mb-2"></i>
+                            <h4 class="fw-bold text-success">
+                                {% if interactions %}
+                                    {{ interactions[0].date_time.strftime('%d.%m.%Y') }}
+                                {% else %}
+                                    Нет
+                                {% endif %}
+                            </h4>
+                            <small class="text-muted">Последний контакт</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% if current_user.can_edit_debtors() %}
+        <div class="card border-danger shadow-sm animate__animated animate__shakeX">
+            <div class="card-header bg-danger text-white">
+                <h6 class="mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Опасная зона
+                </h6>
+            </div>
+            <div class="card-body">
+                <p class="text-muted small mb-3">
+                    Удаление должника приведет к безвозвратному удалению всех связанных данных.
+                </p>
+                <form method="POST" action="{{ url_for('admin.delete_debtor', debtor_id=debtor.id) }}" 
+                      onsubmit="return confirm('Вы уверены? Это действие нельзя отменить! Все взаимодействия также будут удалены.');">
+                    <button type="submit" class="btn btn-danger w-100 btn-rounded">
+                        <i class="fas fa-trash me-1"></i>Удалить должника
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Документы (новый блок) -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow-sm glass-effect animate__animated animate__fadeInUp">
+            <div class="card-header bg-white border-bottom-0 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold text-dark">
+                    <i class="fas fa-folder-open me-2 text-primary"></i>Документы
+                </h5>
+                {% if current_user.can_edit_debtors() %}
+                <small class="text-muted">Загрузок: {{ debtor.documents.count() }}</small>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                {% if debtor.documents.count() > 0 %}
+                <ul class="list-group mb-3">
+                    {% for doc in debtor.documents %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-file-alt me-2 text-secondary"></i>
+                            <strong>{{ doc.filename_original }}</strong>
+                            <div class="small text-muted">Загружен: {{ doc.uploaded_at.strftime('%d.%m.%Y %H:%M') }}{% if doc.uploader %} by {{ doc.uploader.username }}{% endif %}</div>
+                        </div>
+                        <div class="btn-group">
+                            <a href="{{ url_for('admin.download_debtor_document', debtor_id=debtor.id, doc_id=doc.id) }}" class="btn btn-outline-primary btn-sm" title="Скачать">
+                                <i class="fas fa-download"></i>
+                            </a>
+                            {% if current_user.can_edit_debtors() %}
+                            <form method="POST" action="{{ url_for('admin.delete_debtor_document', debtor_id=debtor.id, doc_id=doc.id) }}" class="d-inline" onsubmit="return confirm('Удалить документ?');">
+                                <button type="submit" class="btn btn-outline-danger btn-sm" title="Удалить"><i class="fas fa-trash"></i></button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted">Документы отсутствуют</p>
+                {% endif %}
+
+                {% if current_user.can_edit_debtors() %}
+                <form method="POST" action="{{ url_for('admin.upload_debtor_document', debtor_id=debtor.id) }}" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                        <div class="input-group">
+                            {{ form.file(class="form-control", accept=".pdf,.png,.jpg,.jpeg,.doc,.docx,.xls,.xlsx,.txt") }}
+                            <button type="submit" class="btn btn-primary">Загрузить</button>
+                        </div>
+                        <div class="form-text text-muted mt-2">Поддерживаемые форматы: pdf, png, jpg, docx, xlsx. Макс. размер {{ max_upload_mb }}MB</div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- История взаимодействий -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm glass-effect animate__animated animate__fadeInUp">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold text-dark">
+                    <i class="fas fa-history me-2 text-primary"></i>История взаимодействий
+                </h5>
+                <a href="{{ url_for('admin.add_interaction', debtor_id=debtor.id) }}" 
+                   class="btn btn-primary btn-sm btn-rounded">
+                    <i class="fas fa-plus me-1"></i>Добавить
+                </a>
+            </div>
+            <div class="card-body">
+                {% if interactions %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th><i class="fas fa-calendar me-1"></i>Дата и время</th>
+                                <th><i class="fas fa-tag me-1"></i>Тип</th>
+                                <th><i class="fas fa-bullseye me-1"></i>Результат</th>
+                                <th><i class="fas fa-user-cog me-1"></i>Сотрудник</th>
+                                <th><i class="fas fa-comment me-1"></i>Комментарий</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for interaction in interactions %}
+                            <tr class="animate__animated animate__fadeIn" style="animation-delay: {{ loop.index * 0.1 }}s;">
+                                <td class="fw-medium text-dark">
+                                    {{ interaction.date_time.strftime('%d.%m.%Y %H:%M') }}
+                                </td>
+                                <td>
+                                    <span class="badge 
+                                        {% if interaction.interaction_type == 'call' %}bg-primary
+                                        {% elif interaction.interaction_type == 'sms' %}bg-success
+                                        {% elif interaction.interaction_type == 'email' %}bg-warning
+                                        {% else %}bg-info{% endif %}">
+                                        <i class="fas fa-{% if interaction.interaction_type == 'call' %}phone
+                                        {% elif interaction.interaction_type == 'sms' %}comment
+                                        {% elif interaction.interaction_type == 'email' %}envelope
+                                        {% else %}handshake{% endif %} me-1"></i>
+                                        {{ interaction.interaction_type }}
+                                    </span>
+                                </td>
+                                <td>{{ interaction.result }}</td>
+                                <td>
+                                    <span class="badge bg-secondary">
+                                        <i class="fas fa-user me-1"></i>{{ interaction.user.username }}
+                                    </span>
+                                </td>
+                                <td class="text-muted">
+                                    {{ interaction.comment or '-' }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-comments display-1 text-muted mb-3"></i>
+                    <h5 class="text-muted">Взаимодействий пока нет</h5>
+                    <p class="text-muted mb-4">Добавьте первое взаимодействие с должником</p>
+                    <a href="{{ url_for('admin.add_interaction', debtor_id=debtor.id) }}" 
+                       class="btn btn-primary btn-rounded animate__pulse">
+                        <i class="fas fa-plus me-1"></i>Добавить первое взаимодействие
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

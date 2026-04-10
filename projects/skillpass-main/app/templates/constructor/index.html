@@ -1,0 +1,648 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Общие стили */
+    .constructor-wrapper {
+        background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
+        min-height: calc(100vh - 200px);
+        padding-bottom: 40px;
+    }
+    
+    /* Хедер */
+    .constructor-header {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        color: white;
+        padding: 80px 0;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 0 0 60px 60px;
+        box-shadow: 0 20px 40px rgba(13, 110, 253, 0.2);
+    }
+    
+    .constructor-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 400px;
+        height: 400px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(15deg);
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    .constructor-header::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        left: -10%;
+        width: 500px;
+        height: 500px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(-15deg);
+        animation: float 8s ease-in-out infinite reverse;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: rotate(15deg) translate(0, 0); }
+        50% { transform: rotate(15deg) translate(20px, -20px); }
+    }
+    
+    .header-content {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .header-icon {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 25px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    .header-icon i {
+        font-size: 2.5rem;
+        color: white;
+    }
+    
+    /* Кнопка нового пути */
+    .new-path-container {
+        position: relative;
+        margin-bottom: 40px;
+    }
+    
+    .btn-new-path {
+        background: white;
+        border: 2px solid #0d6efd;
+        color: #0d6efd;
+        border-radius: 50px;
+        padding: 16px 48px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-new-path::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(13, 110, 253, 0.1);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+    
+    .btn-new-path:hover {
+        background: #0d6efd;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 20px 30px rgba(13, 110, 253, 0.3);
+    }
+    
+    .btn-new-path:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .btn-new-path i {
+        transition: transform 0.3s ease;
+    }
+    
+    .btn-new-path:hover i {
+        transform: rotate(90deg);
+    }
+    
+    /* Статистика */
+    .stats-panel {
+        background: white;
+        border-radius: 30px;
+        padding: 30px;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(13, 110, 253, 0.1);
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .stat-item {
+        text-align: center;
+        flex: 1;
+        min-width: 120px;
+        position: relative;
+        padding: 10px;
+    }
+    
+    .stat-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 25%;
+        height: 50%;
+        width: 1px;
+        background: linear-gradient(to bottom, transparent, #0d6efd, transparent);
+    }
+    
+    .stat-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1e293b;
+        line-height: 1.2;
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .stat-label {
+        font-size: 1rem;
+        color: #6c757d;
+        font-weight: 500;
+    }
+    
+    /* Сетка путей */
+    .paths-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        margin-top: 30px;
+    }
+    
+    /* Карточка пути */
+    .path-card {
+        background: white;
+        border-radius: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid rgba(13, 110, 253, 0.1);
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    
+    .path-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 50px rgba(13, 110, 253, 0.15);
+        border-color: #0d6efd;
+    }
+    
+    /* Верхняя часть карточки с градиентом */
+    .path-gradient {
+        height: 120px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .path-gradient.beginner {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    }
+    
+    .path-gradient.intermediate {
+        background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+    }
+    
+    .path-gradient.advanced {
+        background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%);
+    }
+    
+    .path-gradient::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 150px;
+        height: 150px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: translate(50px, -50px);
+    }
+    
+    .path-gradient::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: translate(-30px, 30px);
+    }
+    
+    /* Иконка пути */
+    .path-icon-wrapper {
+        position: absolute;
+        top: 70px;
+        left: 30px;
+        z-index: 3;
+    }
+    
+    .path-icon {
+        width: 70px;
+        height: 70px;
+        background: white;
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        border: 3px solid white;
+    }
+    
+    .path-icon i {
+        font-size: 2rem;
+    }
+    
+    .path-icon.beginner i {
+        color: #28a745;
+    }
+    
+    .path-icon.intermediate i {
+        color: #ffc107;
+    }
+    
+    .path-icon.advanced i {
+        color: #dc3545;
+    }
+    
+    /* Контент карточки */
+    .path-content {
+        padding: 50px 30px 30px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .path-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 10px;
+        line-height: 1.3;
+    }
+    
+    .path-description {
+        color: #6c757d;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+        line-height: 1.5;
+        flex: 1;
+    }
+    
+    /* Бейдж сложности */
+    .difficulty-badge {
+        display: inline-block;
+        padding: 6px 15px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        width: fit-content;
+    }
+    
+    .difficulty-badge.beginner {
+        background: #e8f5e9;
+        color: #28a745;
+    }
+    
+    .difficulty-badge.intermediate {
+        background: #fff3e0;
+        color: #ff9800;
+    }
+    
+    .difficulty-badge.advanced {
+        background: #ffebee;
+        color: #dc3545;
+    }
+    
+    /* Статистика в карточке */
+    .path-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin: 20px 0;
+        padding: 20px 0;
+        border-top: 2px solid #f1f5f9;
+        border-bottom: 2px solid #f1f5f9;
+    }
+    
+    .path-stat {
+        text-align: center;
+    }
+    
+    .path-stat-value {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #1e293b;
+        line-height: 1.2;
+    }
+    
+    .path-stat-label {
+        font-size: 0.8rem;
+        color: #94a3b8;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Кнопка редактирования */
+    .btn-edit-path {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        padding: 15px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: auto;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-edit-path::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .btn-edit-path:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
+        color: white;
+    }
+    
+    .btn-edit-path:hover::before {
+        left: 100%;
+    }
+    
+    .btn-edit-path i {
+        transition: transform 0.3s ease;
+    }
+    
+    .btn-edit-path:hover i {
+        transform: translateX(5px) rotate(5deg);
+    }
+    
+    /* Пустая сетка */
+    .empty-state {
+        text-align: center;
+        padding: 80px 20px;
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+    
+    .empty-state-icon {
+        font-size: 5rem;
+        color: #0d6efd;
+        opacity: 0.5;
+        margin-bottom: 20px;
+    }
+    
+    .empty-state h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 15px;
+    }
+    
+    .empty-state p {
+        color: #6c757d;
+        font-size: 1.1rem;
+        max-width: 500px;
+        margin: 0 auto 30px;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .constructor-header {
+            padding: 60px 0;
+        }
+        
+        .header-icon {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .header-icon i {
+            font-size: 2rem;
+        }
+        
+        .paths-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .stats-panel {
+            flex-direction: column;
+        }
+        
+        .stat-item:not(:last-child)::after {
+            display: none;
+        }
+        
+        .btn-new-path {
+            padding: 12px 30px;
+            font-size: 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="constructor-wrapper">
+    <!-- Хедер -->
+    <div class="constructor-header">
+        <div class="container header-content">
+            <div class="header-icon">
+                <i class="bi bi-tools"></i>
+            </div>
+            <h1 class="display-4 fw-bold mb-3">Конструктор путей</h1>
+            <p class="lead mb-0 mx-auto" style="max-width: 600px;">
+                Создавай и редактируй пути обучения с удобным визуальным интерфейсом
+            </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Статистика -->
+        <div class="stats-panel">
+            <div class="stat-item">
+                <div class="stat-value">{{ paths|length }}</div>
+                <div class="stat-label">всего путей</div>
+            </div>
+            <div class="stat-item">
+                {% set total_stages = 0 %}
+                {% for path in paths %}
+                    {% set total_stages = total_stages + path.stages|length %}
+                {% endfor %}
+                <div class="stat-value">{{ total_stages }}</div>
+                <div class="stat-label">этапов</div>
+            </div>
+            <div class="stat-item">
+                {% set total_steps = 0 %}
+                {% for path in paths %}
+                    {% for stage in path.stages %}
+                        {% set total_steps = total_steps + stage.steps|length %}
+                    {% endfor %}
+                {% endfor %}
+                <div class="stat-value">{{ total_steps }}</div>
+                <div class="stat-label">шагов</div>
+            </div>
+        </div>
+
+        <!-- Кнопка нового пути -->
+        <div class="new-path-container text-center">
+            <a href="{{ url_for('constructor.new_path') }}" class="btn-new-path">
+                <i class="bi bi-plus-circle me-2"></i>
+                Создать новый путь
+            </a>
+        </div>
+
+        <!-- Сетка путей -->
+        {% if paths %}
+            <div class="paths-grid">
+                {% for path in paths %}
+                    {% set stages_count = path.stages|length %}
+                    {% set steps_count = 0 %}
+                    {% for stage in path.stages %}
+                        {% set steps_count = steps_count + stage.steps|length %}
+                    {% endfor %}
+                    
+                    <div class="path-card">
+                        <!-- Градиент в зависимости от сложности -->
+                        <div class="path-gradient 
+                            {% if path.difficulty == 'beginner' %}beginner
+                            {% elif path.difficulty == 'intermediate' %}intermediate
+                            {% else %}advanced{% endif %}">
+                        </div>
+                        
+                        <!-- Иконка пути -->
+                        <div class="path-icon-wrapper">
+                            <div class="path-icon 
+                                {% if path.difficulty == 'beginner' %}beginner
+                                {% elif path.difficulty == 'intermediate' %}intermediate
+                                {% else %}advanced{% endif %}">
+                                <i class="bi 
+                                    {% if path.difficulty == 'beginner' %}bi-egg
+                                    {% elif path.difficulty == 'intermediate' %}bi-graph-up
+                                    {% else %}bi-rocket-takeoff{% endif %}">
+                                </i>
+                            </div>
+                        </div>
+                        
+                        <!-- Контент карточки -->
+                        <div class="path-content">
+                            <!-- Бейдж сложности -->
+                            <span class="difficulty-badge 
+                                {% if path.difficulty == 'beginner' %}beginner
+                                {% elif path.difficulty == 'intermediate' %}intermediate
+                                {% else %}advanced{% endif %}">
+                                <i class="bi 
+                                    {% if path.difficulty == 'beginner' %}bi-egg-fried
+                                    {% elif path.difficulty == 'intermediate' %}bi-bar-chart
+                                    {% else %}bi-rocket{% endif %} me-1">
+                                </i>
+                                {% if path.difficulty == 'beginner' %}Начинающий
+                                {% elif path.difficulty == 'intermediate' %}Средний
+                                {% else %}Продвинутый{% endif %}
+                            </span>
+                            
+                            <!-- Название и описание -->
+                            <h3 class="path-title">{{ path.title }}</h3>
+                            <p class="path-description">
+                                {% if path.description %}
+                                    {{ path.description[:120] }}{% if path.description|length > 120 %}...{% endif %}
+                                {% else %}
+                                    <span class="text-muted fst-italic">Нет описания</span>
+                                {% endif %}
+                            </p>
+                            
+                            <!-- Статистика -->
+                            <div class="path-stats">
+                                <div class="path-stat">
+                                    <div class="path-stat-value">{{ stages_count }}</div>
+                                    <div class="path-stat-label">этапов</div>
+                                </div>
+                                <div class="path-stat">
+                                    <div class="path-stat-value">{{ steps_count }}</div>
+                                    <div class="path-stat-label">шагов</div>
+                                </div>
+                                <div class="path-stat">
+                                    <div class="path-stat-value">
+                                        {% set total_xp = 0 %}
+                                        {% for stage in path.stages %}
+                                            {% for step in stage.steps %}
+                                                {% set total_xp = total_xp + step.xp_reward %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                        {{ total_xp }}
+                                    </div>
+                                    <div class="path-stat-label">всего XP</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Кнопка редактирования -->
+                            <a href="{{ url_for('constructor.edit_path', path_id=path.id) }}" class="btn-edit-path">
+                                <i class="bi bi-pencil-square"></i>
+                                Редактировать путь
+                                <i class="bi bi-arrow-right ms-auto"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Пустое состояние -->
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="bi bi-diagram-3"></i>
+                </div>
+                <h3>Пока нет ни одного пути</h3>
+                <p>Создайте свой первый путь обучения и начните структурировать знания</p>
+                <a href="{{ url_for('constructor.new_path') }}" class="btn-new-path">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Создать первый путь
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование проекта - Student Projects Hub</title>
+    <link rel="stylesheet" href="allProjects__style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="hat">
+        <div class="header__container">
+            <nav class="header__nav">
+                <a href="index.html" class="header__logo"><img src="logo/Logo__White-projects.png" alt="Логотип"></a>
+                <ul class="header__list">
+                    <li class="header__list-item">
+                        <a href="projects.html" class="header__list-link">Каталог проектов</a>
+                    </li>
+                    <li class="header__list-item">
+                        <a href="#about__ID" class="header__list-link">Обратная связь</a>
+                    </li>
+                    <li class="header__list-item" id="Exit__button">
+                        <a href="/" class="header__button">Выйти</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <div class="form-header">
+                <h1 id="form-title">Редактирование проекта</h1>
+                <p class="form-subtitle">Заполните все поля для сохранения изменений</p>
+            </div>
+
+            <form id="project-form" class="project-form">
+                <div class="form-group">
+                    <label for="title">Название проекта *</label>
+                    <input type="text" id="title" name="title" required placeholder="Например: Tetris на C#"
+                        maxlength="100">
+                    <span class="form-hint">Максимум 100 символов</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="author">Автор проекта *</label>
+                    <input type="text" id="author" name="author" required placeholder="Ваше имя" maxlength="50">
+                    <span class="form-hint">Максимум 50 символов</span>
+                </div>
+                
+                
+                <div class="form-group">
+                    <label for="description">Описание проекта *</label>
+                    <textarea id="description" name="description" required rows="6"
+                        placeholder="Подробно опишите ваш проект..." maxlength="500"></textarea>
+                    <span class="form-hint">Максимум 500 символов</span>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="form-btn form-btn--save">
+                        Сохранить изменения
+                    </button>
+                    <button type="button" class="form-btn form-btn--cancel" onclick="goBack()">
+                        Отмена
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <section class="footer">
+            <div class="footer__container">
+                <nav class="footer__nav">
+                    <a href="index.html" class="footer__logo"><img src="logo/Logo__white.png" alt="Логотип"></a>
+                    <ul class="footer__list">
+                        <li class="footer__list-item">
+                            <a href="#about__ID" class="footer__list-link">О проекте</a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="#team__ID" class="footer__list-link">Команда</a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="#feedback__ID" class="footer__list-link">Примеры проектов</a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="#means__ID" class="footer__list-link">Отзывы</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </footer>
+
+    <script src="edit.js"></script>
+</body>
+
+</html>

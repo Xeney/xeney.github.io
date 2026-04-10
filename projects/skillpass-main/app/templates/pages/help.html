@@ -1,0 +1,880 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Анимации */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+    
+    /* Герой секция */
+    .hero-section {
+        position: relative;
+        background: linear-gradient(135deg, #6f42c1 0%, #6610f2 100%);
+        color: white;
+        padding: 100px 0;
+        overflow: hidden;
+        border-radius: 0 0 60px 60px;
+        margin-bottom: 60px;
+    }
+    
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 600px;
+        height: 600px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(15deg);
+        animation: float 8s ease-in-out infinite;
+    }
+    
+    .hero-section::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        left: -10%;
+        width: 700px;
+        height: 700px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(-15deg);
+        animation: float 10s ease-in-out infinite reverse;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+        opacity: 0.95;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    /* Поиск */
+    .search-section {
+        margin-bottom: 60px;
+        animation: slideInUp 0.8s ease-out 0.1s both;
+    }
+    
+    .search-container {
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+    }
+    
+    .search-icon {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6f42c1;
+        font-size: 1.2rem;
+    }
+    
+    .search-input {
+        width: 100%;
+        padding: 20px 20px 20px 50px;
+        border: 2px solid #e9ecef;
+        border-radius: 60px;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .search-input:focus {
+        border-color: #6f42c1;
+        box-shadow: 0 10px 30px rgba(111, 66, 193, 0.1);
+        outline: none;
+    }
+    
+    /* Категории */
+    .categories-section {
+        margin-bottom: 60px;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #1e293b;
+        margin-bottom: 50px;
+        position: relative;
+        animation: slideInUp 0.6s ease-out;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #6f42c1, #6610f2);
+        border-radius: 2px;
+    }
+    
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+    }
+    
+    .category-card {
+        background: white;
+        border-radius: 30px;
+        padding: 30px 20px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        animation: slideInUp 0.6s ease-out;
+        animation-fill-mode: both;
+    }
+    
+    .category-card:nth-child(1) { animation-delay: 0.1s; }
+    .category-card:nth-child(2) { animation-delay: 0.15s; }
+    .category-card:nth-child(3) { animation-delay: 0.2s; }
+    .category-card:nth-child(4) { animation-delay: 0.25s; }
+    .category-card:nth-child(5) { animation-delay: 0.3s; }
+    .category-card:nth-child(6) { animation-delay: 0.35s; }
+    
+    .category-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px rgba(111, 66, 193, 0.15);
+        border-color: #6f42c1;
+    }
+    
+    .category-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #f8faff, #f0f4ff);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 2rem;
+        color: #6f42c1;
+        transition: all 0.3s ease;
+    }
+    
+    .category-card:hover .category-icon {
+        background: linear-gradient(135deg, #6f42c1, #6610f2);
+        color: white;
+        transform: rotate(10deg) scale(1.1);
+    }
+    
+    .category-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 5px;
+    }
+    
+    .category-count {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+    
+    /* FAQ Аккордеон */
+    .faq-section {
+        margin-bottom: 60px;
+    }
+    
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .faq-item {
+        background: white;
+        border-radius: 20px;
+        margin-bottom: 15px;
+        border: 1px solid #e9ecef;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        animation: slideInUp 0.6s ease-out;
+        animation-fill-mode: both;
+    }
+    
+    .faq-item:nth-child(1) { animation-delay: 0.1s; }
+    .faq-item:nth-child(2) { animation-delay: 0.15s; }
+    .faq-item:nth-child(3) { animation-delay: 0.2s; }
+    .faq-item:nth-child(4) { animation-delay: 0.25s; }
+    .faq-item:nth-child(5) { animation-delay: 0.3s; }
+    .faq-item:nth-child(6) { animation-delay: 0.35s; }
+    
+    .faq-item:hover {
+        border-color: #6f42c1;
+        box-shadow: 0 10px 20px rgba(111, 66, 193, 0.1);
+    }
+    
+    .faq-question {
+        padding: 20px 25px;
+        background: #f8faff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.3s ease;
+    }
+    
+    .faq-question:hover {
+        background: #f0f4ff;
+    }
+    
+    .faq-question h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin: 0;
+    }
+    
+    .faq-icon {
+        color: #6f42c1;
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .faq-item.active .faq-icon {
+        transform: rotate(180deg);
+    }
+    
+    .faq-answer {
+        padding: 0 25px;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        background: white;
+    }
+    
+    .faq-item.active .faq-answer {
+        padding: 20px 25px;
+        max-height: 500px;
+    }
+    
+    .faq-answer p {
+        color: #6c757d;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
+    
+    .faq-answer ul, .faq-answer ol {
+        color: #6c757d;
+        padding-left: 20px;
+    }
+    
+    .faq-answer li {
+        margin-bottom: 5px;
+    }
+    
+    .faq-answer code {
+        background: #f8faff;
+        padding: 2px 6px;
+        border-radius: 6px;
+        color: #6f42c1;
+    }
+    
+    /* Связанные статьи */
+    .related-section {
+        margin-bottom: 60px;
+    }
+    
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+    }
+    
+    .related-card {
+        background: white;
+        border-radius: 30px;
+        padding: 25px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: block;
+        animation: slideInUp 0.6s ease-out;
+        animation-fill-mode: both;
+    }
+    
+    .related-card:nth-child(1) { animation-delay: 0.1s; }
+    .related-card:nth-child(2) { animation-delay: 0.15s; }
+    .related-card:nth-child(3) { animation-delay: 0.2s; }
+    .related-card:nth-child(4) { animation-delay: 0.25s; }
+    
+    .related-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 30px 60px rgba(111, 66, 193, 0.15);
+        border-color: #6f42c1;
+    }
+    
+    .related-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #f8faff, #f0f4ff);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+        color: #6f42c1;
+    }
+    
+    .related-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 10px;
+    }
+    
+    .related-description {
+        color: #6c757d;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+    
+    .related-link {
+        color: #6f42c1;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    /* Поддержка */
+    .support-section {
+        background: linear-gradient(135deg, #6f42c1 0%, #6610f2 100%);
+        border-radius: 60px;
+        padding: 60px;
+        color: white;
+        text-align: center;
+        margin-top: 60px;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .support-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+    
+    .support-text {
+        font-size: 1.2rem;
+        opacity: 0.95;
+        margin-bottom: 30px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .support-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .btn-support {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        border-radius: 50px;
+        padding: 15px 40px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .btn-support:hover {
+        background: white;
+        color: #6f42c1;
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn-primary {
+        background: white;
+        color: #6f42c1;
+        border: none;
+        border-radius: 50px;
+        padding: 15px 40px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .category-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .support-section {
+            padding: 40px 20px;
+        }
+        
+        .support-buttons {
+            flex-direction: column;
+        }
+        
+        .btn-support, .btn-primary {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Герой секция -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title">Чем мы можем помочь?</h1>
+            <p class="hero-subtitle">Найдите ответы на часто задаваемые вопросы</p>
+        </div>
+    </div>
+</section>
+
+<!-- Поиск -->
+<section class="search-section">
+    <div class="container">
+        <div class="search-container">
+            <i class="bi bi-search search-icon"></i>
+            <input type="text" class="search-input" id="faqSearch" placeholder="Поиск по вопросам..." onkeyup="searchFAQ()">
+        </div>
+    </div>
+</section>
+
+<!-- Категории -->
+<section class="categories-section">
+    <div class="container">
+        <h2 class="section-title text-center">Категории вопросов</h2>
+        
+        <div class="category-grid">
+            <div class="category-card" onclick="filterCategory('account')">
+                <div class="category-icon">
+                    <i class="bi bi-person-circle"></i>
+                </div>
+                <h3 class="category-title">Аккаунт</h3>
+                <span class="category-count">12 вопросов</span>
+            </div>
+            
+            <div class="category-card" onclick="filterCategory('payment')">
+                <div class="category-icon">
+                    <i class="bi bi-credit-card"></i>
+                </div>
+                <h3 class="category-title">Оплата</h3>
+                <span class="category-count">8 вопросов</span>
+            </div>
+            
+            <div class="category-card" onclick="filterCategory('learning')">
+                <div class="category-icon">
+                    <i class="bi bi-journal"></i>
+                </div>
+                <h3 class="category-title">Обучение</h3>
+                <span class="category-count">15 вопросов</span>
+            </div>
+            
+            <div class="category-card" onclick="filterCategory('technical')">
+                <div class="category-icon">
+                    <i class="bi bi-gear"></i>
+                </div>
+                <h3 class="category-title">Технические</h3>
+                <span class="category-count">10 вопросов</span>
+            </div>
+            
+            <div class="category-card" onclick="filterCategory('privacy')">
+                <div class="category-icon">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+                <h3 class="category-title">Приватность</h3>
+                <span class="category-count">6 вопросов</span>
+            </div>
+            
+            <div class="category-card" onclick="filterCategory('other')">
+                <div class="category-icon">
+                    <i class="bi bi-question-circle"></i>
+                </div>
+                <h3 class="category-title">Другое</h3>
+                <span class="category-count">5 вопросов</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Аккордеон -->
+<section class="faq-section">
+    <div class="container">
+        <div class="faq-container" id="faqContainer">
+            <!-- Аккаунт -->
+            <div class="faq-item" data-category="account">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Как создать аккаунт?</h3>
+                    <i class="bi bi-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Для создания аккаунта на SkillPass:</p>
+                    <ol>
+                        <li>Нажмите кнопку "Регистрация" в правом верхнем углу</li>
+                        <li>Заполните форму: имя пользователя, email, пароль</li>
+                        <li>Подтвердите согласие с пользовательским соглашением</li>
+                        <li>Нажмите "Создать аккаунт"</li>
+                    </ol>
+                    <p>После регистрации вы сможете сразу начать обучение!</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="account">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Как восстановить пароль?</h3>
+                    <i class="bi bi-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Если вы забыли пароль:</p>
+                    <ol>
+                        <li>На странице входа нажмите "Забыли пароль?"</li>
+                        <li>Введите email, указанный при регистрации</li>
+                        <li>Перейдите по ссылке из письма</li>
+                        <li>Установите новый пароль</li>
+                    </ol>
+                    <p class="mt-2 text-warning"><i class="bi bi-exclamation-triangle me-2"></i>Функция восстановления пароля находится в разработке. Пока обратитесь к администратору.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="account">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Можно ли изменить email?</h3>
+                    <i class="bi bi-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Email, указанный при регистрации, используется для входа в систему и не может быть изменен самостоятельно.</p>
+                    <p>Если вам необходимо сменить email, обратитесь к администратору через форму обратной связи.</p>
+                </div>
+            </div>
+            
+            <!-- Обучение -->
+            <div class="faq-item" data-category="learning">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Как начать обучение?</h3>
+                    <i class="bi bi-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Чтобы начать обучение:</p>
+                    <ol>
+                        <li>Перейдите в <a href="{{ url_for('roadmap.catalog') }}">каталог путей</a></li>
+                        <li>Выберите интересующее направление</li>
+                        <li>На странице пути нажмите на первый шаг</li>
+                        <li>Изучайте материалы и проходите тесты</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="learning">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Что такое XP и уровни?</h3>
+                    <i class="bi bi-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>XP (опыт)</strong> — очки, которые начисляются за:</p>
+                    <ul>
+                        <li>Прохождение теоретических шагов (10-20 XP)</li>
+                        <li>Успешную сдачу тестов (30-70 XP)</li>
+                    </ul>
+                    <p><strong>Уровень</strong> рассчитывается по формуле: <code>Level = √XP + 1</code></p>
+                    <p>Чем выше уровень, тем больше ваш статус в сообществе!</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="learning">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Можно ли перепройти тест?</h3>
+                    <i class="bi bi-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Да, если тест не пройден, вы можете попробовать снова. Кнопка "Попробовать снова" появится на странице результатов.</p>
+                    <p>После успешной сдачи тест считается пройденным, и повторное прохождение недоступно.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="learning">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Как сохранить путь?</h3>
+                    <i class="bi bi-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>На странице пути нажмите кнопку "Сохранить путь". Сохраненные пути можно найти в разделе "Сохраненное" в профиле.</p>
+                    <p>Это удобно, чтобы вернуться к интересным направлениям позже.</p>
+                </div>
+            </div>
+            
+            <!-- Технические -->
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Почему не загружается страница?</h3>
+                    <i class="bi bi-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Возможные причины:</p>
+                    <ul>
+                        <li>Проблемы с интернет-соединением</li>
+                        <li>Технические работы на платформе</li>
+                        <li>Кэш браузера</li>
+                    </ul>
+                    <p>Попробуйте:</p>
+                    <ol>
+                        <li>Обновить страницу (Ctrl+F5)</li>
+                        <li>Очистить кэш браузера</li>
+                        <li>Попробовать другой браузер</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Какие браузеры поддерживаются?</h3>
+                    <i class="bi bi-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>SkillPass поддерживает все современные браузеры:</p>
+                    <ul>
+                        <li>Google Chrome (версия 90+)</li>
+                        <li>Mozilla Firefox (версия 88+)</li>
+                        <li>Microsoft Edge (версия 90+)</li>
+                        <li>Safari (версия 14+)</li>
+                        <li>Opera (версия 76+)</li>
+                    </ul>
+                    <p>Рекомендуем использовать последние версии браузеров для наилучшего опыта.</p>
+                </div>
+            </div>
+            
+            <!-- Приватность -->
+            <div class="faq-item" data-category="privacy">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Как сделать профиль приватным?</h3>
+                    <i class="bi bi-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>В настройках профиля есть опция "Публичный профиль":</p>
+                    <ul>
+                        <li><strong>Включено</strong> — профиль видят все пользователи</li>
+                        <li><strong>Выключено</strong> — профиль видите только вы и администраторы</li>
+                    </ul>
+                    <p>Вы можете изменить этот параметр в любой момент.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="privacy">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Как удалить аккаунт?</h3>
+                    <i class="bi bi-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Функция самостоятельного удаления аккаунта находится в разработке.</p>
+                    <p>Для удаления аккаунта обратитесь к администратору через форму обратной связи.</p>
+                </div>
+            </div>
+            
+            <!-- Другое -->
+            <div class="faq-item" data-category="other">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Как связаться с поддержкой?</h3>
+                    <i class="bi bi-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Вы можете связаться с нами несколькими способами:</p>
+                    <ul>
+                        <li>Через форму обратной связи на странице <a href="{{ url_for('pages.contacts') }}">Контакты</a></li>
+                        <li>По email: support@skillpass.ru</li>
+                        <li>В Telegram: @skillpass_support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Связанные статьи -->
+<section class="related-section">
+    <div class="container">
+        <h2 class="section-title text-center">Полезные материалы</h2>
+        
+        <div class="related-grid">
+            <a href="{{ url_for('pages.how_it_works') }}" class="related-card">
+                <div class="related-icon">
+                    <i class="bi bi-play-circle"></i>
+                </div>
+                <h3 class="related-title">Как это работает</h3>
+                <p class="related-description">Пошаговое руководство по использованию платформы</p>
+                <span class="related-link">Подробнее <i class="bi bi-arrow-right"></i></span>
+            </a>
+            
+            <a href="{{ url_for('pages.about') }}" class="related-card">
+                <div class="related-icon">
+                    <i class="bi bi-info-circle"></i>
+                </div>
+                <h3 class="related-title">О проекте</h3>
+                <p class="related-description">Узнайте больше о миссии и команде SkillPass</p>
+                <span class="related-link">Подробнее <i class="bi bi-arrow-right"></i></span>
+            </a>
+            
+            <a href="{{ url_for('pages.contacts') }}" class="related-card">
+                <div class="related-icon">
+                    <i class="bi bi-envelope"></i>
+                </div>
+                <h3 class="related-title">Контакты</h3>
+                <p class="related-description">Свяжитесь с нами любым удобным способом</p>
+                <span class="related-link">Подробнее <i class="bi bi-arrow-right"></i></span>
+            </a>
+            
+            <a href="{{ url_for('pages.privacy') }}" class="related-card">
+                <div class="related-icon">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+                <h3 class="related-title">Политика конфиденциальности</h3>
+                <p class="related-description">Как мы защищаем ваши данные</p>
+                <span class="related-link">Подробнее <i class="bi bi-arrow-right"></i></span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Поддержка -->
+<section class="support-section">
+    <div class="container">
+        <h2 class="support-title">Не нашли ответ?</h2>
+        <p class="support-text">Напишите нам, и мы поможем решить вашу проблему</p>
+        <div class="support-buttons">
+            <a href="{{ url_for('pages.contacts') }}" class="btn-primary">
+                <i class="bi bi-envelope"></i>
+                Написать нам
+            </a>
+            <a href="#" class="btn-support">
+                <i class="bi bi-telegram"></i>
+                Telegram
+            </a>
+            <a href="#" class="btn-support">
+                <i class="bi bi-discord"></i>
+                Discord
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+// Переключение FAQ
+function toggleFAQ(element) {
+    const faqItem = element.parentElement;
+    faqItem.classList.toggle('active');
+}
+
+// Поиск по FAQ
+function searchFAQ() {
+    const searchText = document.getElementById('faqSearch').value.toLowerCase();
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('h3').textContent.toLowerCase();
+        const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+        
+        if (question.includes(searchText) || answer.includes(searchText)) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+// Фильтр по категориям
+function filterCategory(category) {
+    const faqItems = document.querySelectorAll('.faq-item');
+    const categoryCards = document.querySelectorAll('.category-card');
+    
+    // Снимаем выделение со всех карточек
+    categoryCards.forEach(card => {
+        card.style.background = '';
+    });
+    
+    // Выделяем выбранную категорию
+    event.currentTarget.style.background = 'linear-gradient(135deg, #f8faff, #f0f4ff)';
+    
+    faqItems.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+// Открываем первый FAQ по умолчанию
+document.addEventListener('DOMContentLoaded', function() {
+    const firstFaq = document.querySelector('.faq-item');
+    if (firstFaq) {
+        firstFaq.classList.add('active');
+    }
+});
+</script>
+{% endblock %}

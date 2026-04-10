@@ -1,0 +1,249 @@
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 20px;
+}
+
+:root {
+    --dark: #000000;
+    --gray: #464646;
+    --green: #B9FF66;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.header__container,
+.footer__container {
+    max-width: 1440px;
+    margin-inline: auto;
+    align-items: center;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+body {
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.hat {
+    padding-block: 40px;
+    background-color: #191A23;
+    margin-bottom: 60px;
+
+}
+
+.header__container {
+    max-width: 1440px;
+    height: 111px;
+    margin-inline: auto;
+    height: 45px;
+    background-color: #191A23;
+
+}
+
+
+.header__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.header__logo {
+    margin-right: 200px;
+}
+
+.header__list {
+    display: flex;
+    gap: 40px;
+
+}
+
+ul {
+    list-style: none;
+}
+
+.header__list-link {
+    font-weight: 600;
+    font-size: 20px;
+    color: white;
+    transition: all 0.5s;
+    border-bottom: 2px solid white;
+}
+
+.header__list-link:hover {
+    color: var(--green);
+    border-bottom: 2px solid var(--green);
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header__button {
+    padding: 20px 35px;
+    border: 2px solid white;
+    border-radius: 14px;
+    color: white;
+    transition: 0.3s;
+}
+
+.header__button:active {
+    background-color: var(--green);
+    color: var(--dark);
+    border: 2px solid var(--green);
+}
+
+.header__button:hover {
+    opacity: 60%;
+
+}
+
+#Exit__button {
+    padding-left: 113px;
+}
+/* Подвал */
+.footer__container {
+    margin-top: 141px;
+    background-color: #292A32;
+    max-width: 1241px;
+    border-top-left-radius: 45px;
+    border-top-right-radius: 45px;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+.footer__nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    /* Занимаем всю высоту контейнера */
+    max-width: 1241px;
+    /* Ограничиваем максимальную ширину */
+    margin: 0 auto;
+    /* Центрируем содержимое внутри */
+}
+
+.footer__list {
+    display: flex;
+    gap: 40px;
+
+}
+
+.footer__list-link {
+    font-weight: 600;
+    font-size: 20px;
+    color: white;
+    transition: all 0.5s;
+    border-bottom: 2px solid white;
+}
+
+.footer__list-link:hover {
+    color: var(--green);
+    border-bottom: 3px solid var(--green);
+    font-weight: 700;
+}
+
+.footer__logo {
+    padding-right: 155px;
+
+}
+
+
+
+
+
+.project-details {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 40px;
+    background-color: #f8f8f8;
+    border-radius: 15px;
+}
+
+.project-header {
+    margin-bottom: 30px;
+    border-bottom: 3px solid var(--green);
+    padding-bottom: 20px;
+}
+
+.project-header h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.project-meta {
+    display: flex;
+    gap: 30px;
+    font-size: 18px;
+    color: var(--gray);
+}
+
+.project-description {
+    margin-bottom: 40px;
+}
+
+.project-description h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.project-description p {
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+.project-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.project-btn {
+    padding: 15px 30px;
+    border: 2px solid var(--dark);
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 0 var(--dark);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.project-btn--edit {
+    background-color: var(--green);
+    color: var(--dark);
+}
+
+.project-btn--github {
+    background-color: #010409;
+    color: white;
+}
+
+.project-btn:hover {
+    box-shadow: 0 2px 0 var(--dark);
+    transform: translateY(2px);
+}
+

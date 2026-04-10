@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Статистика {{ user.profile.username }}{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('profile.view', username=user.profile.username) }}">{{ user.profile.username }}</a></li>
+        <li class="breadcrumb-item active">Статистика</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Детальная статистика</h1>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5>Всего шагов</h5>
+                <h2>{{ total_steps }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5>Пройдено</h5>
+                <h2>{{ completed_steps }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h5>Теория</h5>
+                <h2>{{ theory_completed }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <h5>Тесты</h5>
+                <h2>{{ tests_completed }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Последняя активность</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {% for activity in recent_activity %}
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <strong>{{ activity.step.title }}</strong>
+                                <br>
+                                <small class="text-muted">{{ activity.step.stage.path.title }} → {{ activity.step.stage.title }}</small>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge bg-success">+{{ activity.step.xp_reward }} XP</span>
+                                <br>
+                                <small class="text-muted">{{ activity.completed_at.strftime('%d.%m.%Y %H:%M') }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p class="text-muted text-center">Пока нет активности</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

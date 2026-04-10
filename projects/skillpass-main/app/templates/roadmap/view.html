@@ -1,0 +1,815 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Анимации */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+    
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
+    /* Заголовок пути */
+    .path-header {
+        position: relative;
+        background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+        padding: 80px 0;
+        margin-bottom: 40px;
+        border-radius: 0 0 60px 60px;
+        overflow: hidden;
+        color: white;
+    }
+    
+    .path-header.beginner {
+        --gradient-start: #28a745;
+        --gradient-end: #20c997;
+    }
+    
+    .path-header.intermediate {
+        --gradient-start: #ffc107;
+        --gradient-end: #fd7e14;
+    }
+    
+    .path-header.advanced {
+        --gradient-start: #dc3545;
+        --gradient-end: #b02a37;
+    }
+    
+    .path-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 400px;
+        height: 400px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(15deg);
+        animation: float 8s ease-in-out infinite;
+    }
+    
+    .path-header::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        left: -10%;
+        width: 500px;
+        height: 500px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(-15deg);
+        animation: float 10s ease-in-out infinite reverse;
+    }
+    
+    .path-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 2;
+        animation: slideInLeft 0.8s ease-out;
+    }
+    
+    .path-description {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        max-width: 700px;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 2;
+        animation: slideInLeft 0.8s ease-out 0.1s both;
+    }
+    
+    .path-meta {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 2;
+        animation: slideInLeft 0.8s ease-out 0.2s both;
+    }
+    
+    .meta-badge {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 12px 25px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+    }
+    
+    .meta-badge i {
+        font-size: 1.2rem;
+    }
+    
+    .save-button {
+        position: relative;
+        z-index: 2;
+        animation: slideInRight 0.8s ease-out 0.2s both;
+    }
+    
+    .btn-save {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        border-radius: 50px;
+        padding: 15px 35px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .btn-save:hover {
+        background: white;
+        color: var(--gradient-start);
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn-save.saved {
+        background: white;
+        color: var(--gradient-start);
+    }
+    
+    /* Прогресс */
+    .progress-card {
+        background: white;
+        border-radius: 40px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+        animation: slideInUp 0.8s ease-out;
+        border: 1px solid rgba(13, 110, 253, 0.1);
+        position: sticky;
+        top: 20px;
+    }
+    
+    .progress-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .progress-title i {
+        color: #0d6efd;
+    }
+    
+    .progress-stats {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .progress-percent {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #0d6efd;
+        line-height: 1;
+    }
+    
+    .progress-text {
+        color: #6c757d;
+        font-size: 1rem;
+    }
+    
+    .progress-bar-container {
+        height: 12px;
+        background: #e9ecef;
+        border-radius: 30px;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+    
+    .progress-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #0d6efd, #0a58ca);
+        border-radius: 30px;
+        transition: width 0.5s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .progress-bar-fill::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        animation: shimmer 2s infinite;
+    }
+    
+    .progress-details {
+        display: flex;
+        justify-content: space-around;
+        padding: 20px 0;
+        border-top: 2px solid #f1f5f9;
+        border-bottom: 2px solid #f1f5f9;
+        margin-bottom: 20px;
+    }
+    
+    .progress-detail {
+        text-align: center;
+    }
+    
+    .detail-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e293b;
+    }
+    
+    .detail-label {
+        font-size: 0.85rem;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .path-stats {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #6c757d;
+    }
+    
+    .stat-item i {
+        color: #0d6efd;
+        font-size: 1.2rem;
+    }
+    
+    /* Этапы */
+    .stages-container {
+        animation: slideInUp 0.8s ease-out 0.1s both;
+    }
+    
+    .stage-card {
+        background: white;
+        border-radius: 30px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+    
+    .stage-card:hover {
+        box-shadow: 0 20px 40px rgba(13, 110, 253, 0.1);
+        border-color: #0d6efd;
+    }
+    
+    .stage-header {
+        padding: 20px 25px;
+        background: linear-gradient(135deg, #f8faff, #f0f4ff);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.3s ease;
+    }
+    
+    .stage-header:hover {
+        background: linear-gradient(135deg, #f0f4ff, #e8f0ff);
+    }
+    
+    .stage-title {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .stage-icon {
+        width: 50px;
+        height: 50px;
+        background: white;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: #0d6efd;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .stage-info h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 5px;
+    }
+    
+    .stage-info p {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+    
+    .stage-arrow {
+        font-size: 1.5rem;
+        color: #0d6efd;
+        transition: transform 0.3s ease;
+    }
+    
+    .stage-header.collapsed .stage-arrow {
+        transform: rotate(-90deg);
+    }
+    
+    .stage-content {
+        padding: 20px;
+        background: white;
+    }
+    
+    /* Шаги */
+    .steps-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .step-item {
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+        background: #f8faff;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        border: 1px solid transparent;
+    }
+    
+    .step-item:hover {
+        background: white;
+        border-color: #0d6efd;
+        transform: translateX(5px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.1);
+    }
+    
+    .step-item.disabled {
+        opacity: 0.7;
+        pointer-events: none;
+        background: #e9ecef;
+    }
+    
+    .step-icon {
+        width: 45px;
+        height: 45px;
+        background: white;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-size: 1.2rem;
+    }
+    
+    .step-icon.theory {
+        color: #0d6efd;
+    }
+    
+    .step-icon.test {
+        color: #28a745;
+    }
+    
+    .step-info {
+        flex: 1;
+    }
+    
+    .step-title {
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 3px;
+    }
+    
+    .step-type {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+    
+    .step-badges {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .step-badge {
+        padding: 5px 12px;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+    
+    .step-badge.completed {
+        background: #d4edda;
+        color: #28a745;
+    }
+    
+    .step-badge.xp {
+        background: #e2e3e5;
+        color: #1e293b;
+    }
+    
+    .step-badge.locked {
+        background: #e9ecef;
+        color: #6c757d;
+    }
+    
+    .step-lock {
+        color: #6c757d;
+        font-size: 1.2rem;
+        margin-left: 10px;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .path-title {
+            font-size: 2.5rem;
+        }
+        
+        .path-description {
+            font-size: 1.1rem;
+        }
+        
+        .progress-card {
+            position: static;
+            margin-bottom: 20px;
+        }
+        
+        .stage-header {
+            padding: 15px;
+        }
+        
+        .stage-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+        
+        .stage-info h3 {
+            font-size: 1.1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Заголовок пути -->
+<div class="path-header {{ path.difficulty }}">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="path-title">
+                    <i class="bi 
+                        {% if path.difficulty == 'beginner' %}bi-egg
+                        {% elif path.difficulty == 'intermediate' %}bi-graph-up
+                        {% else %}bi-rocket-takeoff{% endif %} me-3">
+                    </i>
+                    {{ path.title }}
+                </h1>
+                <p class="path-description">{{ path.description }}</p>
+                
+                <div class="path-meta">
+                    <span class="meta-badge">
+                        <i class="bi bi-diagram-3"></i>
+                        {{ stages|length }} этапов
+                    </span>
+                    <span class="meta-badge">
+                        <i class="bi bi-list-check"></i>
+                        {{ total_steps }} шагов
+                    </span>
+                    <span class="meta-badge">
+                        <i class="bi bi-star"></i>
+                        {{ total_xp }} XP
+                    </span>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 text-lg-end save-button">
+                {% if current_user.is_authenticated %}
+                <form method="post" action="{{ url_for('roadmap.save_path', path_id=path.id) }}" style="display: inline;">
+                    <button type="submit" class="btn-save {% if path.id in saved_paths %}saved{% endif %}">
+                        <i class="bi {% if path.id in saved_paths %}bi-bookmark-check-fill{% else %}bi-bookmark-plus{% endif %}"></i>
+                        {% if path.id in saved_paths %}Сохранено{% else %}Сохранить путь{% endif %}
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container pb-5">
+    <div class="row">
+        <!-- Левая колонка с этапами -->
+        <div class="col-lg-8">
+            <div class="stages-container">
+                <div class="accordion" id="stagesAccordion">
+                    {% for stage in stages %}
+                    <div class="stage-card">
+                        <div class="stage-header" data-bs-toggle="collapse" data-bs-target="#stage{{ stage.id }}">
+                            <div class="stage-title">
+                                <div class="stage-icon">
+                                    <i class="bi bi-layers"></i>
+                                </div>
+                                <div class="stage-info">
+                                    <h3>{{ stage.title }}</h3>
+                                    {% if stage.description %}
+                                    <p>{{ stage.description }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="stage-arrow">
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                        </div>
+                        
+                        <div id="stage{{ stage.id }}" class="collapse {% if loop.first %}show{% endif %} stage-content">
+                            <div class="steps-list">
+                                {% for step in stage.steps %}
+                                    {% if current_user.is_authenticated %}
+                                        {% if step.id in completed_steps %}
+                                            <a href="{{ url_for('roadmap.view_step', step_id=step.id) }}" class="step-item">
+                                                <div class="step-icon {{ step.type }}">
+                                                    <i class="bi bi-{% if step.type == 'theory' %}file-text{% else %}question-circle{% endif %}"></i>
+                                                </div>
+                                                <div class="step-info">
+                                                    <div class="step-title">{{ step.title }}</div>
+                                                    <div class="step-type">{{ 'Теория' if step.type == 'theory' else 'Тест' }}</div>
+                                                </div>
+                                                <div class="step-badges">
+                                                    <span class="step-badge completed">
+                                                        <i class="bi bi-check-lg"></i> Пройдено
+                                                    </span>
+                                                    <span class="step-badge xp">
+                                                        <i class="bi bi-star"></i> {{ step.xp_reward }} XP
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        {% elif step.id in available_steps %}
+                                            <a href="{{ url_for('roadmap.view_step', step_id=step.id) }}" class="step-item">
+                                                <div class="step-icon {{ step.type }}">
+                                                    <i class="bi bi-{% if step.type == 'theory' %}file-text{% else %}question-circle{% endif %}"></i>
+                                                </div>
+                                                <div class="step-info">
+                                                    <div class="step-title">{{ step.title }}</div>
+                                                    <div class="step-type">{{ 'Теория' if step.type == 'theory' else 'Тест' }}</div>
+                                                </div>
+                                                <div class="step-badges">
+                                                    <span class="step-badge xp">
+                                                        <i class="bi bi-star"></i> {{ step.xp_reward }} XP
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        {% else %}
+                                            <div class="step-item disabled">
+                                                <div class="step-icon {{ step.type }}" style="opacity: 0.5;">
+                                                    <i class="bi bi-{% if step.type == 'theory' %}file-text{% else %}question-circle{% endif %}"></i>
+                                                </div>
+                                                <div class="step-info">
+                                                    <div class="step-title">{{ step.title }}</div>
+                                                    <div class="step-type">{{ 'Теория' if step.type == 'theory' else 'Тест' }}</div>
+                                                </div>
+                                                <div class="step-badges">
+                                                    <span class="step-badge locked">
+                                                        <i class="bi bi-lock"></i> Заблокировано
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% else %}
+                                        <div class="step-item disabled">
+                                            <div class="step-icon {{ step.type }}" style="opacity: 0.5;">
+                                                <i class="bi bi-{% if step.type == 'theory' %}file-text{% else %}question-circle{% endif %}"></i>
+                                            </div>
+                                            <div class="step-info">
+                                                <div class="step-title">{{ step.title }}</div>
+                                                <div class="step-type">{{ 'Теория' if step.type == 'theory' else 'Тест' }}</div>
+                                            </div>
+                                            <div class="step-badges">
+                                                <span class="step-badge locked">
+                                                    <i class="bi bi-lock"></i> Войдите
+                                                </span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Правая колонка с прогрессом -->
+        <div class="col-lg-4">
+            <div class="progress-card">
+                <div class="progress-title">
+                    <i class="bi bi-graph-up"></i>
+                    Мой прогресс
+                </div>
+                
+                {% if current_user.is_authenticated %}
+                <div class="progress-stats">
+                    <div class="progress-percent">{{ progress_percent }}%</div>
+                    <div class="progress-text">выполнено</div>
+                </div>
+                
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" style="width: {{ progress_percent }}%;"></div>
+                </div>
+                
+                <div class="progress-details">
+                    <div class="progress-detail">
+                        <div class="detail-value">{{ completed_count }}</div>
+                        <div class="detail-label">Пройдено</div>
+                    </div>
+                    <div class="progress-detail">
+                        <div class="detail-value">{{ total_steps - completed_count }}</div>
+                        <div class="detail-label">Осталось</div>
+                    </div>
+                </div>
+                
+                <div class="path-stats">
+                    <div class="stat-item">
+                        <i class="bi bi-check-circle"></i>
+                        <span>Теория: {{ theory_count }} / {{ theory_total }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="bi bi-question-circle"></i>
+                        <span>Тесты: {{ test_count }} / {{ test_total }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="bi bi-star"></i>
+                        <span>Получено XP: {{ earned_xp }} / {{ total_xp }}</span>
+                    </div>
+                </div>
+                
+                {% if completed_count == total_steps and total_steps > 0 %}
+                <div class="alert alert-success text-center mt-3">
+                    <i class="bi bi-trophy-fill me-2"></i>
+                    Путь пройден! Поздравляем!
+                </div>
+                {% endif %}
+                
+                {% else %}
+                <div class="text-center">
+                    <i class="bi bi-person-circle" style="font-size: 4rem; color: #6c757d;"></i>
+                    <p class="mt-3">Войдите, чтобы отслеживать прогресс</p>
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-primary w-100 mb-2">
+                        <i class="bi bi-box-arrow-in-right"></i> Войти
+                    </a>
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-outline-success w-100">
+                        <i class="bi bi-person-plus"></i> Регистрация
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Бонус: информация о наградах -->
+            <div class="progress-card mt-4">
+                <div class="progress-title">
+                    <i class="bi bi-trophy"></i>
+                    Награды пути
+                </div>
+                
+                <div class="reward-item d-flex align-items-center gap-3 mb-3">
+                    <div class="reward-icon">
+                        <i class="bi bi-star text-warning" style="font-size: 2rem;"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold">Всего XP: {{ total_xp }}</div>
+                        <small class="text-muted">максимальное количество</small>
+                    </div>
+                </div>
+                
+                <div class="reward-item d-flex align-items-center gap-3 mb-3">
+                    <div class="reward-icon">
+                        <i class="bi bi-check-circle text-success" style="font-size: 2rem;"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold">{{ theory_total }} 
+                            {% if theory_total == 1 %}
+                                теория
+                            {% elif theory_total >= 2 and theory_total <= 4 %}
+                                теории
+                            {% else %}
+                                теорий
+                            {% endif %}
+                        </div>
+                        <small class="text-muted">теоретических шагов</small>
+                    </div>
+                </div>
+                
+                <div class="reward-item d-flex align-items-center gap-3">
+                    <div class="reward-icon">
+                        <i class="bi bi-question-circle text-info" style="font-size: 2rem;"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold">{{ test_total }} 
+                            {% if test_total == 1 %}
+                                тест
+                            {% elif test_total >= 2 and test_total <= 4 %}
+                                теста
+                            {% else %}
+                                тестов
+                            {% endif %}
+                        </div>
+                        <small class="text-muted">проверочных заданий</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Автоматическое открытие этапов с непройденными шагами
+document.addEventListener('DOMContentLoaded', function() {
+    {% if current_user.is_authenticated and completed_steps %}
+    const completedSteps = {{ completed_steps|tojson }};
+    const stageContents = document.querySelectorAll('.stage-content');
+    
+    stageContents.forEach(content => {
+        const steps = content.querySelectorAll('.step-item');
+        let hasIncomplete = false;
+        
+        steps.forEach(step => {
+            // Ищем пройден ли шаг
+            const isCompleted = step.querySelector('.step-badge.completed');
+            if (!isCompleted && !step.classList.contains('disabled')) {
+                hasIncomplete = true;
+            }
+        });
+        
+        // Если есть непройденные шаги, открываем этап
+        if (hasIncomplete) {
+            const collapse = new bootstrap.Collapse(content, {
+                toggle: false
+            });
+            collapse.show();
+        }
+    });
+    {% endif %}
+});
+</script>
+{% endblock %}

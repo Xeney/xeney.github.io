@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}Пользователи - CRM Система{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 fw-bold text-primary">
+        <i class="fas fa-user-cog me-2"></i>Управление пользователями
+    </h1>
+    <a href="{{ url_for('admin.add_user') }}" class="btn btn-primary btn-rounded animate__animated animate__pulse animate__infinite">
+        <i class="fas fa-user-plus me-2"></i>Создать пользователя
+    </a>
+</div>
+
+<div class="card shadow-sm glass-effect animate__animated animate__fadeInUp">
+    <div class="card-body">
+        {% if users %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">
+                            <i class="fas fa-user me-1"></i>Пользователь
+                        </th>
+                        <th>
+                            <i class="fas fa-shield-alt me-1"></i>Роль
+                        </th>
+                        <th>
+                            <i class="fas fa-calendar-plus me-1"></i>Дата создания
+                        </th>
+                        <th class="text-center">
+                            <i class="fas fa-chart-bar me-1"></i>Активность
+                        </th>
+                        <th class="text-center">
+                            <i class="fas fa-cogs me-1"></i>Действия
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr class="card-hover animate__animated animate__fadeIn" style="animation-delay: {{ loop.index * 0.05 }}s;">
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-sm 
+                                    {% if user.role == 'admin' %}bg-danger
+                                    {% elif user.role == 'manager' %}bg-warning
+                                    {% else %}bg-info{% endif %} 
+                                    rounded-circle d-flex align-items-center justify-content-center me-3">
+                                    <i class="fas fa-user text-white"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-medium">
+                                        {{ user.username }}
+                                        {% if user.id == current_user.id %}
+                                        <span class="badge bg-primary ms-1">Вы</span>
+                                        {% endif %}
+                                        {% if not user.is_active %}
+                                        <span class="badge bg-secondary ms-1">Неактивен</span>
+                                        {% endif %}
+                                    </h6>
+                                    <small class="text-muted">ID: {{ user.id }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge 
+                                {% if user.role == 'admin' %}bg-danger
+                                {% elif user.role == 'manager' %}bg-warning
+                                {% else %}bg-info{% endif %} 
+                                px-3 py-2">
+                                <i class="fas fa-{% if user.role == 'admin' %}crown
+                                {% elif user.role == 'manager' %}user-tie
+                                {% else %}user{% endif %} me-1"></i>
+                                {{ user.role }}
+                            </span>
+                        </td>
+                        <td class="text-muted">
+                            <i class="fas fa-clock me-1"></i>
+                            {{ user.created_at.strftime('%d.%m.%Y %H:%M') }}
+                        </td>
+                        <td class="text-center">
+                            <div class="d-inline-flex align-items-center bg-light rounded-pill px-3 py-1">
+                                <i class="fas fa-history text-muted me-2"></i>
+                                <span class="fw-medium text-dark">{{ user.interactions.count() }}</span>
+                                <small class="text-muted ms-1">контактов</small>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center gap-2">
+                                <!-- Кнопка редактирования -->
+                                <a href="{{ url_for('admin.edit_user', user_id=user.id) }}" 
+                                   class="btn btn-outline-warning btn-sm btn-rounded"
+                                   data-bs-toggle="tooltip" title="Редактировать"
+                                   {% if user.id == current_user.id %}disabled{% endif %}>
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                
+                                <!-- Кнопка смены пароля -->
+                                <a href="{{ url_for('admin.change_user_password', user_id=user.id) }}" 
+                                   class="btn btn-outline-info btn-sm btn-rounded"
+                                   data-bs-toggle="tooltip" title="Сменить пароль"
+                                   {% if user.id == current_user.id %}disabled{% endif %}>
+                                    <i class="fas fa-key"></i>
+                                </a>
+                                
+                                <!-- Кнопки активации/деактивации -->
+                                {% if user.is_active %}
+                                    <form method="POST" action="{{ url_for('admin.deactivate_user', user_id=user.id) }}" 
+                                          class="d-inline"
+                                          onsubmit="return confirm('Вы уверены, что хотите деактивировать пользователя {{ user.username }}? Он не сможет войти в систему.');">
+                                        <button type="submit" class="btn btn-outline-secondary btn-sm btn-rounded"
+                                                data-bs-toggle="tooltip" title="Деактивировать">
+                                            <i class="fas fa-user-slash"></i>
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <form method="POST" action="{{ url_for('admin.activate_user', user_id=user.id) }}" 
+                                          class="d-inline">
+                                        <button type="submit" class="btn btn-outline-success btn-sm btn-rounded"
+                                                data-bs-toggle="tooltip" title="Активировать">
+                                            <i class="fas fa-user-check"></i>
+                                        </button>
+                                    </form>
+                                {% endif %}
+                                
+                                <!-- Кнопка полного удаления -->
+                                {% if user.interactions.count() == 0 and user.id != current_user.id %}
+                                <form method="POST" action="{{ url_for('admin.delete_user', user_id=user.id) }}" 
+                                      class="d-inline"
+                                      onsubmit="return confirm('ВНИМАНИЕ! Пользователь {{ user.username }} будет полностью удален из системы. Это действие необратимо. Продолжить?');">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm btn-rounded"
+                                            data-bs-toggle="tooltip" title="Полное удаление">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                                {% else %}
+                                <button class="btn btn-outline-secondary btn-sm btn-rounded" disabled
+                                        data-bs-toggle="tooltip" 
+                                        title="{% if user.id == current_user.id %}Нельзя удалить себя{% else %}Пользователь имеет активность{% endif %}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <div class="animate__animated animate__bounceIn">
+                <i class="fas fa-users display-1 text-muted mb-3"></i>
+                <h4 class="text-muted">Пользователи не найдены</h4>
+                <p class="text-muted mb-4">Создайте первого пользователя системы</p>
+                <a href="{{ url_for('admin.add_user') }}" class="btn btn-primary btn-rounded">
+                    <i class="fas fa-user-plus me-1"></i>Создать пользователя
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Статистика по ролям -->
+{% if users %}
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card bg-danger bg-opacity-10 border-danger border animate__animated animate__fadeInLeft">
+            <div class="card-body text-center">
+                <i class="fas fa-crown display-4 text-danger mb-3"></i>
+                <h3 class="fw-bold text-danger">{{ users|selectattr('role', 'equalto', 'admin')|list|length }}</h3>
+                <p class="text-muted mb-0">Администраторов</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-warning bg-opacity-10 border-warning border animate__animated animate__fadeInUp">
+            <div class="card-body text-center">
+                <i class="fas fa-user-tie display-4 text-warning mb-3"></i>
+                <h3 class="fw-bold text-warning">{{ users|selectattr('role', 'equalto', 'manager')|list|length }}</h3>
+                <p class="text-muted mb-0">Менеджеров</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-info bg-opacity-10 border-info border animate__animated animate__fadeInRight">
+            <div class="card-body text-center">
+                <i class="fas fa-user display-4 text-info mb-3"></i>
+                <h3 class="fw-bold text-info">{{ users|selectattr('role', 'equalto', 'operator')|list|length }}</h3>
+                <p class="text-muted mb-0">Операторов</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Инициализация тултипов
+document.addEventListener('DOMContentLoaded', function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+});
+</script>
+{% endblock %}

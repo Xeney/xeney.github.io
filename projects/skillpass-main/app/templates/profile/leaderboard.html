@@ -1,0 +1,761 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Анимации */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
+    @keyframes glow {
+        0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+        50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.6); }
+    }
+    
+    /* Заголовок страницы */
+    .leaderboard-header {
+        position: relative;
+        background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
+        padding: 60px 0;
+        margin-bottom: 40px;
+        border-radius: 0 0 60px 60px;
+        overflow: hidden;
+    }
+    
+    .leaderboard-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 400px;
+        height: 400px;
+        background: rgba(13, 110, 253, 0.05);
+        border-radius: 50%;
+        transform: rotate(15deg);
+        animation: float 8s ease-in-out infinite;
+    }
+    
+    .leaderboard-header::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        left: -10%;
+        width: 500px;
+        height: 500px;
+        background: rgba(13, 110, 253, 0.05);
+        border-radius: 50%;
+        transform: rotate(-15deg);
+        animation: float 10s ease-in-out infinite reverse;
+    }
+    
+    .leaderboard-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #1e293b;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 2;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .leaderboard-subtitle {
+        font-size: 1.3rem;
+        color: #6c757d;
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+        animation: slideInUp 0.8s ease-out 0.1s both;
+    }
+    
+    /* Статистика */
+    .stats-section {
+        margin-bottom: 40px;
+        animation: slideInUp 0.8s ease-out 0.2s both;
+    }
+    
+    .stat-card {
+        background: white;
+        border-radius: 30px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(13, 110, 253, 0.1);
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+    }
+    
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 150px;
+        height: 150px;
+        background: rgba(13, 110, 253, 0.05);
+        border-radius: 50%;
+        transition: all 0.5s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px rgba(13, 110, 253, 0.1);
+        border-color: #0d6efd;
+    }
+    
+    .stat-card:hover::before {
+        transform: scale(1.5) rotate(15deg);
+    }
+    
+    .stat-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #f8faff, #f0f4ff);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 2rem;
+        color: #0d6efd;
+        transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover .stat-icon {
+        transform: rotate(10deg) scale(1.1);
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #1e293b;
+        line-height: 1.2;
+        margin-bottom: 5px;
+    }
+    
+    .stat-label {
+        color: #6c757d;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+    
+    /* Подиум */
+    .podium-section {
+        margin-bottom: 50px;
+        animation: slideInUp 0.8s ease-out 0.3s both;
+    }
+    
+    .podium {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .podium-item {
+        text-align: center;
+        position: relative;
+        animation: slideInUp 0.6s ease-out;
+        animation-fill-mode: both;
+    }
+    
+    .podium-item:nth-child(1) { animation-delay: 0.1s; }
+    .podium-item:nth-child(2) { animation-delay: 0.2s; }
+    .podium-item:nth-child(3) { animation-delay: 0.3s; }
+    
+    .podium-rank {
+        width: 60px;
+        height: 60px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin: 0 auto 15px;
+        color: white;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .podium-rank.rank-1 {
+        background: linear-gradient(135deg, #ffd700, #ffb347);
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        animation: glow 2s ease-in-out infinite;
+    }
+    
+    .podium-rank.rank-2 {
+        background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
+        box-shadow: 0 10px 30px rgba(192, 192, 192, 0.3);
+    }
+    
+    .podium-rank.rank-3 {
+        background: linear-gradient(135deg, #cd7f32, #b06d28);
+        box-shadow: 0 10px 30px rgba(205, 127, 50, 0.3);
+    }
+    
+    .podium-avatar {
+        border-radius: 40px;
+        object-fit: cover;
+        border: 4px solid white;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 2;
+    }
+
+    .podium-avatar.first {
+        width: 120px;
+        height: 120px;
+    }
+
+    .podium-avatar:not(.first) {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .podium-item:hover .podium-avatar {
+        transform: scale(1.05) rotate(5deg);
+        border-color: #0d6efd;
+    }
+    
+    .podium-crown {
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 2rem;
+        animation: float 2s ease-in-out infinite;
+    }
+    
+    .podium-name {
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 5px;
+    }
+    
+    .podium-username {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-bottom: 10px;
+    }
+    
+    .podium-stats {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    
+    .podium-stat {
+        background: #f8faff;
+        border-radius: 30px;
+        padding: 8px 15px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #0d6efd;
+    }
+    
+    .podium-platform {
+        background: white;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        bottom: 60px;
+        right: 10px;
+        border: 2px solid white;
+    }
+    
+    /* Таблица лидеров */
+    .leaderboard-table-section {
+        animation: slideInUp 0.8s ease-out 0.4s both;
+    }
+    
+    .table-container {
+        background: white;
+        border-radius: 40px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+    
+    .leaderboard-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .leaderboard-table thead tr {
+        background: linear-gradient(135deg, #f8faff, #f0f4ff);
+        border-radius: 30px;
+    }
+    
+    .leaderboard-table th {
+        padding: 20px;
+        font-weight: 700;
+        color: #1e293b;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .leaderboard-table th:first-child {
+        border-radius: 30px 0 0 30px;
+    }
+    
+    .leaderboard-table th:last-child {
+        border-radius: 0 30px 30px 0;
+    }
+    
+    .leaderboard-table td {
+        padding: 15px 20px;
+        border-bottom: 1px solid #f1f5f9;
+        vertical-align: middle;
+    }
+    
+    .leaderboard-table tbody tr {
+        transition: all 0.3s ease;
+    }
+    
+    .leaderboard-table tbody tr:hover {
+        background: #f8faff;
+        transform: scale(1.01);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.1);
+    }
+    
+    .rank-cell {
+        font-weight: 800;
+        font-size: 1.2rem;
+        color: #0d6efd;
+    }
+    
+    .rank-badge {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: white;
+    }
+    
+    .rank-badge.rank-1 { background: linear-gradient(135deg, #ffd700, #ffb347); }
+    .rank-badge.rank-2 { background: linear-gradient(135deg, #c0c0c0, #a0a0a0); }
+    .rank-badge.rank-3 { background: linear-gradient(135deg, #cd7f32, #b06d28); }
+    
+    .user-cell {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .user-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+        object-fit: cover;
+        border: 3px solid white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .user-info {
+        text-align: left;
+    }
+    
+    .user-name {
+        font-weight: 700;
+        color: #1e293b;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .user-name:hover {
+        color: #0d6efd;
+    }
+    
+    .user-username {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+    
+    .level-cell {
+        text-align: center;
+    }
+    
+    .level-badge {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-block;
+    }
+    
+    .xp-cell {
+        text-align: right;
+        font-weight: 700;
+        color: #28a745;
+    }
+    
+    .xp-progress {
+        display: inline-block;
+        padding: 8px 15px;
+        background: #e8f5e9;
+        border-radius: 30px;
+        color: #28a745;
+    }
+    
+    /* Пагинация */
+    .pagination-section {
+        margin-top: 40px;
+        animation: slideInUp 0.8s ease-out 0.5s both;
+    }
+    
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .page-item {
+        list-style: none;
+    }
+    
+    .page-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background: white;
+        border: 2px solid #e9ecef;
+        border-radius: 15px;
+        color: #1e293b;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .page-link:hover {
+        background: #0d6efd;
+        border-color: #0d6efd;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
+    }
+    
+    .page-item.active .page-link {
+        background: #0d6efd;
+        border-color: #0d6efd;
+        color: white;
+    }
+    
+    .page-item.disabled .page-link {
+        background: #e9ecef;
+        color: #6c757d;
+        pointer-events: none;
+        border-color: #e9ecef;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .leaderboard-title {
+            font-size: 2.5rem;
+        }
+        
+        .leaderboard-subtitle {
+            font-size: 1.1rem;
+        }
+        
+        .podium {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .podium-item {
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .user-cell {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .table-container {
+            padding: 15px;
+            overflow-x: auto;
+        }
+        
+        .leaderboard-table {
+            min-width: 600px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Заголовок страницы -->
+<div class="leaderboard-header">
+    <div class="container text-center">
+        <h1 class="leaderboard-title">
+            <i class="bi bi-trophy-fill me-3" style="color: #ffd700;"></i>Таблица лидеров
+        </h1>
+        <p class="leaderboard-subtitle">Лучшие студенты нашей платформы</p>
+    </div>
+</div>
+
+<div class="container pb-5">
+    <!-- Статистика -->
+    <div class="stats-section">
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <div class="stat-number">{{ users.total }}</div>
+                    <div class="stat-label">всего студентов</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <div class="stat-number">{{ users.items|map(attribute='profile.xp')|sum }}</div>
+                    <div class="stat-label">всего XP</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-trophy-fill"></i>
+                    </div>
+                    <div class="stat-number">{{ users.items|selectattr('profile.level', '>=', 10)|list|length }}</div>
+                    <div class="stat-label">выше 10 уровня</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                    <div class="stat-number">{{ (users.items|map(attribute='profile.xp')|sum / users.total)|round|int }}</div>
+                    <div class="stat-label">средний XP</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подиум (топ-3) -->
+    {% if users.items %}
+    <div class="podium-section">
+        <div class="podium">
+            {% for user in users.items[:3] %}
+            <div class="podium-item">
+                {% if loop.index == 1 %}
+                <div class="podium-crown">
+                    <i class="bi bi-crown-fill" style="color: #ffd700;"></i>
+                </div>
+                {% endif %}
+                
+                <div class="podium-rank rank-{{ loop.index }}">
+                    {{ loop.index }}
+                </div>
+                
+                <img src="{{ user.profile.avatar_url }}" 
+                     alt="{{ user.full_name }}" 
+                     class="podium-avatar"
+                     style="width: {% if loop.index == 1 %}120px{% else %}100px{% endif %}; height: {% if loop.index == 1 %}120px{% else %}100px{% endif %};">
+                
+                <div class="podium-name">{{ user.full_name }}</div>
+                <div class="podium-username">@{{ user.profile.username }}</div>
+                
+                <div class="podium-stats">
+                    <span class="podium-stat">
+                        <i class="bi bi-star-fill me-1"></i>{{ user.profile.level }}
+                    </span>
+                    <span class="podium-stat">
+                        <i class="bi bi-lightning-charge-fill me-1"></i>{{ user.profile.xp }} XP
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Таблица лидеров -->
+    <div class="leaderboard-table-section">
+        <div class="table-container">
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th>Студент</th>
+                        <th class="text-center">Уровень</th>
+                        <th class="text-end">XP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users.items %}
+                    <tr>
+                        <td class="text-center rank-cell">
+                            {% if loop.index + (users.page - 1) * users.per_page <= 3 %}
+                            <div class="rank-badge rank-{{ loop.index + (users.page - 1) * users.per_page }}">
+                                {{ loop.index + (users.page - 1) * users.per_page }}
+                            </div>
+                            {% else %}
+                            {{ loop.index + (users.page - 1) * users.per_page }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="user-cell">
+                                <img src="{{ user.profile.avatar_url }}" 
+                                     alt="{{ user.full_name }}" 
+                                     class="user-avatar">
+                                <div class="user-info">
+                                    <a href="{{ url_for('profile.view', username=user.profile.username) }}" class="user-name">
+                                        {{ user.full_name }}
+                                    </a>
+                                    <div class="user-username">@{{ user.profile.username }}</div>
+                                </div>
+                                {% if user.is_admin() %}
+                                <span class="badge bg-primary ms-2" style="border-radius: 10px;">
+                                    <i class="bi bi-shield-fill-check"></i>
+                                </span>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="level-cell">
+                            <span class="level-badge">
+                                <i class="bi bi-star-fill me-1"></i>{{ user.profile.level }}
+                            </span>
+                        </td>
+                        <td class="xp-cell">
+                            <span class="xp-progress">
+                                <i class="bi bi-lightning-charge-fill me-1"></i>{{ user.profile.xp }} XP
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Пагинация -->
+    {% if users.pages > 1 %}
+    <div class="pagination-section">
+        <ul class="pagination">
+            {% if users.has_prev %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('profile.leaderboard', page=users.prev_num) }}">
+                    <i class="bi bi-chevron-left"></i>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">
+                    <i class="bi bi-chevron-left"></i>
+                </span>
+            </li>
+            {% endif %}
+
+            {% for page_num in users.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+                {% if page_num %}
+                    {% if page_num == users.page %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ page_num }}</span>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('profile.leaderboard', page=page_num) }}">{{ page_num }}</a>
+                    </li>
+                    {% endif %}
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if users.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('profile.leaderboard', page=users.next_num) }}">
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">
+                    <i class="bi bi-chevron-right"></i>
+                </span>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+    {% endif %}
+    
+    {% else %}
+    <!-- Пустое состояние -->
+    <div class="empty-state">
+        <div class="empty-state-icon">
+            <i class="bi bi-trophy"></i>
+        </div>
+        <h3>Пока нет участников</h3>
+        <p>Будьте первым, кто попадет в таблицу лидеров!</p>
+        <a href="{{ url_for('roadmap.catalog') }}" class="btn-browse">
+            <i class="bi bi-compass me-2"></i>Начать обучение
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+// Добавляем анимацию для строк таблицы
+document.addEventListener('DOMContentLoaded', function() {
+    const rows = document.querySelectorAll('.leaderboard-table tbody tr');
+    rows.forEach((row, index) => {
+        row.style.animation = `slideInUp 0.5s ease-out ${0.1 + index * 0.03}s both`;
+    });
+});
+</script>
+{% endblock %}
