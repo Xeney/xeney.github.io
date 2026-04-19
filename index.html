@@ -3,514 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Варламов Дамир — Backend Developer из Самары. Разработка сайтов, Telegram-ботов, веб-приложений. Победитель World Skills Russia.">
-    <meta name="keywords" content="backend разработчик, веб-разработчик, Python, Go, C#, Telegram бот, сайт-визитка, Самара">
-    <meta name="author" content="Варламов Дамир">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://xeney.github.io/">
+    <meta name="description" content="Варламов Дамир — Backend Developer. Создаю серверную часть приложений на Python, Go, C#. Победитель World Skills Russia 2022.">
+    <meta name="keywords" content="backend разработчик, Python, Go, C#, PostgreSQL, Docker, Telegram бот, Самара">
     
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://xeney.github.io/">
-    <meta property="og:title" content="Варламов Дамир | Backend Developer">
-    <meta property="og:description" content="Backend-разработчик из Самары. Разработка сайтов, Telegram-ботов, веб-приложений.">
-    <meta property="og:image" content="https://xeney.github.io/img/avatar.jpg">
+    <title>Дамир Варламов | Backend Developer</title>
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Варламов Дамир | Backend Developer">
-    <meta name="twitter:description" content="Backend-разработчик из Самары. Разработка сайтов, Telegram-ботов, веб-приложений.">
-    <meta name="twitter:image" content="https://xeney.github.io/img/avatar.jpg">
-    
-    <link rel="shortcut icon" href="./logo.png" type="image/x-icon">
-    
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.16.0/devicon.min.css">
+    <link rel="stylesheet" href="src/styles/main.css">
     
-    <title>Варламов Дамир | Backend Developer</title>
-    
-    <!-- Main Styles -->
-    <link rel="stylesheet" href="./src/styles/main.css">
+    <link rel="shortcut icon" href="./logo.png" type="image/x-icon">
 </head>
 <body>
-    <!-- Background Effects -->
-    <div class="bg-canvas">
-        <canvas id="particles-canvas"></canvas>
-    </div>
-    <div class="bg-gradient"></div>
-    <div class="bg-grid"></div>
-    <div class="bg-noise"></div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
     
-    <!-- Floating Orbs -->
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+    <div class="noise-overlay"></div>
     
-    <!-- Header -->
-    <header class="header">
+    <header class="header" id="header">
         <div class="container header-inner">
-            <a href="#" class="logo">
-                <span>Дамир</span>
-                <span>Варламов</span>
+            <a href="/" class="logo">
+                <span>D</span><span>V</span>
             </a>
             
             <nav class="nav" id="nav">
                 <a href="#about" class="nav-link">Обо мне</a>
-                <a href="#projects" class="nav-link">Проекты</a>
+                <a href="#work" class="nav-link">Работы</a>
                 <a href="#services" class="nav-link">Услуги</a>
-                <a href="#reviews" class="nav-link">Отзывы</a>
-                <a href="#contact" class="nav-link">Контакты</a>
+                <a href="#contact" class="nav-link">Контакт</a>
             </nav>
             
-            <div class="header-actions">
-                <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <button class="menu-toggle" id="menuToggle" aria-label="Меню">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section class="hero" id="hero">
-            <div class="container">
+            <div class="container hero-container">
                 <div class="hero-content">
-                    <div class="hero-badge">
-                        <i class="fas fa-code"></i>
-                        <span>Backend Developer</span>
+                    <div class="hero-label">
+                        <span class="status-dot"></span>
+                        <span>Доступен для проектов</span>
                     </div>
                     
                     <h1 class="hero-title">
-                        Привет, я <span class="accent" data-text="Дамир Варламов">Дамир Варламов</span>
+                        <span class="line">Дамир</span>
+                        <span class="line">Варламов</span>
                     </h1>
                     
                     <p class="hero-subtitle">
-                        Backend-разработчик из Самары.<br>
-                        Специализируюсь на современных веб-решениях.
+                        Backend Developer &middot; Python, Go, C# &middot; Самара
                     </p>
                     
-                    <p class="hero-description">
-                        Создаю сайты, Telegram-ботов и веб-приложения. 
-                        Ценю качественный код, минимализм и практический подход.
+                    <p class="hero-desc">
+                        Создаю серверную часть приложений.<br>
+                        Просто, чисто, надёжно.
                     </p>
                     
                     <div class="hero-cta">
                         <a href="https://t.me/Ghosers" class="btn btn-primary" target="_blank">
-                            <i class="fas fa-comment-dots"></i>
-                            Бесплатная консультация
+                            <i class="fab fa-telegram-plane"></i>
+                            Написать мне
                         </a>
-                        <a href="#projects" class="btn btn-secondary">
-                            <i class="fas fa-folder"></i>
-                            Мои проекты
+                        <a href="#work" class="btn btn-secondary">
+                            <i class="fas fa-eye"></i>
+                            Смотреть работы
                         </a>
-                    </div>
-                    
-                    <div class="hero-status">
-                        <span class="status-dot"></span>
-                        <span>Доступен для новых проектов</span>
                     </div>
                 </div>
                 
-                <div class="hero-card">
-                    <div class="hero-card-inner">
-                        <div class="hero-avatar">
-                            <img src="./img/avatar.jpg" alt="Варламов Дамир">
+                <div class="hero-visual">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
                         </div>
-                        <h3 class="hero-card-name">Варламов Дамир</h3>
-                        <p class="hero-card-role">Backend Developer</p>
-                        <div class="hero-card-tech">
-                            <i class="devicon-csharp-plain colored"></i>
-                            <i class="devicon-python-plain colored"></i>
-                            <i class="devicon-go-plain colored"></i>
-                        </div>
+                        <pre class="code-content"><code><span class="keyword">func</span> <span class="func">main</span>() {
+    <span class="comment">// Создаём будущее</span>
+    result := <span class="build">Build</span>(world)
+    
+    <span class="keyword">if</span> result.Error != <span class="nil">nil</span> {
+        <span class="build">TryAgain</span>()
+    }
+    
+    <span class="comment">// PROFIT!</span>
+    <span class="build">Ship</span>(to: user)
+}</code></pre>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section class="section about" id="about">
+        <section class="stack" id="stack">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">Обо мне</span>
-                    <h2 class="section-title">Кто я такой</h2>
-                </div>
+                <h2 class="section-title">Стек технологий</h2>
                 
+                <div class="stack-grid">
+                    <div class="stack-item">
+                        <i class="devicon-csharp-plain colored"></i>
+                        <span>C# / .NET</span>
+                    </div>
+                    <div class="stack-item">
+                        <i class="devicon-python-plain colored"></i>
+                        <span>Python</span>
+                    </div>
+                    <div class="stack-item">
+                        <i class="devicon-go-plain colored"></i>
+                        <span>Go</span>
+                    </div>
+                    <div class="stack-item">
+                        <i class="devicon-flask-original colored"></i>
+                        <span>Flask</span>
+                    </div>
+                    <div class="stack-item">
+                        <i class="devicon-dotnetcore-plain colored"></i>
+                        <span>ASP.NET</span>
+                    </div>
+                    <div class="stack-item">
+                        <i class="devicon-postgresql-plain colored"></i>
+                        <span>PostgreSQL</span>
+                    </div>
+                    <div class="stack-item">
+                        <i class="devicon-docker-plain colored"></i>
+                        <span>Docker</span>
+                    </div>
+                    <div class="stack-item">
+                        <i class="devicon-git-plain colored"></i>
+                        <span>Git</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <div class="container">
                 <div class="about-grid">
-                    <div class="about-info">
-                        <h3>Немного о себе</h3>
+                    <div class="about-text">
+                        <h2 class="section-title">Обо мне</h2>
+                        
+                        <p class="lead">
+                            Backend-разработчик из Самары. 
+                            Специализируюсь на серверной части приложений.
+                        </p>
+                        
                         <p>
-                            Backend-разработчик из Самары с опытом создания веб-приложений, сайтов и Telegram-ботов. 
-                            Специализируюсь на современных технологиях и качественном коде.
-                        </p>
-                        <p>
-                            <strong>Достижения:</strong> Победитель национального чемпионата World Skills Russia 2022 
-                            в компетенции «Разработка бизнес-решений с использованием блокчейн-технологий».
+                            Создаю сайты, веб-приложения и Telegram-ботов. 
+                            Пишу чистый код, который легко поддерживать и развивать.
                         </p>
                         
-                        <div class="about-traits">
-                            <div class="trait">
-                                <i class="fas fa-code"></i>
-                                <span>Чистый код</span>
-                            </div>
-                            <div class="trait">
-                                <i class="fas fa-lightbulb"></i>
-                                <span>Эффективные решения</span>
-                            </div>
-                            <div class="trait">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Качество и надёжность</span>
+                        <div class="achievement">
+                            <i class="fas fa-trophy"></i>
+                            <div>
+                                <strong>World Skills Russia 2022</strong>
+                                <span>Победитель национального<br>чемпионата «Разработка<br>блокчейн-решений»</span>
                             </div>
                         </div>
                         
-                        <div class="about-links">
-                            <a href="https://github.com/Xeney" class="btn btn-secondary" target="_blank">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                            <a href="https://t.me/Ghosers" class="btn btn-secondary" target="_blank">
-                                <i class="fab fa-telegram-plane"></i> Telegram
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="about-stack">
-                        <h3>Технологический стек</h3>
-                        <div class="tech-grid">
-                            <div class="tech-item">
-                                <i class="devicon-csharp-plain colored"></i>
-                                <span>C# / .NET</span>
-                            </div>
-                            <div class="tech-item">
-                                <i class="devicon-python-plain colored"></i>
-                                <span>Python</span>
-                            </div>
-                            <div class="tech-item">
-                                <i class="devicon-go-plain colored"></i>
-                                <span>Go / Golang</span>
-                            </div>
-                            <div class="tech-item">
-                                <i class="devicon-flask-original colored"></i>
-                                <span>Flask</span>
-                            </div>
-                            <div class="tech-item">
-                                <i class="devicon-dotnetcore-plain colored"></i>
-                                <span>ASP.NET Core</span>
-                            </div>
-                            <div class="tech-item">
-                                <i class="devicon-postgresql-plain colored"></i>
-                                <span>PostgreSQL</span>
-                            </div>
-                            <div class="tech-item">
-                                <i class="devicon-docker-plain colored"></i>
-                                <span>Docker</span>
-                            </div>
-                            <div class="tech-item">
-                                <i class="devicon-git-plain colored"></i>
-                                <span>Git</span>
-                            </div>
-                            <div class="tech-item">
-                                <i class="fab fa-html5"></i>
-                                <span>HTML / CSS</span>
-                            </div>
-                            <div class="tech-item">
-                                <i class="fab fa-telegram"></i>
-                                <span>Telegram API</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section class="section projects" id="projects">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">Проекты</span>
-                    <h2 class="section-title">Мои работы</h2>
-                    <p class="section-subtitle">Проекты, над которыми я работал и которыми горжусь</p>
-                </div>
-                
-                <div class="projects-grid">
-                    <article class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-plane"></i>
-                            </div>
-                            <span class="project-badge">Backend</span>
-                        </div>
-                        <h3>Система планирования дронов <span class="project-number">#1</span></h3>
-                        <p>Система маршрутизации роя БПЛА для автоматизированной доставки грузов с визуализацией на карте.</p>
-                        <div class="project-tech">
-                            <span>Go</span>
-                            <span>Gin</span>
-                            <span>Leaflet.js</span>
-                        </div>
-                        <a href="https://github.com/Xeney" class="project-link" target="_blank">
-                            <i class="fab fa-github"></i> Смотреть на GitHub
-                        </a>
-                    </article>
-                    
-                    <article class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-building"></i>
-                            </div>
-                            <span class="project-badge">Full-stack</span>
-                        </div>
-                        <h3>CRM для коллекторского агентства <span class="project-number">#2</span></h3>
-                        <p>Полнофункциональная CRM-система с ролевым доступом, импортом/экспортом Excel и умным поиском.</p>
-                        <div class="project-tech">
-                            <span>Python</span>
-                            <span>Flask</span>
-                            <span>SQLAlchemy</span>
-                            <span>Bootstrap</span>
-                        </div>
-                        <a href="https://github.com/Xeney" class="project-link" target="_blank">
-                            <i class="fab fa-github"></i> Смотреть на GitHub
-                        </a>
-                    </article>
-                    
-                    <article class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <span class="project-badge">Full-stack</span>
-                        </div>
-                        <h3>SkillPass — образовательная платформа <span class="project-number">#3</span></h3>
-                        <p>Платформа для структурированного обучения с геймификацией, XP, уровнями и публичными профилями.</p>
-                        <div class="project-tech">
-                            <span>Python</span>
-                            <span>Flask</span>
-                            <span>SQLAlchemy</span>
-                            <span>Bootstrap</span>
-                        </div>
-                        <a href="https://github.com/Xeney" class="project-link" target="_blank">
-                            <i class="fab fa-github"></i> Смотреть на GitHub
-                        </a>
-                    </article>
-                    
-                    <article class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <span class="project-badge">Backend</span>
-                        </div>
-                        <h3>Student Projects Hub <span class="project-number">#4</span></h3>
-                        <p>Веб-платформа для студентов-разработчиков с полным CRUD и REST API на Go.</p>
-                        <div class="project-tech">
-                            <span>Go</span>
-                            <span>Gin</span>
-                            <span>HTML/CSS</span>
-                            <span>JS</span>
-                        </div>
-                        <a href="https://github.com/Xeney" class="project-link" target="_blank">
-                            <i class="fab fa-github"></i> Смотреть на GitHub
-                        </a>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section class="section services" id="services">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">Услуги</span>
-                    <h2 class="section-title">Что я делаю</h2>
-                    <p class="section-subtitle">Качественные услуги по доступным ценам</p>
-                </div>
-                
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-id-card"></i>
-                        </div>
-                        <h3>Сайт-визитка</h3>
-                        <p>Лаконичный сайт для представления ваших услуг или персонального портфолио.</p>
-                        <div class="service-price">
-                            <span>от</span>
-                            <span class="price">3 000 ₽</span>
-                        </div>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check"></i> Адаптивный дизайн</li>
-                            <li><i class="fas fa-check"></i> До 5 страниц</li>
-                            <li><i class="fas fa-check"></i> Базовая SEO</li>
-                            <li><i class="fas fa-check"></i> Форма контактов</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="service-card featured">
-                        <div class="service-badge">Популярно</div>
-                        <div class="service-icon">
-                            <i class="fas fa-bullhorn"></i>
-                        </div>
-                        <h3>Landing Page</h3>
-                        <p>Продающая одностраничная структура для привлечения клиентов.</p>
-                        <div class="service-price">
-                            <span>от</span>
-                            <span class="price">5 000 ₽</span>
-                        </div>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check"></i> Продающий дизайн</li>
-                            <li><i class="fas fa-check"></i> Форма захвата</li>
-                            <li><i class="fas fa-check"></i> Адаптивность</li>
-                            <li><i class="fas fa-check"></i> Базовая аналитика</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fab fa-telegram"></i>
-                        </div>
-                        <h3>Telegram-бот</h3>
-                        <p>Умный бот с автоответом, клавиатурами и интеграциями.</p>
-                        <div class="service-price">
-                            <span>от</span>
-                            <span class="price">4 000 ₽</span>
-                        </div>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check"></i> Автоответы</li>
-                            <li><i class="fas fa-check"></i> Клавиатуры</li>
-                            <li><i class="fas fa-check"></i> База данных</li>
-                            <li><i class="fas fa-check"></i> API интеграции</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Reviews Section -->
-        <section class="section reviews" id="reviews">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">Отзывы</span>
-                    <h2 class="section-title">Что говорят клиенты</h2>
-                </div>
-                
-                <div class="reviews-grid">
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="review-author">
-                                <h4>Людмила П.</h4>
-                                <span>Преподаватель испанского языка</span>
-                            </div>
-                            <div class="review-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <p class="review-text">
-                            Мне нужно было сделать сайт и я по объявлению познакомилась с Дамиром. Он не только сделал очень быстро сайт, дизайн был намного лучше того, что я представляла. Объяснил как работать с сайтом, консультировал по всем вопросам. Рекомендую!
-                        </p>
-                        <span class="review-project">Сайт-визитка</span>
-                    </div>
-                    
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="review-author">
-                                <h4>Анна В.</h4>
-                                <span>Владелец цветочного магазина</span>
-                            </div>
-                            <div class="review-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <p class="review-text">
-                            Заказывала Telegram-бота для приёма заказов. Дамир сделал всё очень быстро и качественно! Бот принимает заказы, отправляет уведомления, ведёт статистику. Очень довольна результатом!
-                        </p>
-                        <span class="review-project">Telegram-бот</span>
-                    </div>
-                    
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="review-author">
-                                <h4>Дмитрий С.</h4>
-                                <span>Руководитель IT-стартапа</span>
-                            </div>
-                            <div class="review-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <p class="review-text">
-                            Работал с Дамиром над прототипом веб-приложения. Отличный специалист! Внимательный к деталям, предлагает свои решения. Код чистый, комментарии понятные. Рекомендую!
-                        </p>
-                        <span class="review-project">Веб-приложение</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="section contact" id="contact">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">Контакты</span>
-                    <h2 class="section-title">Свяжитесь со мной</h2>
-                    <p class="section-subtitle">Готов обсудить ваш проект прямо сейчас</p>
-                </div>
-                
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <h3>Давайте обсудим ваш проект</h3>
-                        <p>Напишите мне в любой из удобных каналов — отвечу в течение нескольких часов.</p>
-                        
-                        <div class="contact-cards">
-                            <a href="https://t.me/Ghosers" class="contact-card" target="_blank">
-                                <i class="fab fa-telegram-plane"></i>
-                                <span>Telegram</span>
-                            </a>
-                            <a href="https://vk.com/damir_varlamov" class="contact-card" target="_blank">
-                                <i class="fab fa-vk"></i>
-                                <span>ВКонтакте</span>
-                            </a>
-                        </div>
-                        
-                        <div class="contact-links">
-                            <a href="mailto:damir.itwar@yandex.ru" class="contact-link">
-                                <i class="fas fa-envelope"></i>
-                                <span>damir.itwar@yandex.ru</span>
-                            </a>
-                            <div class="contact-link">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>Самара, Россия</span>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-socials">
+                        <div class="social-links">
                             <a href="https://github.com/Xeney" target="_blank" aria-label="GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
@@ -520,76 +176,268 @@
                             <a href="https://vk.com/damir_varlamov" target="_blank" aria-label="VK">
                                 <i class="fab fa-vk"></i>
                             </a>
-                            <a href="mailto:damir.itwar@yandex.ru" aria-label="Email">
-                                <i class="fas fa-envelope"></i>
-                            </a>
                         </div>
                     </div>
                     
-                    <div class="contact-form-wrapper">
-                        <form class="contact-form" id="contactForm">
-                            <div class="form-group">
-                                <input type="text" name="name" placeholder="Ваше имя" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" name="email" placeholder="Email или Telegram" required>
-                            </div>
-                            <div class="form-group">
-                                <textarea name="message" placeholder="Расскажите о вашем проекте..." rows="5" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-paper-plane"></i>
-                                Отправить сообщение
-                            </button>
-                        </form>
+                    <div class="about-image">
+                        <img src="./assets/img/avatar.jpg" alt="Дамир Варламов">
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="work" id="work">
+            <div class="container">
+                <h2 class="section-title">Избранные работы</h2>
+                
+                <div class="work-grid">
+                    <article class="work-card">
+                        <div class="work-number">01</div>
+                        <h3>CRM для коллекторов</h3>
+                        <p>Полнофункциональная система с ролями, Excel импортом и умным поиском.</p>
+                        <div class="work-tags">
+                            <span>Python</span>
+                            <span>Flask</span>
+                            <span>SQLAlchemy</span>
+                        </div>
+                    </article>
+                    
+                    <article class="work-card">
+                        <div class="work-number">02</div>
+                        <h3>Планировщик дронов</h3>
+                        <p>Система маршрутизации роя БПЛА для доставки грузов.</p>
+                        <div class="work-tags">
+                            <span>Go</span>
+                            <span>Gin</span>
+                            <span>Leaflet</span>
+                        </div>
+                    </article>
+                    
+                    <article class="work-card">
+                        <div class="work-number">03</div>
+                        <h3>Образовательная платформа</h3>
+                        <p>EdTech-платформа с геймификацией, XP и публичными профилями.</p>
+                        <div class="work-tags">
+                            <span>Python</span>
+                            <span>Flask</span>
+                            <span>Bootstrap</span>
+                        </div>
+                    </article>
+                    
+                    <article class="work-card">
+                        <div class="work-number">04</div>
+                        <h3>Telegram-боты</h3>
+                        <p>Автоответы, клавиатуры, интеграции с внешними API.</p>
+                        <div class="work-tags">
+                            <span>Python</span>
+                            <span>aiogram</span>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="work-cta">
+                    <a href="https://github.com/Xeney" class="btn btn-secondary" target="_blank">
+                        <i class="fab fa-github"></i>
+                        Все проекты на GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="services" id="services">
+            <div class="container">
+                <h2 class="section-title">Услуги</h2>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <h3>Сайт-визитка</h3>
+                        <p>Лаконичный сайт для презентации ваших услуг.</p>
+                        <div class="service-price">
+                            <span>от</span>
+                            <strong>3 000 ₽</strong>
+                        </div>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Адаптивно</li>
+                            <li><i class="fas fa-check"></i> До 5 страниц</li>
+                            <li><i class="fas fa-check"></i> Базовая SEO</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card featured">
+                        <div class="service-badge">Популярно</div>
+                        <div class="service-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h3>Landing Page</h3>
+                        <p>Продающая страница для привлечения клиентов.</p>
+                        <div class="service-price">
+                            <span>от</span>
+                            <strong>5 000 ₽</strong>
+                        </div>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Продающий дизайн</li>
+                            <li><i class="fas fa-check"></i> Форма захвата</li>
+                            <li><i class="fas fa-check"></i> Аналитика</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <h3>Telegram-бот</h3>
+                        <p>Умный бот с автоответом и интеграциями.</p>
+                        <div class="service-price">
+                            <span>от</span>
+                            <strong>4 000 ₽</strong>
+                        </div>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Автоответы</li>
+                            <li><i class="fas fa-check"></i> Клавиатуры</li>
+                            <li><i class="fas fa-check"></i> База данных</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials" id="testimonials">
+            <div class="container">
+                <h2 class="section-title">Отзывы</h2>
+                
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>Сделал мне сайт-визитку очень быстро. Качественно, красиво, ещё и объяснил как управлять. Рекомендую!</p>
+                        <div class="testimonial-author">
+                            <strong>Людмила П.</strong>
+                            <span>Преподаватель испанского</span>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>Заказывала Telegram-бота для приёма заказов. Работает отлично, клиенты довольны. Спасибо!</p>
+                        <div class="testimonial-author">
+                            <strong>Анна В.</strong>
+                            <span>Владелец цветочного магазина</span>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>Работали над веб-приложением. Внимательный к деталям, предлагает свои решения. Код чистый, понятный.</p>
+                        <div class="testimonial-author">
+                            <strong>Дмитрий С.</strong>
+                            <span>Руководитель IT-стартапа</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h2>Обсудим проект?</h2>
+                        <p>Напишите мне в любой удобный канал. Отвечаю быстро.</p>
+                        
+                        <div class="contact-links">
+                            <a href="https://t.me/Ghosers" class="contact-link" target="_blank">
+                                <i class="fab fa-telegram-plane"></i>
+                                <span>Telegram</span>
+                            </a>
+                            <a href="https://vk.com/damir_varlamov" class="contact-link" target="_blank">
+                                <i class="fab fa-vk"></i>
+                                <span>ВКонтакте</span>
+                            </a>
+                            <a href="mailto:damir.itwar@yandex.ru" class="contact-link">
+                                <i class="fas fa-envelope"></i>
+                                <span>damir.itwar@yandex.ru</span>
+                            </a>
+                        </div>
+                        
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Самара, Россия</span>
+                        </div>
+                    </div>
+                    
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="contact" placeholder="Telegram или email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" placeholder="Расскажите о проекте..." rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Отправить
+                        </button>
+                    </form>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-inner">
-                <div class="footer-info">
-                    <a href="#" class="footer-logo">
-                        <span>Дамир</span>
-                        <span>Варламов</span>
-                    </a>
+                <div class="footer-brand">
+                    <a href="/" class="logo">DV</a>
                     <p>Backend Developer из Самары</p>
-                    <p class="footer-thanks">Спасибо, что заглянули!</p>
                 </div>
                 
                 <div class="footer-links">
-                    <h4>Навигация</h4>
                     <a href="#about">Обо мне</a>
-                    <a href="#projects">Проекты</a>
+                    <a href="#work">Работы</a>
                     <a href="#services">Услуги</a>
-                    <a href="#reviews">Отзывы</a>
+                    <a href="#contact">Контакт</a>
                 </div>
                 
-                <div class="footer-contacts">
-                    <h4>Контакты</h4>
-                    <a href="https://t.me/Ghosers" target="_blank">Telegram</a>
-                    <a href="https://vk.com/damir_varlamov" target="_blank">ВКонтакте</a>
-                    <a href="mailto:damir.itwar@yandex.ru">Email</a>
-                    <a href="https://github.com/Xeney" target="_blank">GitHub</a>
+                <div class="footer-social">
+                    <a href="https://github.com/Xeney" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://t.me/Ghosers" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://vk.com/damir_varlamov" target="_blank"><i class="fab fa-vk"></i></a>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>© 2026 Варламов Дамир. Все права защищены.</p>
+                <p>&copy; 2026 Дамир Варламов. Все права защищены.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scroll to top -->
     <button class="scroll-top" id="scrollTop" aria-label="Наверх">
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Main Script -->
-    <script src="./src/js/main.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.16.0/devicon.min.css">
+    <script src="src/js/main.js"></script>
 </body>
 </html>
