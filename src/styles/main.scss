@@ -3,6 +3,15 @@
 // Modern, Professional, Dynamic
 // ========================================
 
+// Reduced motion preference
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 // CSS Variables
 :root {
   // Colors - Dark Theme (Default)
@@ -38,6 +47,10 @@
   --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
   --shadow-glow: 0 0 40px var(--accent-glow), 0 0 80px rgba(59, 130, 246, 0.2);
+  
+  @media (max-width: 768px) {
+    --shadow-glow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
   
   // Radius
   --radius-sm: 8px;
@@ -80,7 +93,11 @@
   --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);
   --shadow-glow: 0 0 40px rgba(79, 70, 229, 0.15);
-}
+    
+    @media (max-width: 768px) {
+      --shadow-glow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
 
 // ========================================
 // RESET & BASE
@@ -928,6 +945,10 @@ section {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .tech-item {
@@ -1002,6 +1023,10 @@ section {
   position: relative;
   overflow: hidden;
   
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+  
   &::before {
     content: '';
     position: absolute;
@@ -1020,8 +1045,17 @@ section {
     transform: translateY(-10px);
     box-shadow: var(--shadow-lg);
     
+    @media (max-width: 768px) {
+      transform: translateY(-5px);
+      box-shadow: none;
+    }
+    
     &::before {
       transform: scaleX(1);
+      
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
     
     .project-icon {
@@ -1698,5 +1732,17 @@ section {
   
   .hero-avatar::before {
     animation: none;
+  }
+  
+  .project-card::before,
+  .service-card::before,
+  .trait::before,
+  .tech-item::before {
+    display: none;
+  }
+  
+  .project-card:hover .project-icon,
+  .service-card:hover .service-icon {
+    transform: none;
   }
 }
