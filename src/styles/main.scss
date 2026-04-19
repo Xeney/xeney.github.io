@@ -244,6 +244,11 @@ img {
     radial-gradient(ellipse 50% 40% at 60% 85%, rgba(244, 114, 182, 0.08) 0%, transparent 50%);
   z-index: -1;
   pointer-events: none;
+  
+  @media (max-width: 768px) {
+    background: 
+      radial-gradient(ellipse 100% 50% at 50% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+  }
 }
 
 .bg-grid {
@@ -259,6 +264,11 @@ img {
   opacity: 0.4;
   z-index: -1;
   pointer-events: none;
+  
+  @media (max-width: 768px) {
+    background-size: 40px 40px;
+    opacity: 0.2;
+  }
 }
 
 .bg-noise {
@@ -271,6 +281,10 @@ img {
   pointer-events: none;
   z-index: 9998;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 // Floating orbs
@@ -281,6 +295,10 @@ img {
   pointer-events: none;
   z-index: -1;
   animation: float 15s ease-in-out infinite;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
   
   &.orb-1 {
     width: 400px;
@@ -345,10 +363,19 @@ section {
     backdrop-filter: blur(20px);
     padding: 15px 0;
     box-shadow: var(--shadow-sm);
+    
+    @media (max-width: 768px) {
+      background: rgba(10, 10, 15, 0.95);
+      backdrop-filter: blur(10px);
+    }
   }
   
   [data-theme="light"] &.scrolled {
     background: rgba(255, 255, 255, 0.9);
+    
+    @media (max-width: 768px) {
+      background: rgba(255, 255, 255, 0.98);
+    }
   }
 }
 
@@ -1655,5 +1682,21 @@ section {
   .btn {
     width: 100%;
     justify-content: center;
+  }
+  
+  .status-dot {
+    animation: none;
+  }
+  
+  .hero-badge::before {
+    animation: none;
+  }
+  
+  .hero-badge i {
+    animation: none;
+  }
+  
+  .hero-avatar::before {
+    animation: none;
   }
 }

@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initScrollEffects();
   initSmoothScroll();
-  initTiltEffect();
+  // initTiltEffect(); // Disabled - removed 3D tilt effect
   initRippleEffect();
   initScrollTop();
   initFormSubmit();
@@ -20,6 +20,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // initRevealAnimations(); // Disabled - removed block appearance animations
   initParallax();
 });
+
+// ========================================
+// THROTTLE HELPER
+// ========================================
+function throttle(func, limit) {
+  let inThrottle;
+  return function(...args) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  };
+}
+
+function isMobile() {
+  return window.innerWidth <= 768;
+}
 
 // ========================================
 // CUSTOM CURSOR
@@ -142,16 +160,18 @@ function initMobileMenu() {
 // SCROLL EFFECTS
 // ========================================
 function initScrollEffects() {
-  // Parallax for orbs
-  window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const orbs = document.querySelectorAll('.orb');
-    
+  if (isMobile()) return;
+  
+  const scrolled = () => window.pageYOffset;
+  const orbs = document.querySelectorAll('.orb');
+  
+  window.addEventListener('scroll', throttle(() => {
+    const offset = scrolled();
     orbs.forEach((orb, index) => {
       const speed = 0.1 + (index * 0.05);
-      orb.style.transform = `translateY(${scrolled * speed}px)`;
+      orb.style.transform = `translateY(${offset * speed}px)`;
     });
-  });
+  }, 50));
 }
 
 // ========================================
@@ -260,13 +280,13 @@ function initRippleEffect() {
 function initScrollTop() {
   const scrollBtn = document.getElementById('scrollTop');
   
-  window.addEventListener('scroll', () => {
+  window.addEventListener('scroll', throttle(() => {
     if (window.scrollY > 500) {
       scrollBtn.classList.add('visible');
     } else {
       scrollBtn.classList.remove('visible');
     }
-  });
+  }, 100));
   
   scrollBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -364,13 +384,13 @@ function showNotification(message, type) {
 function initNavbarScroll() {
   const header = document.querySelector('.header');
   
-  window.addEventListener('scroll', () => {
+  window.addEventListener('scroll', throttle(() => {
     if (window.scrollY > 50) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
-  });
+  }, 100));
 }
 
 // ========================================
@@ -419,16 +439,16 @@ function initRevealAnimations() {
 // PARALLAX BACKGROUND
 // ========================================
 function initParallax() {
+  if (isMobile()) return;
+  
   const bgElements = document.querySelectorAll('.bg-gradient, .bg-grid');
   
-  window.addEventListener('scroll', () => {
+  window.addEventListener('scroll', throttle(() => {
     const scrolled = window.pageYOffset;
-    
     bgElements.forEach(el => {
-      const speed = 0.3;
-      el.style.transform = `translateY(${scrolled * speed}px)`;
+      el.style.transform = `translateY(${scrolled * 0.3}px)`;
     });
-  });
+  }, 50));
 }
 
 // ========================================
