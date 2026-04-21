@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Портфолио работ Дамира Варламова. Проекты, кейсы, результаты. Backend Developer из Самары.">
+    <meta name="keywords" content="портфолио, проекты, веб-разработка, Python, Go, Telegram бот, Самара">
+    
+    <title>Портфолио | Дамир Варламов</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="src/styles/main.css">
+    
+    <link rel="shortcut icon" href="./logo.png" type="image/x-icon">
+</head>
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+    
+    <div class="noise-overlay"></div>
+    
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <span>D</span><span>V</span>
+            </a>
+            
+            <nav class="nav" id="nav">
+                <a href="index.html#about" class="nav-link">Обо мне</a>
+                <a href="index.html#work" class="nav-link">Работы</a>
+                <a href="#process" class="nav-link">Процесс</a>
+                <a href="#cases" class="nav-link">Кейсы</a>
+                <a href="#certificates" class="nav-link">Сертификаты</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="index.html#contact" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Заказать
+                </a>
+            </nav>
+            
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="hero">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="hero-label">
+                        <span class="status-dot"></span>
+                        <span>4+ года опыта</span>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        <span class="line">Мои работы</span>
+                        <span class="line">и кейсы</span>
+                    </h1>
+                    
+                    <p class="hero-desc">
+                        Реальные проекты с измеримыми результатами.<br>
+                        От идеи до запуска — комплексный подход.
+                    </p>
+                    
+                    <div class="hero-cta">
+                        <a href="#cases" class="btn btn-primary">
+                            <i class="fas fa-layer-group"></i>
+                            Смотреть кейсы
+                        </a>
+                        <a href="index.html#contact" class="btn btn-secondary">
+                            <i class="fab fa-telegram-plane"></i>
+                            Обсудить проект
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <pre class="code-content"><code><span class="comment">// Портфолио 2022-2026</span>
+<span class="keyword">const</span> projects = {
+    total: <span class="build">9</span>,
+    clients: <span class="build">9+</span>,
+    success: <span class="build">100%</span>
+}
+
+<span class="keyword">return</span> Build(result)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="metrics" id="metrics">
+            <div class="container">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-number">4+</div>
+                        <div class="metric-label">года опыта</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">9</div>
+                        <div class="metric-label">проектов</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">9+</div>
+                        <div class="metric-label">клиентов</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="process" id="process">
+            <div class="container">
+                <h2 class="section-title">Как я работаю</h2>
+                
+                <div class="process-grid">
+                    <div class="process-step">
+                        <div class="process-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div class="process-number">01</div>
+                        <h3>Брифинг и анализ</h3>
+                        <p>Обсуждаем задачу, цели, аудиторию. Анализирую конкурентов и составляю ТЗ.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-icon">
+                            <i class="fas fa-pencil-ruler"></i>
+                        </div>
+                        <div class="process-number">02</div>
+                        <h3>Прототип и дизайн</h3>
+                        <p>Создаю прототип, согласовываем структуру. Готовлю визуальную концепцию.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="process-number">03</div>
+                        <h3>Разработка</h3>
+                        <p>Пишу чистый код, интегрирую сервисы, настраиваю базу данных.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="process-number">04</div>
+                        <h3>Запуск и поддержка</h3>
+                        <p>Тестируем, исправляем, запускаем. Передаю документацию и настраиваю сопровождение.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cases" id="cases">
+            <div class="container">
+                <h2 class="section-title">Кейсы проектов</h2>
+                
+                <div class="cases-grid">
+                    <article class="case-card">
+                        <div class="case-image">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-number">01</div>
+                            <h3>Block Puzzle Master</h3>
+                            <p class="case-task"><strong>Задача:</strong> Создать браузерную игру-пазл с монетизацией для Yandex Games.</p>
+                            <p class="case-solution"><strong>Решение:</strong> Canvas 2D + JavaScript, 3 режима сложности, облачные сохранения, таблица лидеров.</p>
+                            <p class="case-result"><strong>Результат:</strong> Игра в топ-50 категории, 60 FPS стабильно, интеграция с SDK.</p>
+                            <div class="case-tags">
+                                <span>Canvas 2D</span>
+                                <span>JavaScript</span>
+                                <span>Yandex SDK</span>
+                            </div>
+                            <div class="case-links">
+                                <span class="case-link disabled">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Демо
+                                </span>
+                                <span class="case-link disabled">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Скачать PDF
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="case-card">
+                        <div class="case-image">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-number">02</div>
+                            <h3>Интерактивный лендинг</h3>
+                            <p class="case-task"><strong>Задача:</strong> Создать продающий лендинг с микро-взаимодействиями.</p>
+                            <p class="case-solution"><strong>Решение:</strong> Parallax, ripple-эффекты, переключение тем, адаптивная сетка.</p>
+                            <p class="case-result"><strong>Результат:</strong> Конверсия +30%, скорость загрузки &lt;2s, 100% по Core Web Vitals.</p>
+                            <div class="case-tags">
+                                <span>JavaScript</span>
+                                <span>SCSS</span>
+                                <span>CSS Animation</span>
+                            </div>
+                            <div class="case-links">
+                                <span class="case-link disabled">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Демо
+                                </span>
+                                <span class="case-link disabled">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Скачать PDF
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="case-card">
+                        <div class="case-image">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-number">03</div>
+                            <h3>CRM для коллекторов</h3>
+                            <p class="case-task"><strong>Задача:</strong> Автоматизировать работу коллекторского агентства.</p>
+                            <p class="case-solution"><strong>Решение:</strong> Python + Flask, роли пользователей, Excel импорт, умный поиск должников.</p>
+                            <p class="case-result"><strong>Результат:</strong> Время обработки -70%, автоматизация отчётов.</p>
+                            <div class="case-tags">
+                                <span>Python</span>
+                                <span>Flask</span>
+                                <span>SQLAlchemy</span>
+                            </div>
+                            <div class="case-links">
+                                <span class="case-link disabled">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Демо
+                                </span>
+                                <span class="case-link disabled">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Скачать PDF
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="case-card">
+                        <div class="case-image">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-number">04</div>
+                            <h3>Мультиссылка TapLink</h3>
+                            <p class="case-task"><strong>Задача:</strong> Создать мини-сайт для объединения ссылок.</p>
+                            <p class="case-solution"><strong>Решение:</strong> Тёмная тема, плавные анимации, настройка профиля, статистика кликов.</p>
+                            <p class="case-result"><strong>Результат:</strong> CTR ссылок +45%, удобное управление через админку.</p>
+                            <div class="case-tags">
+                                <span>HTML/CSS</span>
+                                <span>JavaScript</span>
+                                <span>Mobile First</span>
+                            </div>
+                            <div class="case-links">
+                                <span class="case-link disabled">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Демо
+                                </span>
+                                <span class="case-link disabled">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Скачать PDF
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="case-card">
+                        <div class="case-image">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-number">05</div>
+                            <h3>Сайт-визитка врача</h3>
+                            <p class="case-task"><strong>Задача:</strong> Создать сайт для стоматолога с записью.</p>
+                            <p class="case-solution"><strong>Решение:</strong> Расписание, услуги, отзывы, форма записи, полная адаптивность.</p>
+                            <p class="case-result"><strong>Результат:</strong> Онлайн-записи +60%, удобный кабинет пациента.</p>
+                            <div class="case-tags">
+                                <span>HTML/CSS</span>
+                                <span>JavaScript</span>
+                                <span>Mobile First</span>
+                            </div>
+                            <div class="case-links">
+                                <span class="case-link disabled">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Демо
+                                </span>
+                                <span class="case-link disabled">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Скачать PDF
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="case-card">
+                        <div class="case-image">
+                            <i class="fas fa-coffee"></i>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-number">06</div>
+                            <h3>Лендинг кофейни</h3>
+                            <p class="case-task"><strong>Задача:</strong> Продающая страница для кофейни с бронью.</p>
+                            <p class="case-solution"><strong>Решение:</strong> Меню, галерея, форма брони, акцентный дизайн.</p>
+                            <p class="case-result"><strong>Результат:</strong> Брони +40%, посещаемость +25%.</p>
+                            <div class="case-tags">
+                                <span>HTML/CSS</span>
+                                <span>JavaScript</span>
+                                <span>Performance</span>
+                            </div>
+                            <div class="case-links">
+                                <span class="case-link disabled">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Демо
+                                </span>
+                                <span class="case-link disabled">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Скачать PDF
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="case-card">
+                        <div class="case-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-number">07</div>
+                            <h3>Мультиссылка для блогера</h3>
+                            <p class="case-task"><strong>Задача:</strong> «Все мои ссылки» в Instagram-стиле.</p>
+                            <p class="case-solution"><strong>Решение:</strong> Анимированный фон, статистика кликов, простое управление.</p>
+                            <p class="case-result"><strong>Результат:</strong> Переходы +55%, аналитика в реальном времени.</p>
+                            <div class="case-tags">
+                                <span>CSS3</span>
+                                <span>JavaScript</span>
+                                <span>Analytics</span>
+                            </div>
+                            <div class="case-links">
+                                <span class="case-link disabled">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Демо
+                                </span>
+                                <span class="case-link disabled">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Скачать PDF
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="case-card">
+                        <div class="case-image">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-number">08</div>
+                            <h3>Telegram-бот магазина</h3>
+                            <p class="case-task"><strong>Задача:</strong> Бот для приёма заказов с корзиной.</p>
+                            <p class="case-solution"><strong>Решение:</strong> aiogram, корзина, оплата, уведомления админу, интеграция с API.</p>
+                            <p class="case-result"><strong>Результат:</strong> Обработка заказов -80%, интеграция с складом.</p>
+                            <div class="case-tags">
+                                <span>Python</span>
+                                <span>aiogram</span>
+                                <span>API</span>
+                            </div>
+                            <div class="case-links">
+                                <span class="case-link disabled">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Демо
+                                </span>
+                                <span class="case-link disabled">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Скачать PDF
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="case-card">
+                        <div class="case-image">
+                            <i class="fas fa-cut"></i>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-number">09</div>
+                            <h3>Сайт барбершопа</h3>
+                            <p class="case-task"><strong>Задача:</strong> Лендинг с онлайн-записью для барбершопа.</p>
+                            <p class="case-solution"><strong>Решение:</strong> Услуги, цены, форма брони, ночная тема.</p>
+                            <p class="case-result"><strong>Результат:</strong> Записи +35%, no-show -50%.</p>
+                            <div class="case-tags">
+                                <span>HTML/CSS</span>
+                                <span>JavaScript</span>
+                                <span>Form</span>
+                            </div>
+<div class="case-links">
+                                <span class="case-link disabled">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Демо
+                                </span>
+                                <span class="case-link disabled">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Скачать PDF
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="certificates" id="certificates">
+            <div class="container">
+                <h2 class="section-title">Сертификаты и грамоты</h2>
+                
+                <div class="cert-grid">
+                    <div class="cert-card">
+                        <i class="fas fa-trophy"></i>
+                        <h3>World Skills Russia</h3>
+                        <p>Победитель национального чемпионата «Разработка блокчейн-решений»</p>
+                        <span class="cert-year">2022</span>
+                        <a href="./assets/wins/Чемионат 1 место Россия WSR.pdf" class="btn-cert" target="_blank">
+                            Открыть
+                        </a>
+                    </div>
+                    
+                    <div class="cert-card">
+                        <i class="fas fa-certificate"></i>
+                        <h3>Губернатор СО</h3>
+                        <p>Благодарность за высокие результаты в финале национального чемпионата</p>
+                        <span class="cert-year">2022</span>
+                        <a href="./assets/wins/Дамир Благодарственное письмо от Губернатора.pdf" class="btn-cert" target="_blank">
+                            Открыть
+                        </a>
+                    </div>
+                    
+                    <div class="cert-card">
+                        <i class="fas fa-award"></i>
+                        <h3>Минобразования СО</h3>
+                        <p>Благодарность за успехи в профессиональном обучении</p>
+                        <span class="cert-year">2022</span>
+                        <a href="./assets/wins/мин образования благодарственное письмо.pdf" class="btn-cert" target="_blank">
+                            Открыть
+                        </a>
+                    </div>
+                    
+                    <div class="cert-card">
+                        <i class="fas fa-medal"></i>
+                        <h3>BRICS Проектная сессия</h3>
+                        <p>Участник проектной сессии BRICS</p>
+                        <span class="cert-year">2024</span>
+                        <a href="./assets/wins/BRICS мировые соревнования.pdf" class="btn-cert" target="_blank">
+                            Открыть
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq" id="faq">
+            <div class="container">
+                <h2 class="section-title">Частые вопросы</h2>
+                
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Сколько стоит разработка сайта или бота?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Стоимость зависит от сложности проекта. Landing Page — от 5 200₽, Telegram-бот — от 7 000₽, сайт-визитка — от 6 500₽, интернет-магазин — от 15 000₽. Точная цена после обсуждения задач.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Какие сроки разработки?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Landing Page — 3-5 дней, Telegram-бот — 5-7 дней, сайт-визитка — 5-7 дней, интернет-магазин — 14-21 день. Сроки могут меняться в зависимости от сложности и правок.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Как происходит оплата?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>50% предоплата before начале работ, 50% после выполнения и проверки. Принимаю переводы на карту, Telegram — переводом или через платёжные реквизиты.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Что входит в поддержку после запуска?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>7 дней бесплатно при покупке любой услуги. Далее — от 700₽/месяц: исправление багов, мелкие правки, консультации. Расширенная поддержка — по договорённости.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Как происходит процесс работы?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>1. Брифинг и ТЗ → 2. Прототип/дизайн → 3. Разработка → 4. Тестирование → 5. Запуск. На каждом этапе согласовываю результат, учитываю правки.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Нужна ли документация?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Да, передаю полную документацию: инструкции по управлению, доступы, исходный код. При необходимости — комментирую код и объясняю как работает.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta" id="cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Есть задача?</h2>
+                    <p>Обсудим — найдём решение. Пишите в любой удобный канал.</p>
+                    
+                    <div class="cta-buttons">
+                        <a href="https://t.me/Ghosers" class="btn btn-primary" target="_blank">
+                            <i class="fab fa-telegram-plane"></i>
+                            Написать в Telegram
+                        </a>
+                        <a href="index.html#contact" class="btn btn-secondary">
+                            <i class="fas fa-envelope"></i>
+                            На почту
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <span>D</span><span>V</span>
+                    </a>
+                    <p>Backend Developer из Самары</p>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="index.html">Главная</a>
+                    <a href="#cases">Кейсы</a>
+                    <a href="#process">Процесс</a>
+                    <a href="index.html#services">Услуги</a>
+                    <a href="index.html#contact">Контакты</a>
+                </div>
+                
+                <div class="footer-social">
+                    <a href="https://github.com/Xeney" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://t.me/Ghosers" target="_blank" aria-label="Telegram">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="https://vk.com/damir_varlamov" target="_blank" aria-label="VK">
+                        <i class="fab fa-vk"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2022-2026 Дамир Варламов. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="src/js/main.js"></script>
+</body>
+</html>
