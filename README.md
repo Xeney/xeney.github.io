@@ -52,7 +52,7 @@ Backend-разработчик из Самары с 4+ годами опыта. 
 ## 📞 Контакты
 
 - **Telegram**: [@Ghosers](https://t.me/Ghosers)
-- **YouDo**: [Профиль](https://youdo.com/u/...)
+- **YouDo**: [Профиль](https://youdo.com/u13705041)
 - **GitHub**: [Xeney](https://github.com/Xeney)
 - **VK**: [damir_varlamov](https://vk.com/damir_varlamov)
 - **Email**: damir.itwar@yandex.ru
