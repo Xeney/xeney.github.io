@@ -42,6 +42,7 @@ const projectsData = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
+    initThemeToggle();
     initCursor();
     initMobileMenu();
     initHeaderScroll();
@@ -53,6 +54,46 @@ document.addEventListener('DOMContentLoaded', () => {
     initCaseCards();
     initCaseModal();
 });
+
+// ========================================
+// THEME TOGGLE
+// ========================================
+function initThemeToggle() {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+    } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+    
+    updateThemeIcon();
+    
+    btn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateThemeIcon();
+    });
+    
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            document.documentElement.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+            updateThemeIcon();
+        }
+    });
+}
+
+function updateThemeIcon() {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    btn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    btn.setAttribute('aria-label', isDark ? 'Светлая тема' : 'Тёмная тема');
+}
 
 // ========================================
 // CURSOR
@@ -355,7 +396,7 @@ function initRevealAnimations() {
     }, observerOptions);
     
     const revealElements = document.querySelectorAll(
-        '.stack-item, .work-card, .service-card, .testimonial-card, .about-text, .about-image, .case-card-mini'
+        '.stack-item, .work-card, .service-card, .testimonial-card, .about-text, .about-image, .case-card-mini, .process-step'
     );
     
     revealElements.forEach(el => {
