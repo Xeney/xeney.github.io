@@ -3,6 +3,44 @@
  * Interactive JavaScript
  */
 
+const projectsData = [
+    {
+        title: 'CarinSight',
+        task: 'Создать продающую страницу для B2B-стартапа CarinSight — система автоматической приёмки и диагностики кузова автомобиля за 60 секунд.',
+        solution: 'Разработан лендинг с видео-презентацией продукта, блоком ключевых преимуществ, поэтапным описанием технологии компьютерного зрения. Интегрирована форма сбора лидов, адаптивная вёрстка для всех устройств.',
+        tags: ['HTML/CSS', 'JavaScript', 'PHP', 'Adaptive', 'Landing'],
+        images: 7
+    },
+    {
+        title: 'ServiceDesk РЖД',
+        task: 'Дипломный проект: разработать систему подачи и отслеживания заявок для студентов-практикантов в структуре РЖД.',
+        solution: 'Реализована тикет-система на PHP + PostgreSQL с ролевой моделью (студент / ментор / администратор). Личный кабинет с dashboard, отслеживание статусов, уведомления на email, генерация отчётов.',
+        tags: ['PHP', 'PostgreSQL', 'AJAX', 'Dashboard', 'Diploma'],
+        images: 5
+    },
+    {
+        title: 'Кафе-бар «Истанбул»',
+        task: 'Создать лендинг для кафе-бара-кальянной с акцентом на атмосферу, меню и онлайн-бронирование столов.',
+        solution: 'Адаптивный лендинг с анимированными секциями, фотогалереей блюд и интерьера. Форма бронирования столика с отправкой заявки в Telegram. Интегрированы Яндекс.Карты, блок с акциями и спецпредложениями.',
+        tags: ['HTML/CSS', 'JavaScript', 'Telegram API', 'Mobile First'],
+        images: 11
+    },
+    {
+        title: 'Кафе «Черника»',
+        task: 'Многостраничный сайт для кондитерской: представить меню, галерею работ, контакты и историю заведения.',
+        solution: 'Реализовано 5 страниц на PHP + JavaScript. Меню подгружается из JSON, фотогалерея с лайтбоксом. Интегрированы Яндекс.Карты, форма обратной связи. Адаптивная сетка на CSS Grid.',
+        tags: ['PHP', 'JavaScript', 'JSON', 'CSS Grid', 'Lightbox'],
+        images: 14
+    },
+    {
+        title: 'Сайт-визитка',
+        task: 'Разработать персональный сайт-портфолио для Backend Developer с тёмной темой и интерактивными элементами.',
+        solution: 'Одностраничный сайт на Vanilla JS с кастомным курсором, reveal-анимациями при скролле, переключением тёмной/светлой темы. Стек технологий, карточки проектов, контактная форма через mailto.',
+        tags: ['HTML', 'CSS', 'Vanilla JS', 'Dark Theme', 'Portfolio'],
+        images: 12
+    }
+];
+
 document.addEventListener('DOMContentLoaded', () => {
     initCursor();
     initMobileMenu();
@@ -12,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initFormSubmit();
     initRevealAnimations();
     initFaqToggle();
+    initCaseCards();
+    initCaseModal();
 });
 
 // ========================================
@@ -49,7 +89,7 @@ function initCursor() {
     }
     animate();
     
-    document.querySelectorAll('a, button, .work-card, .service-card, .stack-item').forEach(el => {
+    document.querySelectorAll('a, button, .work-card, .service-card, .stack-item, .case-card-mini').forEach(el => {
         el.addEventListener('mouseenter', () => ring.classList.add('hover'));
         el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
     });
@@ -258,7 +298,7 @@ function initRevealAnimations() {
     }, observerOptions);
     
     const revealElements = document.querySelectorAll(
-        '.stack-item, .work-card, .service-card, .testimonial-card, .about-text, .about-image'
+        '.stack-item, .work-card, .service-card, .testimonial-card, .about-text, .about-image, .case-card-mini'
     );
     
     revealElements.forEach(el => {
@@ -298,4 +338,117 @@ function initFaqToggle() {
             }
         });
     });
+}
+
+// ========================================
+// CASE CARDS - OPEN MODAL
+// ========================================
+function initCaseCards() {
+    const cards = document.querySelectorAll('.case-card-mini');
+    
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            const projectIndex = parseInt(card.getAttribute('data-project'));
+            openCaseModal(projectIndex);
+        });
+    });
+}
+
+// ========================================
+// CASE MODAL
+// ========================================
+let currentProject = 0;
+let currentSlide = 0;
+
+function initCaseModal() {
+    const modal = document.getElementById('caseModal');
+    const closeBtn = modal.querySelector('.case-modal-close');
+    const backdrop = modal.querySelector('.case-modal-backdrop');
+    
+    closeBtn.addEventListener('click', closeCaseModal);
+    backdrop.addEventListener('click', closeCaseModal);
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeCaseModal();
+        }
+    });
+}
+
+function openCaseModal(index) {
+    const modal = document.getElementById('caseModal');
+    const project = projectsData[index];
+    currentProject = index;
+    currentSlide = 0;
+    
+    modal.querySelector('.case-modal-title').textContent = project.title;
+    modal.querySelector('.case-modal-task').textContent = project.task;
+    modal.querySelector('.case-modal-solution').textContent = project.solution;
+    
+    const tagsContainer = modal.querySelector('.case-modal-tags');
+    tagsContainer.innerHTML = project.tags.map(t => `<span>${t}</span>`).join('');
+    
+    const prefixes = ['carinsight', 'rzd', 'istanbul', 'chernika', 'visitka'];
+    const prefix = prefixes[index];
+    const totalImages = project.images;
+    
+    const track = modal.querySelector('.carousel-track');
+    const dotsContainer = modal.querySelector('.carousel-dots');
+    
+    track.innerHTML = '';
+    dotsContainer.innerHTML = '';
+    
+    for (let i = 1; i <= totalImages; i++) {
+        const img = document.createElement('img');
+        img.src = `assets/img/projects/${prefix}-${String(i).padStart(2, '0')}.webp`;
+        img.alt = `${project.title} — скриншот ${i}`;
+        track.appendChild(img);
+        
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot';
+        dot.ariaLabel = `Слайд ${i}`;
+        dot.addEventListener('click', () => goToSlide(i - 1));
+        dotsContainer.appendChild(dot);
+    }
+    
+    goToSlide(0);
+    
+    const prevBtn = modal.querySelector('.carousel-prev');
+    const nextBtn = modal.querySelector('.carousel-next');
+    
+    prevBtn.onclick = () => {
+        if (currentSlide > 0) goToSlide(currentSlide - 1);
+    };
+    nextBtn.onclick = () => {
+        if (currentSlide < totalImages - 1) goToSlide(currentSlide + 1);
+    };
+    
+    document.body.style.overflow = 'hidden';
+    modal.classList.add('active');
+}
+
+function closeCaseModal() {
+    const modal = document.getElementById('caseModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function goToSlide(index) {
+    const modal = document.getElementById('caseModal');
+    const track = modal.querySelector('.carousel-track');
+    currentSlide = index;
+    
+    track.style.transform = `translateX(-${index * 100}%)`;
+    
+    const dots = modal.querySelectorAll('.carousel-dot');
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+    });
+    
+    const prevBtn = modal.querySelector('.carousel-prev');
+    const nextBtn = modal.querySelector('.carousel-next');
+    const totalSlides = dots.length;
+    
+    prevBtn.style.opacity = index === 0 ? '0.3' : '1';
+    nextBtn.style.opacity = index === totalSlides - 1 ? '0.3' : '1';
 }
