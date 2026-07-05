@@ -487,6 +487,12 @@ function openCaseModal(index) {
     modal.classList.add('active');
 }
 
+function closeCaseModal() {
+    const modal = document.getElementById('caseModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
 function loadSlideImages(slideIndex) {
     const modal = document.getElementById('caseModal');
     const track = modal.querySelector('.carousel-track');
