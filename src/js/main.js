@@ -65,6 +65,24 @@ function initCursor() {
     
     if (!dot || !ring) return;
     
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let cursorEnabled = !reducedMotionQuery.matches;
+    
+    function setCursorVisibility(visible) {
+        cursorEnabled = visible;
+        dot.style.display = visible ? '' : 'none';
+        ring.style.display = visible ? '' : 'none';
+    }
+    
+    reducedMotionQuery.addEventListener('change', (e) => {
+        setCursorVisibility(!e.matches);
+    });
+    
+    if (!cursorEnabled) {
+        setCursorVisibility(false);
+        return;
+    }
+    
     let mouseX = 0, mouseY = 0;
     let dotX = 0, dotY = 0;
     let ringX = 0, ringY = 0;
@@ -75,10 +93,12 @@ function initCursor() {
     });
     
     function animate() {
-        dotX += (mouseX - dotX) * 0.5;
-        dotY += (mouseY - dotY) * 0.5;
-        ringX += (mouseX - ringX) * 0.15;
-        ringY += (mouseY - ringY) * 0.15;
+        if (!cursorEnabled) return;
+        
+        dotX += (mouseX - dotX) * 0.3;
+        dotY += (mouseY - dotY) * 0.3;
+        ringX += (mouseX - ringX) * 0.12;
+        ringY += (mouseY - ringY) * 0.12;
         
         dot.style.left = dotX + 'px';
         dot.style.top = dotY + 'px';
@@ -90,7 +110,7 @@ function initCursor() {
     animate();
     
     document.querySelectorAll('a, button, .work-card, .service-card, .stack-item, .case-card-mini').forEach(el => {
-        el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+        el.addEventListener('mouseenter', () => { if (cursorEnabled) ring.classList.add('hover'); });
         el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
     });
 }
@@ -205,19 +225,56 @@ function initFormSubmit() {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        const formData = new FormData(form);
-        const name = formData.get('name');
-        const contact = formData.get('contact');
-        const message = formData.get('message');
+        const groups = form.querySelectorAll('.form-group');
+        let valid = true;
         
-        const subject = encodeURIComponent(`Портфолио: сообщение от ${name}`);
-        const body = encodeURIComponent(`Имя: ${name}\nКонтакт: ${contact}\n\nСообщение:\n${message}`);
+        groups.forEach(g => {
+            const input = g.querySelector('input, textarea');
+            if (input && !input.value.trim()) {
+                g.classList.add('invalid');
+                valid = false;
+            } else {
+                g.classList.remove('invalid');
+            }
+        });
         
-        window.location.href = `mailto:damir.itwar@yandex.ru?subject=${subject}&body=${body}`;
+        if (!valid) return;
         
-        showNotification('Почтовый клиент открыт! Нажмите "Отправить".', 'success');
+        const submitBtn = form.querySelector('.form-submit-btn');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const btnLoader = submitBtn.querySelector('.btn-loader');
         
-        form.reset();
+        btnText.style.display = 'none';
+        btnLoader.style.display = '';
+        submitBtn.disabled = true;
+        
+        setTimeout(() => {
+            const formData = new FormData(form);
+            const name = formData.get('name');
+            const contact = formData.get('contact');
+            const message = formData.get('message');
+            
+            const subject = encodeURIComponent(`Портфолио: сообщение от ${name}`);
+            const body = encodeURIComponent(`Имя: ${name}\nКонтакт: ${contact}\n\nСообщение:\n${message}`);
+            
+            showNotification('Почтовый клиент открыт! Нажмите «Отправить».', 'success');
+            
+            btnText.style.display = '';
+            btnLoader.style.display = 'none';
+            submitBtn.disabled = false;
+            
+            window.location.href = `mailto:damir.itwar@yandex.ru?subject=${subject}&body=${body}`;
+            form.reset();
+        }, 600);
+    });
+    
+    form.querySelectorAll('input, textarea').forEach(input => {
+        input.addEventListener('input', () => {
+            const group = input.closest('.form-group');
+            if (group && input.value.trim()) {
+                group.classList.remove('invalid');
+            }
+        });
     });
 }
 
@@ -362,6 +419,8 @@ let currentSlide = 0;
 
 function initCaseModal() {
     const modal = document.getElementById('caseModal');
+    if (!modal) return;
+    
     const closeBtn = modal.querySelector('.case-modal-close');
     const backdrop = modal.querySelector('.case-modal-backdrop');
     
@@ -400,7 +459,7 @@ function openCaseModal(index) {
     
     for (let i = 1; i <= totalImages; i++) {
         const img = document.createElement('img');
-        img.src = `assets/img/projects/${prefix}-${String(i).padStart(2, '0')}.webp`;
+        img.dataset.src = `assets/img/projects/${prefix}-${String(i).padStart(2, '0')}.webp`;
         img.alt = `${project.title} — скриншот ${i}`;
         track.appendChild(img);
         
@@ -411,6 +470,7 @@ function openCaseModal(index) {
         dotsContainer.appendChild(dot);
     }
     
+    loadSlideImages(0);
     goToSlide(0);
     
     const prevBtn = modal.querySelector('.carousel-prev');
@@ -427,16 +487,28 @@ function openCaseModal(index) {
     modal.classList.add('active');
 }
 
-function closeCaseModal() {
+function loadSlideImages(slideIndex) {
     const modal = document.getElementById('caseModal');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
+    const track = modal.querySelector('.carousel-track');
+    const images = track.querySelectorAll('img');
+    
+    images.forEach((img, i) => {
+        if (i >= slideIndex - 1 && i <= slideIndex + 1) {
+            if (!img.src || img.src !== img.dataset.src) {
+                img.src = img.dataset.src;
+            }
+        } else {
+            img.removeAttribute('src');
+        }
+    });
 }
 
 function goToSlide(index) {
     const modal = document.getElementById('caseModal');
     const track = modal.querySelector('.carousel-track');
     currentSlide = index;
+    
+    loadSlideImages(index);
     
     track.style.transform = `translateX(-${index * 100}%)`;
     
