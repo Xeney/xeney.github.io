@@ -346,21 +346,21 @@ function showNotification(message, type) {
                 bottom: 30px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: #1a1a24;
-                border: 1px solid #22c55e;
+                background: #1a1a1a;
+                border: 1px solid var(--accent-secondary);
                 padding: 16px 24px;
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
                 gap: 16px;
                 z-index: 10000;
-                box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+                box-shadow: 0 8px 30px rgba(0,0,0,0.5);
                 animation: slideUp 0.3s ease;
             }
             .notification button {
                 background: none;
                 border: none;
-                color: #71717a;
+                color: rgba(240,234,220,0.4);
                 cursor: pointer;
             }
             @keyframes slideUp {
