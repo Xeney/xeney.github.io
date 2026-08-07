@@ -3,49 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Портфолио работ Дамира Варламова. Проекты, кейсы, результаты. Backend Developer из Самары.">
-    <meta name="keywords" content="портфолио, проекты, веб-разработка, Python, Go, Чат-бот, Самара">
+    <meta name="description" content="Портфолио backend-разработчика Дамира Варламова. Реальные проекты: сайты, чат-боты, серверные приложения на Python, Go, PHP. Кейсы с результатами.">
+    <meta name="keywords" content="портфолио backend разработчика, проекты Python Go, кейсы веб-разработки, чат-бот, сайт под ключ, Самара">
+    <meta name="author" content="Дамир Варламов">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#0A0A0A">
+    <link rel="canonical" href="https://xeney.github.io/portfolio.html">
     
-    <title>Портфолио | Дамир Варламов</title>
+    <title>Портфолио backend-разработчика | Дамир Варламов — Самара</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="src/styles/main.css" as="style">
+    <link rel="preload" href="logo.png" as="image">
     <link href="https://fonts.cdnfonts.com/css/soyuz-grotesk" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="src/styles/main.css">
     
-    <link rel="shortcut icon" href="./logo.png" type="image/x-icon">
+    <link rel="icon" href="./logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="./logo.png">
     
-    <meta property="og:title" content="Портфолио | Дамир Варламов">
-    <meta property="og:description" content="Портфолио работ Backend Developer. Проекты, кейсы, результаты. Python, Go, Чат-боты.">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Дамир Варламов">
+    <meta property="og:title" content="Портфолио backend-разработчика | Дамир Варламов">
+    <meta property="og:description" content="Реальные проекты: сайты, чат-боты, серверные приложения на Python, Go, PHP. Кейсы с результатами.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://xeney.github.io/portfolio.html">
-    <meta property="og:image" content="./assets/img/og-image.png">
+    <meta property="og:image" content="https://xeney.github.io/assets/img/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Портфолио | Дамир Варламов">
-    <meta name="twitter:description" content="Портфолио работ Backend Developer. Проекты, кейсы.">
-    <meta name="twitter:image" content="./assets/img/og-image.png">
+    <meta name="twitter:title" content="Портфолио backend-разработчика | Дамир Варламов">
+    <meta name="twitter:description" content="Реальные проекты: сайты, чат-боты, серверные приложения на Python, Go, PHP.">
+    <meta name="twitter:image" content="https://xeney.github.io/assets/img/og-image.png">
     
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Дамир Варламов",
-        "jobTitle": "Backend Developer",
-        "url": "https://xeney.github.io/portfolio.html",
-        "sameAs": [
-            "https://github.com/Xeney",
-            "https://vk.com/damir_varlamov"
-        ],
-        "knowsAbout": ["Python", "Go", "PostgreSQL", "Docker", "Flask", "Chat Bots"],
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Самара",
-            "addressCountry": "RU"
-        }
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": "https://xeney.github.io/portfolio.html",
+                "url": "https://xeney.github.io/portfolio.html",
+                "name": "Портфолио backend-разработчика | Дамир Варламов",
+                "description": "Реальные проекты: сайты, чат-боты, серверные приложения на Python, Go, PHP.",
+                "inLanguage": "ru",
+                "isPartOf": {"@id": "https://xeney.github.io/"}
+            },
+            {
+                "@type": "Person",
+                "@id": "https://xeney.github.io/#person",
+                "name": "Дамир Варламов",
+                "jobTitle": "Backend Developer",
+                "url": "https://xeney.github.io/",
+                "sameAs": [
+                    "https://github.com/Xeney",
+                    "https://vk.com/damir_varlamov"
+                ],
+                "knowsAbout": ["Python", "Go", "PHP", "PostgreSQL", "Docker", "Flask", "Chat Bots", "Backend Development", "Web Development"],
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Самара",
+                    "addressCountry": "RU"
+                }
+            }
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Сколько стоит разработка сайта или бота?",
+                "acceptedAnswer": {"@type": "Answer", "text": "Стоимость зависит от сложности проекта. Landing Page — от 5 200 ₽, чат-бот — от 5 400 ₽, сайт-визитка — от 3 500 ₽, интернет-магазин — от 19 900 ₽. Точная цена после обсуждения задач."}
+            },
+            {
+                "@type": "Question",
+                "name": "Какие сроки разработки?",
+                "acceptedAnswer": {"@type": "Answer", "text": "Landing Page — 3-5 дней, чат-бот — 5-7 дней, сайт-визитка — 5-7 дней, интернет-магазин — 14-21 день. Сроки могут меняться в зависимости от сложности и правок."}
+            },
+            {
+                "@type": "Question",
+                "name": "Как происходит оплата?",
+                "acceptedAnswer": {"@type": "Answer", "text": "50% предоплата перед началом работ, 50% после выполнения и проверки. Принимаю переводы на карту, онлайн-переводом или через платёжные реквизиты."}
+            },
+            {
+                "@type": "Question",
+                "name": "Что входит в поддержку после запуска?",
+                "acceptedAnswer": {"@type": "Answer", "text": "7 дней бесплатно при покупке любой услуги. Далее — от 700 ₽/месяц: исправление багов, мелкие правки, консультации. Расширенная поддержка — по договорённости."}
+            },
+            {
+                "@type": "Question",
+                "name": "Как происходит процесс работы?",
+                "acceptedAnswer": {"@type": "Answer", "text": "1. Брифинг и ТЗ → 2. Прототип/дизайн → 3. Разработка → 4. Тестирование → 5. Запуск. На каждом этапе согласовываю результат, учитываю правки."}
+            },
+            {
+                "@type": "Question",
+                "name": "Нужна ли документация?",
+                "acceptedAnswer": {"@type": "Answer", "text": "Да, передаю полную документацию: инструкции по управлению, доступы, исходный код. При необходимости — комментирую код и объясняю как работает."}
+            }
+        ]
     }
     </script>
 
@@ -65,6 +130,7 @@
     <!-- /Yandex.Metrika counter -->
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Перейти к содержимому</a>
     <div class="cursor-dot"></div>
     <div class="cursor-ring"></div>
     
@@ -455,13 +521,13 @@
                 </div>
                 
                 <div class="footer-social">
-                    <a href="https://github.com/Xeney" target="_blank" aria-label="GitHub">
+                    <a href="https://github.com/Xeney" target="_blank" rel="noopener noreferrer me" aria-label="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://max.ru/u/f9LHodD0cOI5S2VfsEaOkXAO7u-orGdmmZz8oMlXfhVZI5ADEI7ut6kvKZs" target="_blank" aria-label="Max">
+                    <a href="https://max.ru/u/f9LHodD0cOI5S2VfsEaOkXAO7u-orGdmmZz8oMlXfhVZI5ADEI7ut6kvKZs" target="_blank" rel="noopener noreferrer me" aria-label="Max">
                         <i class="fas fa-comments"></i>
                     </a>
-                    <a href="https://vk.com/damir_varlamov" target="_blank" aria-label="VK">
+                    <a href="https://vk.com/damir_varlamov" target="_blank" rel="noopener noreferrer me" aria-label="VK">
                         <i class="fab fa-vk"></i>
                     </a>
                 </div>
