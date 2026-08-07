@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFaqToggle();
     initCaseCards();
     initCaseModal();
+    initPriceCalculator();
 });
 
 // ========================================
@@ -450,6 +451,59 @@ function initCaseCards() {
             openCaseModal(projectIndex);
         });
     });
+}
+
+// ========================================
+// PRICE CALCULATOR
+// ========================================
+function initPriceCalculator() {
+    const totalEl = document.getElementById('calcTotal');
+    const projectInputs = document.querySelectorAll('input[name="projectType"]');
+    const addonInputs = document.querySelectorAll('input[name="addon"]');
+    if (!totalEl || projectInputs.length === 0) return;
+
+    function formatPrice(value) {
+        return value.toLocaleString('ru-RU').replace(/\s/g, ' ');
+    }
+
+    function calculate() {
+        let base = 0;
+        projectInputs.forEach(input => {
+            if (input.checked) base = parseInt(input.value, 10);
+        });
+
+        if (base === 0) {
+            totalEl.textContent = 'от 1 000 ₽/час';
+            return;
+        }
+
+        let addons = 0;
+        addonInputs.forEach(input => {
+            if (input.checked) addons += parseInt(input.value, 10);
+        });
+
+        totalEl.textContent = '~' + formatPrice(base + addons) + ' ₽';
+    }
+
+    function updateVisualState() {
+        projectInputs.forEach(input => {
+            input.closest('.calc-option').classList.toggle('selected', input.checked);
+        });
+        addonInputs.forEach(input => {
+            input.closest('.calc-option').classList.toggle('selected', input.checked);
+        });
+    }
+
+    projectInputs.forEach(input => input.addEventListener('change', () => {
+        calculate();
+        updateVisualState();
+    }));
+    addonInputs.forEach(input => input.addEventListener('change', () => {
+        calculate();
+        updateVisualState();
+    }));
+    calculate();
+    updateVisualState();
 }
 
 // ========================================
