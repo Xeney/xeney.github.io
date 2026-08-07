@@ -104,6 +104,20 @@
                 "author": {"@type": "Person", "name": "Александра Горшихина"},
                 "reviewBody": "Нужен был сайт для дипломной работы, обратилась к Дамиру, он сделал качественный, многофункциональный сайт за короткий срок. Я очень довольна проделанной работой и коммуникацией с исполнителем, обязательно обращусь ещё!",
                 "itemReviewed": {"@type": "Service", "name": "Дипломный проект ServiceDesk РЖД"}
+            },
+            {
+                "@type": "Review",
+                "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+                "author": {"@type": "Person", "name": "Дмитрий Анисимов"},
+                "reviewBody": "Заказывал разработку персонального сайта-резюме и остался мега-доволен! Мне нужен был не просто шаблонный лендинг, а стильная визитка, которая выделит меня среди конкурентов. Сделали всё быстро, учли все пожелания по дизайну и помогли грамотно структурировать портфолио. Сайт летает, на смартфонах выглядит идеально. Первые отклики от HR уже пошли, спасибо за крутую работу!",
+                "itemReviewed": {"@type": "Service", "name": "Лендинг для резюме"}
+            },
+            {
+                "@type": "Review",
+                "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+                "author": {"@type": "Person", "name": "Олег Стрельников"},
+                "reviewBody": "Заказывал разработку новой версии нашей платформы для автосервиса, и результат превзошёл ожидания. Система автоматизации приёма машин работает идеально. Особенно порадовал экспресс-осмотр из 6 шагов — мастерам стало намного удобнее работать. Отдельный респект за интеграцию с нейросетью: ИИ по фотографиям сам находит вмятины и царапины на кузове, это сильно экономит время. Интерфейс сделали современный, красивый и адаптивный, на планшетах всё открывается моментально. Приложение защищено, работает стабильно и без лагов. Рекомендую как надёжного разработчика, который умеет решать сложные задачи!",
+                "itemReviewed": {"@type": "Service", "name": "Платформа v2.0 для автосервисов"}
             }
         ]
     }
@@ -609,80 +623,139 @@
         <section class="calculator" id="calculator">
             <div class="container">
                 <h2 class="section-title">Рассчитать стоимость</h2>
-                <p class="calculator-subtitle">Выберите тип проекта и нужные опции — получите предварительную оценку за 10 секунд.</p>
+                <p class="calculator-subtitle">Работаю с любым бюджетом и всегда в интересах клиента — если предварительная цена не устроит, напишите мне, и вместе подберём решение под ваши задачи.</p>
 
-                <div class="calculator-grid">
-                    <div class="calculator-block">
-                        <h3>Тип проекта</h3>
-                        <div class="calculator-options" id="calcProjectType">
-                            <label class="calc-option calc-radio">
-                                <input type="radio" name="projectType" value="10000" checked>
-                                <span class="calc-option-text">Сайт-визитка <small>до 3–4 секций, адаптивный</small></span>
-                                <span class="calc-option-price">10 000 ₽</span>
+                <div class="calc-wizard">
+                    <div class="calc-progress">
+                        <div class="calc-progress-step active" data-step="1">Тип проекта</div>
+                        <div class="calc-progress-line"></div>
+                        <div class="calc-progress-step" data-step="2">Детали</div>
+                        <div class="calc-progress-line"></div>
+                        <div class="calc-progress-step" data-step="3">Опции</div>
+                        <div class="calc-progress-line"></div>
+                        <div class="calc-progress-step" data-step="4">Итог</div>
+                    </div>
+
+                    <div class="calc-step active" data-step="1">
+                        <h3 class="calc-step-title">Что вам нужно сделать?</h3>
+                        <p class="calc-step-desc">Выберите один вариант — дальше уточним детали.</p>
+                        <div class="calc-options-grid">
+                            <label class="calc-card" data-type="vizitka">
+                                <input type="radio" name="projectType" value="vizitka" checked>
+                                <span class="calc-card-icon"><i class="fas fa-id-card"></i></span>
+                                <span class="calc-card-content">
+                                    <span class="calc-card-title">Сайт-визитка</span>
+                                    <span class="calc-card-desc">3–4 секции для презентации</span>
+                                </span>
+                                <span class="calc-card-price">10 000 ₽</span>
                             </label>
-                            <label class="calc-option calc-radio">
-                                <input type="radio" name="projectType" value="15000">
-                                <span class="calc-option-text">Landing Page <small>одностраничник для рекламы</small></span>
-                                <span class="calc-option-price">15 000 ₽</span>
+                            <label class="calc-card" data-type="landing">
+                                <input type="radio" name="projectType" value="landing">
+                                <span class="calc-card-icon"><i class="fas fa-bullhorn"></i></span>
+                                <span class="calc-card-content">
+                                    <span class="calc-card-title">Landing Page</span>
+                                    <span class="calc-card-desc">Продающая страница для рекламы</span>
+                                </span>
+                                <span class="calc-card-price">15 000 ₽</span>
                             </label>
-                            <label class="calc-option calc-radio">
-                                <input type="radio" name="projectType" value="35000">
-                                <span class="calc-option-text">Корпоративный сайт <small>многостраничный, до 5–7 страниц</small></span>
-                                <span class="calc-option-price">35 000 ₽</span>
+                            <label class="calc-card" data-type="corp">
+                                <input type="radio" name="projectType" value="corp">
+                                <span class="calc-card-icon"><i class="fas fa-building"></i></span>
+                                <span class="calc-card-content">
+                                    <span class="calc-card-title">Корпоративный сайт</span>
+                                    <span class="calc-card-desc">Многостраничный сайт компании</span>
+                                </span>
+                                <span class="calc-card-price">35 000 ₽</span>
                             </label>
-                            <label class="calc-option calc-radio">
-                                <input type="radio" name="projectType" value="12000">
-                                <span class="calc-option-text">Чат-бот в Telegram <small>FAQ, кнопки, контакты</small></span>
-                                <span class="calc-option-price">12 000 ₽</span>
+                            <label class="calc-card" data-type="shop">
+                                <input type="radio" name="projectType" value="shop">
+                                <span class="calc-card-icon"><i class="fas fa-shopping-cart"></i></span>
+                                <span class="calc-card-content">
+                                    <span class="calc-card-title">Интернет-магазин</span>
+                                    <span class="calc-card-desc">Каталог, корзина, заказы, оплата</span>
+                                </span>
+                                <span class="calc-card-price">25 000 ₽</span>
                             </label>
-                            <label class="calc-option calc-radio">
-                                <input type="radio" name="projectType" value="0">
-                                <span class="calc-option-text">Разработка на заказ / API / Бэкенд <small>фиксированная заглушка</small></span>
-                                <span class="calc-option-price">от 1 000 ₽/час</span>
+                            <label class="calc-card" data-type="bot">
+                                <input type="radio" name="projectType" value="bot">
+                                <span class="calc-card-icon"><i class="fab fa-telegram"></i></span>
+                                <span class="calc-card-content">
+                                    <span class="calc-card-title">Чат-бот Telegram</span>
+                                    <span class="calc-card-desc">Автоответы, кнопки, заявки</span>
+                                </span>
+                                <span class="calc-card-price">12 000 ₽</span>
+                            </label>
+                            <label class="calc-card" data-type="custom">
+                                <input type="radio" name="projectType" value="custom">
+                                <span class="calc-card-icon"><i class="fas fa-code"></i></span>
+                                <span class="calc-card-content">
+                                    <span class="calc-card-title">Разработка на заказ</span>
+                                    <span class="calc-card-desc">Backend, API, интеграции</span>
+                                </span>
+                                <span class="calc-card-price">1 000 ₽/час</span>
                             </label>
                         </div>
                     </div>
 
-                    <div class="calculator-block">
-                        <h3>Дополнительный функционал</h3>
-                        <div class="calculator-options" id="calcAddons">
+                    <div class="calc-step" data-step="2">
+                        <h3 class="calc-step-title">Уточним детали проекта</h3>
+                        <p class="calc-step-desc">Выберите параметры, которые подходят под ваши задачи.</p>
+                        <div class="calc-details" id="calcDetails"></div>
+                    </div>
+
+                    <div class="calc-step" data-step="3">
+                        <h3 class="calc-step-title">Дополнительный функционал</h3>
+                        <p class="calc-step-desc">Отметьте, что ещё понадобится — цена обновится автоматически.</p>
+                        <div class="calc-options-list" id="calcAddons">
                             <label class="calc-option calc-checkbox">
-                                <input type="checkbox" name="addon" value="5000">
+                                <input type="checkbox" name="addon" value="5000" data-id="admin">
                                 <span class="calc-option-text">Панель управления (Админка) <small>меняйте текст и картинки самостоятельно</small></span>
                                 <span class="calc-option-price">+ 5 000 ₽</span>
                             </label>
                             <label class="calc-option calc-checkbox">
-                                <input type="checkbox" name="addon" value="5000">
+                                <input type="checkbox" name="addon" value="5000" data-id="crm">
                                 <span class="calc-option-text">Интеграция с CRM / Telegram-уведомления <small>заявки в amoCRM, Битрикс24 или боту</small></span>
                                 <span class="calc-option-price">+ 5 000 ₽</span>
                             </label>
                             <label class="calc-option calc-checkbox">
-                                <input type="checkbox" name="addon" value="7000">
+                                <input type="checkbox" name="addon" value="7000" data-id="payments">
                                 <span class="calc-option-text">Приём платежей <small>ЮKassa / СБП / Робокасса</small></span>
                                 <span class="calc-option-price">+ 7 000 ₽</span>
                             </label>
                             <label class="calc-option calc-checkbox">
-                                <input type="checkbox" name="addon" value="5000">
+                                <input type="checkbox" name="addon" value="5000" data-id="interactive">
                                 <span class="calc-option-text">Сложные интерактивные элементы <small>анимации, калькуляторы, квизы</small></span>
                                 <span class="calc-option-price">+ 5 000 ₽</span>
                             </label>
                             <label class="calc-option calc-checkbox">
-                                <input type="checkbox" name="addon" value="15000">
+                                <input type="checkbox" name="addon" value="15000" data-id="ai">
                                 <span class="calc-option-text">Интеграция API / Нейросетей <small>ChatGPT, генерация картинок, YOLOv8</small></span>
                                 <span class="calc-option-price">+ 15 000 ₽</span>
                             </label>
                         </div>
                     </div>
-                </div>
 
-                <div class="calculator-result">
-                    <div class="calculator-result-label">Предварительная стоимость:</div>
-                    <div class="calculator-result-price" id="calcTotal">~10 000 ₽</div>
-                    <p class="calculator-hint"><i class="fas fa-info-circle"></i> Нашли дешевле? Напишите мне, обсудим проект и я предложу оптимальный вариант под ваш бюджет.</p>
-                    <a href="#contact" class="btn btn-primary calculator-btn">
-                        <i class="fas fa-comments"></i>
-                        Обсудить скидку / Оптимизировать бюджет
-                    </a>
+                    <div class="calc-step" data-step="4">
+                        <div class="calculator-result">
+                            <div class="calculator-result-label">Предварительная стоимость:</div>
+                            <div class="calculator-result-price" id="calcTotal">~10 000 ₽</div>
+                            <div class="calc-summary" id="calcSummary"></div>
+                            <p class="calculator-hint"><i class="fas fa-info-circle"></i> Нашли дешевле? Напишите мне, обсудим проект и я предложу оптимальный вариант под ваш бюджет.</p>
+                            <a href="#contact" class="btn btn-primary calculator-btn">
+                                <i class="fas fa-comments"></i>
+                                Обсудить скидку / Оптимизировать бюджет
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="calc-nav">
+                        <button type="button" class="btn btn-secondary calc-prev" id="calcPrev" style="visibility:hidden">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </button>
+                        <button type="button" class="btn btn-primary calc-next" id="calcNext">
+                            Далее <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -714,18 +787,40 @@
                         </div>
                     </div>
                     
-                    <div class="testimonial-card testimonial-card--empty">
-                        <div class="testimonial-icon"><i class="fas fa-face-grin"></i></div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-icon"><i class="fas fa-face-smile"></i></div>
                         <div class="testimonial-body">
-                            <p class="testimonial-placeholder">Отзыв появится позже</p>
+                            <p>Заказывал разработку персонального сайта-резюме и остался мега-доволен! Мне нужен был не просто шаблонный лендинг, а стильная визитка, которая выделит меня среди конкурентов. Сделали всё быстро, учли все пожелания по дизайну и помогли грамотно структурировать портфолио. Сайт летает, на смартфонах выглядит идеально. Первые отклики от HR уже пошли, спасибо за крутую работу!</p>
+                            <div class="testimonial-author">
+                                <strong>Дмитрий Анисимов</strong>
+                                <span>Лендинг для резюме</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="testimonial-card testimonial-card--empty">
+                    <div class="testimonial-card">
                         <div class="testimonial-icon"><i class="fas fa-face-laugh"></i></div>
                         <div class="testimonial-body">
-                            <p class="testimonial-placeholder">Отзыв появится позже</p>
+                            <p>Заказывал разработку новой версии нашей платформы для автосервиса, и результат превзошёл ожидания. Система автоматизации приёма машин работает идеально. Особенно порадовал экспресс-осмотр из 6 шагов — мастерам стало намного удобнее работать. Отдельный респект за интеграцию с нейросетью: ИИ по фотографиям сам находит вмятины и царапины на кузове, это сильно экономит время. Интерфейс сделали современный, красивый и адаптивный, на планшетах всё открывается моментально. Приложение защищено, работает стабильно и без лагов. Рекомендую как надёжного разработчика, который умеет решать сложные задачи!</p>
+                            <div class="testimonial-author">
+                                <strong>Олег Стрельников</strong>
+                                <span>Платформа v2.0 для автосервисов</span>
+                            </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="testimonials-cta">
+                    <p>Хотите оставить отзыв? Напишите мне — я всегда на связи.</p>
+                    <div class="testimonials-cta-buttons">
+                        <a href="https://vk.com/damir_varlamov" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-vk"></i>
+                            Написать в VK
+                        </a>
+                        <a href="https://max.ru/u/f9LHodD0cOI5S2VfsEaOkXAO7u-orGdmmZz8oMlXfhVZI5ADEI7ut6kvKZs" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-comments"></i>
+                            Написать в Max
+                        </a>
                     </div>
                 </div>
             </div>

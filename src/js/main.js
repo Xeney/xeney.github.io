@@ -454,56 +454,318 @@ function initCaseCards() {
 }
 
 // ========================================
-// PRICE CALCULATOR
+// PRICE CALCULATOR (WIZARD)
 // ========================================
 function initPriceCalculator() {
+    const wizard = document.querySelector('.calc-wizard');
+    if (!wizard) return;
+
+    const steps = wizard.querySelectorAll('.calc-step');
+    const progressSteps = wizard.querySelectorAll('.calc-progress-step');
+    const prevBtn = document.getElementById('calcPrev');
+    const nextBtn = document.getElementById('calcNext');
+    const detailsContainer = document.getElementById('calcDetails');
     const totalEl = document.getElementById('calcTotal');
-    const projectInputs = document.querySelectorAll('input[name="projectType"]');
-    const addonInputs = document.querySelectorAll('input[name="addon"]');
-    if (!totalEl || projectInputs.length === 0) return;
+    const summaryEl = document.getElementById('calcSummary');
+
+    let currentStep = 1;
+    const totalSteps = steps.length;
+
+    const projectData = {
+        vizitka: {
+            title: 'Сайт-визитка',
+            base: 10000,
+            questions: [
+                {
+                    id: 'sections',
+                    title: 'Сколько секций планируется?',
+                    options: [
+                        { value: 0, label: '3–4 секции' },
+                        { value: 3000, label: '5–6 секций' },
+                        { value: 6000, label: '7 и более' }
+                    ]
+                },
+                {
+                    id: 'form',
+                    title: 'Нужна форма обратной связи?',
+                    options: [
+                        { value: 0, label: 'Нет' },
+                        { value: 1000, label: 'Да, простая форма' },
+                        { value: 3000, label: 'Да, с интеграцией в мессенджер' }
+                    ]
+                }
+            ]
+        },
+        landing: {
+            title: 'Landing Page',
+            base: 15000,
+            questions: [
+                {
+                    id: 'screens',
+                    title: 'Количество экранов',
+                    options: [
+                        { value: 0, label: 'До 5 экранов' },
+                        { value: 3000, label: '6–8 экранов' },
+                        { value: 6000, label: '9 и более' }
+                    ]
+                },
+                {
+                    id: 'analytics',
+                    title: 'Нужна настройка аналитики?',
+                    options: [
+                        { value: 0, label: 'Нет' },
+                        { value: 2000, label: 'Метрика + цели' },
+                        { value: 4000, label: 'Метрика + цели + Яндекс Директ' }
+                    ]
+                }
+            ]
+        },
+        corp: {
+            title: 'Корпоративный сайт',
+            base: 35000,
+            questions: [
+                {
+                    id: 'pages',
+                    title: 'Количество страниц',
+                    options: [
+                        { value: 0, label: 'До 5 страниц' },
+                        { value: 5000, label: '6–10 страниц' },
+                        { value: 10000, label: '11 и более' }
+                    ]
+                },
+                {
+                    id: 'catalog',
+                    title: 'Нужен каталог услуг/товаров?',
+                    options: [
+                        { value: 0, label: 'Нет' },
+                        { value: 5000, label: 'Да, до 20 позиций' },
+                        { value: 10000, label: 'Да, много позиций' }
+                    ]
+                }
+            ]
+        },
+        shop: {
+            title: 'Интернет-магазин',
+            base: 25000,
+            questions: [
+                {
+                    id: 'products',
+                    title: 'Количество товаров',
+                    options: [
+                        { value: 0, label: 'До 50 товаров' },
+                        { value: 5000, label: '51–200 товаров' },
+                        { value: 10000, label: 'Более 200' }
+                    ]
+                },
+                {
+                    id: 'import',
+                    title: 'Нужен импорт товаров?',
+                    options: [
+                        { value: 0, label: 'Нет, добавлю вручную' },
+                        { value: 5000, label: 'Да, из Excel / CSV' }
+                    ]
+                }
+            ]
+        },
+        bot: {
+            title: 'Чат-бот Telegram',
+            base: 12000,
+            questions: [
+                {
+                    id: 'scenarios',
+                    title: 'Количество сценариев/разделов',
+                    options: [
+                        { value: 0, label: 'До 5 сценариев' },
+                        { value: 3000, label: '6–10 сценариев' },
+                        { value: 6000, label: 'Более 10' }
+                    ]
+                },
+                {
+                    id: 'botAi',
+                    title: 'Нужно подключение ИИ (ChatGPT)?',
+                    options: [
+                        { value: 0, label: 'Нет' },
+                        { value: 10000, label: 'Да, интеграция ChatGPT' }
+                    ]
+                }
+            ]
+        },
+        custom: {
+            title: 'Разработка на заказ',
+            base: 0,
+            hourly: true,
+            questions: [
+                {
+                    id: 'taskType',
+                    title: 'Тип задачи',
+                    options: [
+                        { value: 0, label: 'Backend / API' },
+                        { value: 0, label: 'Интеграция сервисов' },
+                        { value: 0, label: 'Автоматизация процессов' },
+                        { value: 0, label: 'Доработка существующего проекта' }
+                    ]
+                },
+                {
+                    id: 'hours',
+                    title: 'Оценочный объём работ',
+                    options: [
+                        { value: 10000, label: '10–20 часов' },
+                        { value: 30000, label: '20–40 часов' },
+                        { value: 60000, label: '40+ часов' }
+                    ]
+                }
+            ]
+        }
+    };
+
+    const addonLabels = {
+        admin: 'Панель управления (Админка)',
+        crm: 'Интеграция с CRM / Telegram-уведомления',
+        payments: 'Приём платежей',
+        interactive: 'Сложные интерактивные элементы',
+        ai: 'Интеграция API / Нейросетей'
+    };
 
     function formatPrice(value) {
         return value.toLocaleString('ru-RU').replace(/\s/g, ' ');
     }
 
-    function calculate() {
-        let base = 0;
-        projectInputs.forEach(input => {
-            if (input.checked) base = parseInt(input.value, 10);
-        });
+    function getSelectedType() {
+        const checked = wizard.querySelector('input[name="projectType"]:checked');
+        return checked ? checked.value : 'vizitka';
+    }
 
-        if (base === 0) {
-            totalEl.textContent = 'от 1 000 ₽/час';
+    function renderDetails() {
+        const type = getSelectedType();
+        const data = projectData[type];
+        if (!data || !data.questions) {
+            detailsContainer.innerHTML = '';
             return;
         }
 
-        let addons = 0;
-        addonInputs.forEach(input => {
-            if (input.checked) addons += parseInt(input.value, 10);
-        });
+        detailsContainer.innerHTML = data.questions.map((q, qIndex) => `
+            <div class="calc-detail-group">
+                <h4>${q.title}</h4>
+                <div class="calc-detail-options">
+                    ${q.options.map((opt, i) => `
+                        <label class="calc-detail-option">
+                            <input type="radio" name="detail_${q.id}" value="${opt.value}" ${i === 0 ? 'checked' : ''}>
+                            <span>${opt.label}</span>
+                        </label>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('');
 
-        totalEl.textContent = '~' + formatPrice(base + addons) + ' ₽';
+        detailsContainer.querySelectorAll('.calc-detail-option input').forEach(input => {
+            input.addEventListener('change', updateSelectedState);
+        });
+        updateSelectedState();
     }
 
-    function updateVisualState() {
-        projectInputs.forEach(input => {
-            input.closest('.calc-option').classList.toggle('selected', input.checked);
+    function updateSelectedState() {
+        wizard.querySelectorAll('.calc-card').forEach(card => {
+            const input = card.querySelector('input');
+            card.classList.toggle('selected', input.checked);
         });
-        addonInputs.forEach(input => {
-            input.closest('.calc-option').classList.toggle('selected', input.checked);
+        wizard.querySelectorAll('.calc-detail-option').forEach(label => {
+            const input = label.querySelector('input');
+            label.classList.toggle('selected', input.checked);
+        });
+        wizard.querySelectorAll('.calc-option').forEach(label => {
+            const input = label.querySelector('input');
+            label.classList.toggle('selected', input.checked);
         });
     }
 
-    projectInputs.forEach(input => input.addEventListener('change', () => {
-        calculate();
-        updateVisualState();
-    }));
-    addonInputs.forEach(input => input.addEventListener('change', () => {
-        calculate();
-        updateVisualState();
-    }));
+    function calculate() {
+        const type = getSelectedType();
+        const data = projectData[type];
+        let base = data.base;
+        const summaryItems = [];
+
+        summaryItems.push({ label: data.title, value: base });
+
+        // Details
+        data.questions.forEach(q => {
+            const checked = wizard.querySelector(`input[name="detail_${q.id}"]:checked`);
+            if (checked) {
+                const val = parseInt(checked.value, 10);
+                const label = checked.nextElementSibling.textContent;
+                base += val;
+                if (val > 0 || data.hourly) {
+                    summaryItems.push({ label: `${q.title}: ${label}`, value: val });
+                }
+            }
+        });
+
+        // Addons
+        let addonsTotal = 0;
+        wizard.querySelectorAll('input[name="addon"]:checked').forEach(input => {
+            const val = parseInt(input.value, 10);
+            const id = input.getAttribute('data-id');
+            addonsTotal += val;
+            summaryItems.push({ label: addonLabels[id], value: val });
+        });
+
+        const total = base + addonsTotal;
+
+        if (totalEl) totalEl.textContent = '~' + formatPrice(total) + ' ₽';
+
+        if (summaryEl) {
+            const list = summaryItems.map(item => `
+                <li><span>${item.label}</span><strong>${item.value > 0 ? '+' + formatPrice(item.value) + ' ₽' : 'включено'}</strong></li>
+            `).join('');
+            summaryEl.innerHTML = `<ul>${list}<li class="calc-summary-total"><span>Примерная стоимость</span><strong>~${formatPrice(total)} ₽</strong></li></ul>`;
+        }
+    }
+
+    function goToStep(step) {
+        currentStep = step;
+        steps.forEach(s => s.classList.toggle('active', parseInt(s.getAttribute('data-step'), 10) === currentStep));
+        progressSteps.forEach(ps => ps.classList.toggle('active', parseInt(ps.getAttribute('data-step'), 10) <= currentStep));
+
+        prevBtn.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+        nextBtn.innerHTML = currentStep === totalSteps
+            ? '<i class="fas fa-redo"></i> Пересчитать'
+            : 'Далее <i class="fas fa-arrow-right"></i>';
+
+        if (currentStep === 2) renderDetails();
+        if (currentStep === totalSteps) calculate();
+
+        wizard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    wizard.querySelectorAll('input[name="projectType"]').forEach(input => {
+        input.addEventListener('change', () => {
+            updateSelectedState();
+            if (currentStep === 2) renderDetails();
+            if (currentStep === totalSteps) calculate();
+        });
+    });
+
+    wizard.addEventListener('change', e => {
+        if (e.target.matches('input[name^="detail_"], input[name="addon"]')) {
+            updateSelectedState();
+            if (currentStep === totalSteps) calculate();
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentStep > 1) goToStep(currentStep - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentStep < totalSteps) {
+            goToStep(currentStep + 1);
+        } else {
+            goToStep(1);
+        }
+    });
+
+    renderDetails();
+    updateSelectedState();
     calculate();
-    updateVisualState();
 }
 
 // ========================================
