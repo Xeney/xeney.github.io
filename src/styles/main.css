@@ -608,3 +608,476 @@
         padding: 0 22px 20px 58px;
     }
 }
+
+
+/* ========================================
+   REDESIGNED BLOCKS: certificates, process, about, testimonials
+   ======================================== */
+
+/* Certificates */
+.certificates {
+    padding: 100px 0;
+    background: var(--bg-primary);
+}
+
+/* Process timeline */
+.process {
+    padding: 100px 0;
+    background: var(--bg-secondary);
+}
+
+.process-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 60px;
+}
+
+.process-subtitle {
+    margin-top: -32px;
+    margin-bottom: 0;
+}
+
+.process-timeline {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.process-line {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--border-hover) 10%, var(--border-hover) 90%, transparent 100%);
+}
+
+.process-steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+}
+
+.process-step {
+    text-align: center;
+}
+
+.process-marker {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-hover);
+    border-radius: 50%;
+    transition: border-color .3s ease, box-shadow .3s ease;
+}
+
+.process-step:hover .process-marker {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 8px var(--bg-card);
+}
+
+.process-icon {
+    font-size: 1.5rem;
+    color: var(--accent-secondary);
+}
+
+.process-number {
+    position: absolute;
+    bottom: -8px;
+    right: -8px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: var(--bg-primary);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: .75rem;
+    font-weight: 700;
+}
+
+.process-step h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.process-step p {
+    color: var(--text-secondary);
+    font-size: .95rem;
+    line-height: 1.6;
+}
+
+/* About redesign */
+.about {
+    padding: 100px 0;
+    background: var(--bg-primary);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-text .section-title {
+    text-align: left;
+    margin-bottom: 24px;
+}
+
+.about-text .lead {
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.about-text > p:not(.lead) {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+.about-highlights {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+
+.about-highlight {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    min-width: 120px;
+}
+
+.about-highlight strong {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.about-highlight span {
+    font-size: .85rem;
+    color: var(--text-secondary);
+}
+
+.achievements-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px;
+}
+
+.achievements-list span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: .85rem;
+    color: var(--text-secondary);
+}
+
+.achievements-list span i {
+    color: var(--accent-secondary);
+    font-size: .8rem;
+}
+
+.about-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.about-image {
+    position: relative;
+}
+
+.about-avatar-wrapper {
+    position: relative;
+    border-radius: 5%;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+}
+
+.about-avatar-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    border: 2px solid var(--accent);
+    border-radius: 5%;
+    opacity: .25;
+    z-index: -1;
+}
+
+.about-avatar-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 5%;
+}
+
+/* Testimonials redesign */
+.testimonials {
+    padding: 100px 0;
+    background: var(--bg-secondary);
+}
+
+.testimonials-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 60px;
+}
+
+.testimonials-subtitle {
+    margin-top: -32px;
+    margin-bottom: 0;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.testimonial-card {
+    display: flex;
+    gap: 20px;
+    padding: 28px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color .3s ease, box-shadow .3s ease;
+}
+
+.testimonial-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-md);
+}
+
+.testimonial-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    font-size: 1.25rem;
+    color: var(--accent-secondary);
+    flex-shrink: 0;
+}
+
+.testimonial-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.testimonial-text p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: -webkit-line-clamp .3s ease;
+}
+
+.testimonial-card.expanded .testimonial-text p {
+    -webkit-line-clamp: unset;
+    display: block;
+}
+
+.testimonial-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: var(--accent);
+    font-size: .9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: gap .2s ease;
+}
+
+.testimonial-toggle:hover {
+    gap: 12px;
+}
+
+.testimonial-toggle i {
+    font-size: .75rem;
+    transition: transform .3s ease;
+}
+
+.testimonial-card.expanded .testimonial-toggle i {
+    transform: rotate(180deg);
+}
+
+.testimonial-author {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+.testimonial-author strong {
+    display: block;
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.testimonial-author span {
+    font-size: .85rem;
+    color: var(--text-muted);
+}
+
+.testimonials-cta {
+    text-align: center;
+    padding: 32px;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-lg);
+}
+
+.testimonials-cta p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.testimonials-cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .about-image {
+        order: -1;
+        max-width: 420px;
+        margin: 0 auto;
+    }
+
+    .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 24px;
+    }
+
+    .process-line {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .certificates,
+    .process,
+    .about,
+    .testimonials {
+        padding: 70px 0;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .process-steps {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .process-step {
+        text-align: left;
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .process-marker {
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+    .about-highlights {
+        gap: 12px;
+    }
+
+    .about-highlight {
+        flex: 1;
+        min-width: 100px;
+        padding: 14px 16px;
+    }
+
+    .about-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+
+/* Fixes for old CSS conflicts */
+.process-step {
+    background: transparent;
+    border: none;
+    padding: 0;
+    position: relative;
+}
+
+.process-icon {
+    width: auto;
+    height: auto;
+    background: transparent;
+    border-radius: 0;
+    margin: 0;
+}
+
+.process-number {
+    opacity: 1;
+}
+
+.about-avatar-wrapper::before,
+.about-avatar-wrapper::after {
+    content: none;
+}
+
+.testimonial-text p {
+    font-style: normal;
+}
+
+[data-theme="light"] .about-avatar-wrapper::after {
+    content: none;
+}

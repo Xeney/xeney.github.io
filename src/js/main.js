@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFormSubmit();
     initRevealAnimations();
     initFaqToggle();
+    initTestimonials();
     initPriceCalculator();
 });
 
@@ -452,6 +453,27 @@ function initFaqToggle() {
     });
     
     updateAria();
+}
+
+// ========================================
+// TESTIMONIALS EXPAND
+// ========================================
+function initTestimonials() {
+    const cards = document.querySelectorAll('.testimonial-card');
+    
+    cards.forEach(card => {
+        const toggle = card.querySelector('.testimonial-toggle');
+        const toggleText = card.querySelector('.testimonial-toggle-text');
+        if (!toggle) return;
+        
+        toggle.addEventListener('click', () => {
+            const isExpanded = card.classList.toggle('expanded');
+            toggle.setAttribute('aria-expanded', isExpanded);
+            if (toggleText) {
+                toggleText.textContent = isExpanded ? 'Свернуть' : 'Читать полностью';
+            }
+        });
+    });
 }
 
 // ========================================
