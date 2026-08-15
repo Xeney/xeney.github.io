@@ -1089,6 +1089,17 @@
     color: #0A0A0A;
 }
 
+.hero-desc-accent {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 10px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: .95rem;
+    color: var(--text-secondary);
+}
+
 /* Hero particles */
 .hero,
 .project-hero {
