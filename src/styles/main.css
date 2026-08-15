@@ -1083,7 +1083,8 @@
 }
 
 /* Hero particles */
-.hero {
+.hero,
+.project-hero {
     position: relative;
 }
 
@@ -1097,7 +1098,8 @@
     opacity: .55;
 }
 
-.hero-container {
+.hero-container,
+.project-hero .container {
     position: relative;
     z-index: 1;
 }

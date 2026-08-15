@@ -796,7 +796,7 @@ function initPriceCalculator() {
 // HERO PARTICLES
 // ========================================
 function initHeroParticles() {
-    const canvas = document.getElementById('heroParticles');
+    const canvas = document.querySelector('.hero-particles');
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
@@ -807,6 +807,14 @@ function initHeroParticles() {
     const connectionDistance = 120;
     const maxConnections = 3;
     let animationId;
+
+    function getColors() {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        return {
+            dot: isLight ? 'rgba(10, 10, 10, 0.18)' : 'rgba(240, 234, 220, 0.25)',
+            lineBase: isLight ? 'rgba(10, 10, 10, 0.08)' : 'rgba(240, 234, 220, 0.12)'
+        };
+    }
 
     function resize() {
         width = hero.offsetWidth;
@@ -833,6 +841,7 @@ function initHeroParticles() {
 
     function draw() {
         ctx.clearRect(0, 0, width, height);
+        const colors = getColors();
 
         for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
@@ -844,7 +853,7 @@ function initHeroParticles() {
 
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(240, 234, 220, 0.25)';
+            ctx.fillStyle = colors.dot;
             ctx.fill();
         }
 
@@ -859,7 +868,9 @@ function initHeroParticles() {
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = `rgba(240, 234, 220, ${0.12 * (1 - dist / connectionDistance)})`;
+                    const baseAlpha = parseFloat(colors.lineBase.match(/[\d.]+\)$/)[0]);
+                    const alpha = baseAlpha * (1 - dist / connectionDistance);
+                    ctx.strokeStyle = colors.lineBase.replace(/[\d.]+\)$/, `${alpha.toFixed(3)})`);
                     ctx.lineWidth = 0.8;
                     ctx.stroke();
                     connections++;
