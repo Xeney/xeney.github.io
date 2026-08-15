@@ -38,6 +38,13 @@ const projectsData = [
         solution: 'Одностраничный сайт на Vanilla JS с кастомным курсором, reveal-анимациями при скролле, переключением тёмной/светлой темы. Стек технологий, карточки проектов, контактная форма через mailto.',
         tags: ['HTML', 'CSS', 'Vanilla JS', 'Dark Theme', 'Portfolio'],
         images: 12
+    },
+    {
+        title: 'Дез-Про',
+        task: 'Разработать продающий многостраничный сайт для службы дезинфекции, дезинсекции и дератизации в Самаре. Нужна адаптивная вёрстка, онлайн-калькулятор стоимости, переключение тарифов для физических и юридических лиц, формы заявок и SEO-оптимизация.',
+        solution: 'Создан полноценный сайт на чистом HTML/CSS/JS: главная страница с hero-формой быстрого заказа, пошаговый калькулятор стоимости по площади и типу объекта, переключатель аудитории (физлица / юрлица), страницы услуг, цен, FAQ, контактов и политики. Реализованы анимации, cookie-виджет, валидация форм, мобильное меню, частицы на canvas и микроразметка Schema.org для локального бизнеса.',
+        tags: ['HTML/CSS', 'JavaScript', 'Landing Page', 'Calculator', 'SEO', 'Schema.org'],
+        images: 13
     }
 ];
 
@@ -804,7 +811,7 @@ function openCaseModal(index) {
     const tagsContainer = modal.querySelector('.case-modal-tags');
     tagsContainer.innerHTML = project.tags.map(t => `<span>${t}</span>`).join('');
     
-    const prefixes = ['carinsight', 'rzd', 'istanbul', 'chernika', 'visitka'];
+    const prefixes = ['carinsight', 'rzd', 'istanbul', 'chernika', 'visitka', 'dezpro'];
     const prefix = prefixes[index];
     const totalImages = project.images;
     
