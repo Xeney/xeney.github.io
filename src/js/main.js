@@ -3,51 +3,6 @@
  * Interactive JavaScript
  */
 
-const projectsData = [
-    {
-        title: 'CarInSight',
-        task: 'Разработать полноценную платформу v2.0 для автоматизации приёма и диагностики автомобилей в автосервисах с AI-анализом дефектов кузова.',
-        solution: 'Реализовано веб-приложение на Go 1.25 с SQLite (WAL): авторизация и регистрация через bcrypt, сессии в HttpOnly cookie, CSRF-защита и rate limiter. 19 маршрутов — лендинг, личный кабинет, полный CRUD осмотров, фото и дефектов, экспресс-осмотр из 6 шагов, админка пользователей и заявок. Интегрирован AI-микросервис на YOLOv8 для распознавания царапин, вмятин и трещин. Адаптивный UI на Bootstrap 5 в glassmorphism-стилистике.',
-        tags: ['Go', 'SQLite', 'Bootstrap 5', 'YOLOv8', 'AI', 'Docker'],
-        images: 15
-    },
-    {
-        title: 'ServiceDesk РЖД',
-        task: 'Дипломный проект: разработать платформу для подачи и отслеживания технических заявок внутри компании (например, сломался принтер или требуется ремонт оборудования).',
-        solution: 'Реализована тикет-система на PHP + PostgreSQL с ролевой моделью (сотрудник / исполнитель / администратор). Личный кабинет с dashboard, отслеживание статусов, уведомления на email, генерация отчётов.',
-        tags: ['PHP', 'PostgreSQL', 'AJAX', 'Dashboard', 'Diploma'],
-        images: 5
-    },
-    {
-        title: 'Кафе-бар «Истанбул»',
-        task: 'Турецкая кухня в Самаре для любого повода. Лендинг для заведения с дурумом, лахмаджуном, пиде, искендером, кебабами на мангале и традиционными десертами.',
-        solution: 'Адаптивный лендинг с анимированными секциями, фотогалереей блюд и интерьера. Форма бронирования столика с отправкой заявки в мессенджер. Интегрированы Яндекс.Карты, блок с акциями и спецпредложениями.',
-        tags: ['HTML/CSS', 'JavaScript', 'Chat API', 'Mobile First'],
-        images: 11
-    },
-    {
-        title: 'Кафе «Черника»',
-        task: 'Лаундж-бар «Черника» на Ленинградской, 31 — популярное заведение с панорамным видом на пешеходную улицу, кальянами и смешанной кухней.',
-        solution: 'Реализован многостраничный сайт на PHP + JavaScript. Меню подгружается из JSON, фотогалерея с лайтбоксом. Интегрированы Яндекс.Карты, форма обратной связи. Адаптивная сетка на CSS Grid.',
-        tags: ['PHP', 'JavaScript', 'JSON', 'CSS Grid', 'Lightbox'],
-        images: 14
-    },
-    {
-        title: 'Сайт-визитка',
-        task: 'Разработать персональный сайт-портфолио для Backend Developer с тёмной темой и интерактивными элементами.',
-        solution: 'Одностраничный сайт на Vanilla JS с кастомным курсором, reveal-анимациями при скролле, переключением тёмной/светлой темы. Стек технологий, карточки проектов, контактная форма через mailto.',
-        tags: ['HTML', 'CSS', 'Vanilla JS', 'Dark Theme', 'Portfolio'],
-        images: 12
-    },
-    {
-        title: 'Дез-Про',
-        task: 'Разработать продающий многостраничный сайт для службы дезинфекции, дезинсекции и дератизации в Самаре. Нужна адаптивная вёрстка, онлайн-калькулятор стоимости, переключение тарифов для физических и юридических лиц, формы заявок и SEO-оптимизация.',
-        solution: 'Создан полноценный сайт на чистом HTML/CSS/JS: главная страница с hero-формой быстрого заказа, пошаговый калькулятор стоимости по площади и типу объекта, переключатель аудитории (физлица / юрлица), страницы услуг, цен, FAQ, контактов и политики. Реализованы анимации, cookie-виджет, валидация форм, мобильное меню, частицы на canvas и микроразметка Schema.org для локального бизнеса.',
-        tags: ['HTML/CSS', 'JavaScript', 'Landing Page', 'Calculator', 'SEO', 'Schema.org'],
-        images: 13
-    }
-];
-
 document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
     initCursor();
@@ -55,11 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initHeaderScroll();
     initSmoothScroll();
     initScrollTop();
+    initScrollProgress();
+    initMarquee();
     initFormSubmit();
     initRevealAnimations();
     initFaqToggle();
-    initCaseCards();
-    initCaseModal();
     initPriceCalculator();
 });
 
@@ -265,6 +220,46 @@ function initScrollTop() {
 }
 
 // ========================================
+// SCROLL PROGRESS BAR
+// ========================================
+function initScrollProgress() {
+    const header = document.getElementById('header');
+    if (!header) return;
+    
+    const progress = document.createElement('div');
+    progress.className = 'scroll-progress';
+    progress.setAttribute('aria-hidden', 'true');
+    header.appendChild(progress);
+    
+    function updateProgress() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progress.style.width = percent + '%';
+    }
+    
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress, { passive: true });
+    updateProgress();
+}
+
+// ========================================
+// MARQUEE
+// ========================================
+function initMarquee() {
+    const track = document.getElementById('marqueeTrack');
+    if (!track) return;
+    
+    const content = track.innerHTML;
+    const minClones = 4;
+    let clones = 1;
+    while (track.scrollWidth < window.innerWidth * 2 && clones < minClones) {
+        track.insertAdjacentHTML('beforeend', content);
+        clones++;
+    }
+}
+
+// ========================================
 // FORM SUBMIT
 // ========================================
 function initFormSubmit() {
@@ -430,6 +425,15 @@ function initRevealAnimations() {
 function initFaqToggle() {
     const faqItems = document.querySelectorAll('.faq-item');
     
+    function updateAria() {
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            if (question) {
+                question.setAttribute('aria-expanded', item.classList.contains('active'));
+            }
+        });
+    }
+    
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
         if (!question) return;
@@ -442,22 +446,12 @@ function initFaqToggle() {
             if (!isActive) {
                 item.classList.add('active');
             }
+            
+            updateAria();
         });
     });
-}
-
-// ========================================
-// CASE CARDS - OPEN MODAL
-// ========================================
-function initCaseCards() {
-    const cards = document.querySelectorAll('.case-card-mini');
     
-    cards.forEach(card => {
-        card.addEventListener('click', () => {
-            const projectIndex = parseInt(card.getAttribute('data-project'));
-            openCaseModal(projectIndex);
-        });
-    });
+    updateAria();
 }
 
 // ========================================
@@ -775,122 +769,3 @@ function initPriceCalculator() {
     calculate();
 }
 
-// ========================================
-// CASE MODAL
-// ========================================
-let currentProject = 0;
-let currentSlide = 0;
-
-function initCaseModal() {
-    const modal = document.getElementById('caseModal');
-    if (!modal) return;
-    
-    const closeBtn = modal.querySelector('.case-modal-close');
-    const backdrop = modal.querySelector('.case-modal-backdrop');
-    
-    closeBtn.addEventListener('click', closeCaseModal);
-    backdrop.addEventListener('click', closeCaseModal);
-    
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeCaseModal();
-        }
-    });
-}
-
-function openCaseModal(index) {
-    const modal = document.getElementById('caseModal');
-    const project = projectsData[index];
-    currentProject = index;
-    currentSlide = 0;
-    
-    modal.querySelector('.case-modal-title').textContent = project.title;
-    modal.querySelector('.case-modal-task').textContent = project.task;
-    modal.querySelector('.case-modal-solution').textContent = project.solution;
-    
-    const tagsContainer = modal.querySelector('.case-modal-tags');
-    tagsContainer.innerHTML = project.tags.map(t => `<span>${t}</span>`).join('');
-    
-    const prefixes = ['carinsight', 'rzd', 'istanbul', 'chernika', 'visitka', 'dezpro'];
-    const prefix = prefixes[index];
-    const totalImages = project.images;
-    
-    const track = modal.querySelector('.carousel-track');
-    const dotsContainer = modal.querySelector('.carousel-dots');
-    
-    track.innerHTML = '';
-    dotsContainer.innerHTML = '';
-    
-    for (let i = 1; i <= totalImages; i++) {
-        const img = document.createElement('img');
-        img.dataset.src = `assets/img/projects/${prefix}-${String(i).padStart(2, '0')}.webp`;
-        img.alt = `${project.title} — скриншот ${i}`;
-        track.appendChild(img);
-        
-        const dot = document.createElement('button');
-        dot.className = 'carousel-dot';
-        dot.ariaLabel = `Слайд ${i}`;
-        dot.addEventListener('click', () => goToSlide(i - 1));
-        dotsContainer.appendChild(dot);
-    }
-    
-    loadSlideImages(0);
-    goToSlide(0);
-    
-    const prevBtn = modal.querySelector('.carousel-prev');
-    const nextBtn = modal.querySelector('.carousel-next');
-    
-    prevBtn.onclick = () => {
-        if (currentSlide > 0) goToSlide(currentSlide - 1);
-    };
-    nextBtn.onclick = () => {
-        if (currentSlide < totalImages - 1) goToSlide(currentSlide + 1);
-    };
-    
-    document.body.style.overflow = 'hidden';
-    modal.classList.add('active');
-}
-
-function closeCaseModal() {
-    const modal = document.getElementById('caseModal');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-function loadSlideImages(slideIndex) {
-    const modal = document.getElementById('caseModal');
-    const track = modal.querySelector('.carousel-track');
-    const images = track.querySelectorAll('img');
-    
-    images.forEach((img, i) => {
-        if (i >= slideIndex - 1 && i <= slideIndex + 1) {
-            if (!img.src || img.src !== img.dataset.src) {
-                img.src = img.dataset.src;
-            }
-        } else {
-            img.removeAttribute('src');
-        }
-    });
-}
-
-function goToSlide(index) {
-    const modal = document.getElementById('caseModal');
-    const track = modal.querySelector('.carousel-track');
-    currentSlide = index;
-    
-    loadSlideImages(index);
-    
-    track.style.transform = `translateX(-${index * 100}%)`;
-    
-    const dots = modal.querySelectorAll('.carousel-dot');
-    dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-    });
-    
-    const prevBtn = modal.querySelector('.carousel-prev');
-    const nextBtn = modal.querySelector('.carousel-next');
-    const totalSlides = dots.length;
-    
-    prevBtn.style.opacity = index === 0 ? '0.3' : '1';
-    nextBtn.style.opacity = index === totalSlides - 1 ? '0.3' : '1';
-}
