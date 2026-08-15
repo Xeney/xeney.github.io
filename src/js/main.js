@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFaqToggle();
     initTestimonials();
     initPriceCalculator();
+    initHeroParticles();
 });
 
 // ========================================
@@ -789,5 +790,101 @@ function initPriceCalculator() {
     renderDetails();
     updateSelectedState();
     calculate();
+}
+
+// ========================================
+// HERO PARTICLES
+// ========================================
+function initHeroParticles() {
+    const canvas = document.getElementById('heroParticles');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const hero = canvas.parentElement;
+    let width, height;
+    let particles = [];
+    const particleCount = window.matchMedia('(pointer: coarse)').matches ? 60 : 120;
+    const connectionDistance = 120;
+    const maxConnections = 3;
+    let animationId;
+
+    function resize() {
+        width = hero.offsetWidth;
+        height = hero.offsetHeight;
+        canvas.width = width * window.devicePixelRatio;
+        canvas.height = height * window.devicePixelRatio;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+
+    function createParticles() {
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                radius: Math.random() * 1.5 + 1
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0 || p.x > width) p.vx *= -1;
+            if (p.y < 0 || p.y > height) p.vy *= -1;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(240, 234, 220, 0.25)';
+            ctx.fill();
+        }
+
+        for (let i = 0; i < particles.length; i++) {
+            let connections = 0;
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < connectionDistance && connections < maxConnections) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(240, 234, 220, ${0.12 * (1 - dist / connectionDistance)})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                    connections++;
+                }
+            }
+        }
+
+        animationId = requestAnimationFrame(draw);
+    }
+
+    resize();
+    createParticles();
+    draw();
+
+    window.addEventListener('resize', () => {
+        resize();
+        createParticles();
+    });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            cancelAnimationFrame(animationId);
+        } else {
+            draw();
+        }
+    });
 }
 
