@@ -1098,6 +1098,8 @@
     border-radius: var(--radius-md);
     font-size: .95rem;
     color: var(--text-secondary);
+    transition: transform .2s ease, background .3s ease, border-color .3s ease;
+    user-select: none;
 }
 
 /* Hero particles */

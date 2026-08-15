@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initTestimonials();
     initPriceCalculator();
     initHeroParticles();
+    initHeroEasterEgg();
+    initButtonParticleEffects();
 });
 
 // ========================================
@@ -304,7 +306,8 @@ function initFormSubmit() {
             const body = encodeURIComponent(`Имя: ${name}\nКонтакт: ${contact}\n\nСообщение:\n${message}`);
             
             showNotification('Почтовый клиент открыт! Нажмите «Отправить».', 'success');
-            
+            createConfettiRain();
+
             btnText.style.display = '';
             btnLoader.style.display = 'none';
             submitBtn.disabled = false;
@@ -894,6 +897,193 @@ function initHeroParticles() {
         } else {
             draw();
         }
+    });
+}
+
+// ========================================
+// HERO EASTER EGG
+// ========================================
+function initHeroEasterEgg() {
+    const el = document.querySelector('.hero-desc-accent');
+    if (!el) return;
+
+    // Only on PC (fine pointer)
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
+    el.style.cursor = 'pointer';
+
+    el.addEventListener('click', (e) => {
+        const rect = el.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        createGrandParticleBurst(centerX, centerY);
+
+        el.style.transform = 'scale(1.08)';
+        el.style.borderColor = 'var(--accent)';
+        el.style.boxShadow = '0 0 30px var(--accent-glow)';
+        setTimeout(() => {
+            el.style.transform = '';
+            el.style.borderColor = '';
+            el.style.boxShadow = '';
+        }, 350);
+    });
+}
+
+function createParticleBurst(x, y) {
+    const count = 28;
+    const colors = ['#F0EADC', '#d4c0a0', '#c4b090', '#7aaa7e', '#F0EADC'];
+
+    for (let i = 0; i < count; i++) {
+        const particle = document.createElement('span');
+        particle.style.cssText = `
+            position: fixed;
+            left: ${x}px;
+            top: ${y}px;
+            width: ${4 + Math.random() * 4}px;
+            height: ${4 + Math.random() * 4}px;
+            border-radius: 50%;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            pointer-events: none;
+            z-index: 9999;
+        `;
+        document.body.appendChild(particle);
+
+        const angle = (Math.PI * 2 * i) / count + Math.random() * 0.6;
+        const velocity = 90 + Math.random() * 140;
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity;
+
+        particle.animate([
+            { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+            { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 }
+        ], {
+            duration: 700 + Math.random() * 400,
+            easing: 'cubic-bezier(0, .9, .57, 1)'
+        }).onfinish = () => particle.remove();
+    }
+}
+
+// ========================================
+// CONFETTI BURST (easter egg)
+// ========================================
+function createGrandParticleBurst(x, y) {
+    const count = 90;
+    const colors = ['#F0EADC', '#d4c0a0', '#c4b090', '#7aaa7e', '#ffffff', '#e8dcc8', '#d4af37', '#8b7355'];
+
+    for (let i = 0; i < count; i++) {
+        const confetti = document.createElement('span');
+        const width = 6 + Math.random() * 8;
+        const height = 10 + Math.random() * 12;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const startRotation = Math.random() * 360;
+        const endRotation = startRotation + 360 + Math.random() * 720;
+
+        confetti.style.cssText = `
+            position: fixed;
+            left: ${x}px;
+            top: ${y}px;
+            width: ${width}px;
+            height: ${height}px;
+            background: ${color};
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%) rotate(${startRotation}deg);
+        `;
+        document.body.appendChild(confetti);
+
+        const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.8;
+        const velocity = 80 + Math.random() * 220;
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity;
+        const gravity = 180 + Math.random() * 250;
+        const sway = (Math.random() - 0.5) * 120;
+
+        const duration = 1400 + Math.random() * 1000;
+
+        confetti.animate([
+            {
+                transform: `translate(-50%, -50%) rotate(${startRotation}deg)`,
+                opacity: 1,
+                offset: 0
+            },
+            {
+                transform: `translate(calc(-50% + ${tx + sway}px), calc(-50% + ${ty}px)) rotate(${startRotation + 180}deg)`,
+                opacity: 1,
+                offset: 0.5
+            },
+            {
+                transform: `translate(calc(-50% + ${tx + sway * 2}px), calc(-50% + ${ty + gravity}px)) rotate(${endRotation}deg)`,
+                opacity: 0,
+                offset: 1
+            }
+        ], {
+            duration: duration,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        }).onfinish = () => confetti.remove();
+    }
+}
+
+// ========================================
+// CONFETTI RAIN (form success)
+// ========================================
+function createConfettiRain() {
+    const count = 180;
+    const colors = ['#F0EADC', '#d4c0a0', '#c4b090', '#7aaa7e', '#ffffff', '#e8dcc8', '#d4af37'];
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    for (let i = 0; i < count; i++) {
+        const confetti = document.createElement('span');
+        const w = 6 + Math.random() * 8;
+        const h = 10 + Math.random() * 14;
+        const startX = Math.random() * width;
+        const endX = startX + (Math.random() - 0.5) * 200;
+        const rotation = Math.random() * 360;
+        const endRotation = rotation + 360 + Math.random() * 720;
+        const duration = 2000 + Math.random() * 1500;
+        const delay = Math.random() * 3000;
+
+        confetti.style.cssText = `
+            position: fixed;
+            left: ${startX}px;
+            top: -20px;
+            width: ${w}px;
+            height: ${h}px;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 9999;
+        `;
+        document.body.appendChild(confetti);
+
+        confetti.animate([
+            { transform: `translate(0, 0) rotate(${rotation}deg)`, opacity: 1 },
+            { transform: `translate(${endX - startX}px, ${height + 40}px) rotate(${endRotation}deg)`, opacity: 0 }
+        ], {
+            duration: duration,
+            delay: delay,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        }).onfinish = () => confetti.remove();
+    }
+}
+
+// ========================================
+// BUTTON PARTICLE EFFECTS (PC only)
+// ========================================
+function initButtonParticleEffects() {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
+    const buttons = document.querySelectorAll(`
+        .btn,
+        .call-button,
+        button:not(.menu-toggle):not(.theme-toggle):not(.faq-question):not(.testimonial-toggle)
+    `);
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            createParticleBurst(e.clientX, e.clientY);
+        });
     });
 }
 
