@@ -756,8 +756,6 @@ function initPriceCalculator() {
 
         if (currentStep === 2) renderDetails();
         if (currentStep === totalSteps) calculate();
-
-        wizard.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     wizard.querySelectorAll('input[name="projectType"]').forEach(input => {

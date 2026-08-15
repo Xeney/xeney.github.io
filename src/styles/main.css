@@ -1082,6 +1082,13 @@
     content: none;
 }
 
+/* Social/contact icons hover */
+.social-links a:hover i,
+.footer-social a:hover i,
+.contact-link:hover i {
+    color: #0A0A0A;
+}
+
 /* Hero particles */
 .hero,
 .project-hero {
