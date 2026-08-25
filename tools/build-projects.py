@@ -19,10 +19,13 @@ def get_image_size(prefix, index):
 def build_gallery(project):
     lines = []
     prefix = project['slug']
-    for i in range(1, project['images'] + 1):
-        width, height = get_image_size(prefix, i)
-        thumb = f'assets/img/projects/{prefix}-{i:02d}.webp'
-        alt = f'{project["title"]} — скриншот {i}'
+    cover = project.get('cover', 1)
+    total = project['images']
+    order = [cover] + [i for i in range(1, total + 1) if i != cover]
+    for pos, idx in enumerate(order, start=1):
+        width, height = get_image_size(prefix, idx)
+        thumb = f'assets/img/projects/{prefix}-{idx:02d}.webp'
+        alt = f'{project["title"]} — скриншот {pos}'
         lines.append(
             f'                    <a href="{thumb}" '
             f'data-pswp-width="{width}" data-pswp-height="{height}" '
@@ -46,8 +49,11 @@ def main():
             f'<span>{tag}</span>' for tag in project['tags']
         )
 
+        cover = project.get('cover', 1)
+
         content = template
         content = content.replace('{{SLUG}}', project['slug'])
+        content = content.replace('{{COVER}}', f'{cover:02d}')
         content = content.replace('{{TITLE}}', project['title'])
         content = content.replace('{{DESCRIPTION}}', project['description'])
         content = content.replace('{{TASK}}', project['task'])
