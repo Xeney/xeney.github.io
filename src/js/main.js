@@ -501,7 +501,7 @@ function initPriceCalculator() {
     const projectData = {
         vizitka: {
             title: 'Сайт-визитка',
-            base: 10000,
+            base: 5000,
             questions: [
                 {
                     id: 'sections',
@@ -525,7 +525,7 @@ function initPriceCalculator() {
         },
         landing: {
             title: 'Landing Page',
-            base: 15000,
+            base: 5000,
             questions: [
                 {
                     id: 'screens',
@@ -549,7 +549,7 @@ function initPriceCalculator() {
         },
         corp: {
             title: 'Корпоративный сайт',
-            base: 35000,
+            base: 5000,
             questions: [
                 {
                     id: 'pages',
@@ -573,7 +573,7 @@ function initPriceCalculator() {
         },
         shop: {
             title: 'Интернет-магазин',
-            base: 25000,
+            base: 15000,
             questions: [
                 {
                     id: 'products',
@@ -596,7 +596,7 @@ function initPriceCalculator() {
         },
         bot: {
             title: 'Чат-бот Telegram',
-            base: 12000,
+            base: 3000,
             questions: [
                 {
                     id: 'scenarios',
