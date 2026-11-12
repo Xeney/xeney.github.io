@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Резюме — Варламов Дамир Алексеевич</title>
+<style>
+  @page { size: A4; margin: 14mm 16mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.36;
+    color: #111;
+    background: #f2f2f2;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 12px auto;
+    padding: 14mm 16mm;
+    background: #fff;
+  }
+  h1 {
+    font-size: 21pt;
+    line-height: 1.1;
+    margin: 0 0 3px;
+    letter-spacing: -0.2px;
+  }
+  .role {
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 0 0 5px;
+  }
+  .contacts {
+    font-size: 9.6pt;
+    color: #333;
+    margin: 0 0 11px;
+  }
+  .contacts div { margin: 0 0 2px; }
+  h2 {
+    font-size: 10.8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.45px;
+    margin: 14px 0 6px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #999;
+  }
+  p { margin: 0 0 6px; }
+  ul { margin: 0 0 7px 17px; padding: 0; }
+  li { margin: 0 0 4px; }
+  .skills li { margin-bottom: 3px; }
+  .job { margin: 0 0 12px; }
+  .job-title {
+    font-size: 11pt;
+    font-weight: bold;
+    margin: 0;
+  }
+  .job-meta {
+    font-size: 9.8pt;
+    color: #333;
+    margin: 1px 0 4px;
+  }
+  .job-project { margin: 0 0 5px; }
+  .stack {
+    font-size: 9.8pt;
+    color: #222;
+    margin: 4px 0 0;
+  }
+  .fill { background: #fff3cd; }
+  a { color: #111; text-decoration: none; }
+  @media print {
+    body { background: #fff; font-size: 10.2pt; }
+    .page {
+      width: auto;
+      min-height: 0;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+    h2 { break-after: avoid; }
+    .job-title, .job-meta { break-after: avoid; }
+    li { break-inside: avoid; }
+    .fill { background: transparent; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Варламов Дамир Алексеевич</h1>
+  <div class="role">Golang Backend Developer (Middle+ / Senior)</div>
+  <div class="contacts">
+    <div>Самара, Россия · удалённая работа / гибрид · не готов к переезду и командировкам</div>
+    <div><a href="tel:+79878166533">+7 (987) 816-65-33</a> · <a href="mailto:damir.itwar@yandex.ru">damir.itwar@yandex.ru</a> · Telegram: <a href="https://t.me/Ghosers">@Ghosers</a></div>
+  </div>
+
+  <h2>О себе</h2>
+  <p>Golang-разработчик с 6 годами коммерческого опыта. Последние 3,5 года развиваю высоконагруженный платёжный шлюз в FinTech: 20 000 RPS, микросервисы на Go, Kafka, PostgreSQL, Kubernetes. Отвечал за платёжные сервисы end-to-end — от API и миграции с монолита до on-call, инцидентов и подготовки к PCI DSS. Подтверждаю решения метриками: p99, MTTR, потребление RAM. Ищу команду с высокими нагрузками, где можно влиять на архитектуру и качество продукта. Высшее образование получаю заочно, совмещаю обучение с работой.</p>
+
+  <h2>Ключевые навыки</h2>
+  <ul class="skills">
+    <li><strong>Язык и backend:</strong> Go (Golang), gRPC, Protobuf, REST, net/http, Chi, SOLID, Clean Architecture, микросервисная архитектура.</li>
+    <li><strong>Базы данных:</strong> PostgreSQL (партиционирование, реплики, оптимизация запросов), Redis, ClickHouse, Elasticsearch, SQL.</li>
+    <li><strong>Асинхронность и интеграции:</strong> Apache Kafka, RabbitMQ, Transactional Outbox, Saga, идемпотентность, retry/backoff, circuit breaker, rate limiting.</li>
+    <li><strong>Инфраструктура:</strong> Docker, Kubernetes, Linux, GitLab CI, Git.</li>
+    <li><strong>Наблюдаемость:</strong> Prometheus, Grafana, OpenTelemetry, Jaeger, SLO/SLA, алертинг, on-call.</li>
+    <li><strong>Качество:</strong> unit- и интеграционные тесты (testcontainers, testify), pprof, профилирование, код-ревью, golangci-lint.</li>
+    <li><strong>AI-инструменты:</strong> GitHub Copilot, Cursor.</li>
+  </ul>
+
+  <h2>Опыт работы</h2>
+
+  <section class="job">
+    <h3 class="job-title">Golang Developer (Middle+)</h3>
+    <div class="job-meta"><strong>PayStream Tech</strong> — FinTech, платёжный процессинг и биллинг для B2B-клиентов<br>Май 2023 — настоящее время (3 года 6 месяцев)<br>Команда: 14 инженеров в 3 продуктовых командах; работал в платёжной команде из 5 человек.</div>
+    <p class="job-project"><strong>О проекте:</strong> высоконагруженный платёжный шлюз с пиковой нагрузкой 20 000 RPS и SLA 99,95%. Отвечал за сервисы инициирования платежей, статусов и webhooks.</p>
+    <ul>
+      <li><strong>Разработка:</strong> разрабатывал и поддерживал 3 микросервиса платёжного ядра на Go и gRPC. Участвовал в переходе монолита на микросервисы: отвечал за выделение своих сервисов, миграцию трафика и обратную совместимость API.</li>
+      <li><strong>Надёжность:</strong> реализовал Transactional Outbox для публикации платёжных событий в Kafka и идемпотентную обработку на стороне потребителей; участвовал во внедрении Saga для компенсаций. Расхождения в ежедневных сверках снизились с 0,12% до 0,001%.</li>
+      <li><strong>Производительность:</strong> профилировал сервисы через pprof, оптимизировал аллокации, пулы соединений и запросы к PostgreSQL/Redis. p99 API сервиса снизился с 320 до 90 мс, потребление RAM — на 25%.</li>
+      <li><strong>Данные:</strong> участвовал в партиционировании таблицы транзакций PostgreSQL (500+ млн строк), писал запросы к репликам и витрины в ClickHouse для отчётности. Тяжёлые аналитические выборки ускорились в 4 раза.</li>
+      <li><strong>Эксплуатация:</strong> настраивал метрики Prometheus, алерты Grafana и трейсинг OpenTelemetry для своих сервисов; участвовал в on-call и разборе инцидентов. MTTR команды сократился с 40 до 12 минут.</li>
+      <li><strong>Комплаенс:</strong> участвовал в подготовке платёжных сервисов к PCI DSS — сегментация, аудит доступа, ротация секретов; автоматизировал часть реконсиляции с провайдерами, ежедневная сверка сократилась с 3 часов до 40 минут.</li>
+      <li><strong>Люди и процессы:</strong> проводил код-ревью, 20+ технических собеседований, менторил 2 джунов; участвовал в планировании и оценке задач, внедрял golangci-lint и интеграционные тесты в GitLab CI.</li>
+      <li><strong>Инструменты:</strong> использую AI-ассистентов (GitHub Copilot, Cursor) для генерации тестов и рутинного рефакторинга, ревью сгенерированного кода; подготовка тестов ускорилась примерно на 30%.</li>
+    </ul>
+    <p class="stack"><strong>Стек:</strong> Go 1.21–1.25, gRPC/Protobuf, REST, PostgreSQL, Redis, Apache Kafka, ClickHouse, Docker, Kubernetes, Prometheus, Grafana, OpenTelemetry, GitLab CI.</p>
+  </section>
+
+  <section class="job">
+    <h3 class="job-title">Golang Developer (Junior → Middle)</h3>
+    <div class="job-meta"><strong>MarketBox</strong> — E-commerce, маркетплейс<br>Ноябрь 2020 — апрель 2023 (2 года 6 месяцев)<br>Команда: 6 инженеров; зона ответственности — каталог, остатки и ценообразование.</div>
+    <p class="job-project"><strong>О проекте:</strong> бэкенд-платформа управления каталогом, остатками и ценами для маркетплейса с базой 2 млн SKU и пиковыми нагрузками в периоды распродаж.</p>
+    <ul>
+      <li><strong>Разработка:</strong> разрабатывал микросервисы синхронизации остатков и динамического ценообразования на Go (net/http, Chi, gRPC); участвовал в проектировании API и декомпозиции задач.</li>
+      <li><strong>Кэширование:</strong> внедрил двухуровневое кэширование (in-memory + Redis) карточек и цен с инвалидацией по событиям. Нагрузка на PostgreSQL в периоды распродаж снизилась на 60%.</li>
+      <li><strong>Асинхронная обработка:</strong> реализовал Worker Pool на горутинах с graceful shutdown и backpressure для импорта прайс-листов; обмен событиями каталога перевёл на RabbitMQ. Обновление каталога ускорилось с 2 часов до 12 минут.</li>
+      <li><strong>Интеграции:</strong> разработал отказоустойчивые клиенты к логистическим провайдерам и ERP с retry/backoff, circuit breaker и rate limiting. Доля успешных вызовов выросла с 97,5% до 99,9%.</li>
+      <li><strong>Поиск:</strong> внедрил Elasticsearch для полнотекстового поиска и фильтрации каталога вместо LIKE-запросов; скорость поиска выросла в 5 раз.</li>
+      <li><strong>Качество и эксплуатация:</strong> писал unit- и интеграционные тесты (testcontainers, testify), поднял покрытие критической логики с 25% до 70%; настроил тесты и линтеры в GitLab CI, участвовал в on-call и алертах Prometheus/Grafana.</li>
+    </ul>
+    <p class="stack"><strong>Стек:</strong> Go 1.15–1.20, Chi, gRPC/Protobuf, PostgreSQL, Redis, RabbitMQ, Elasticsearch, Docker, GitLab CI, Prometheus, Grafana.</p>
+  </section>
+
+  <h2>Достижения</h2>
+  <ul>
+    <li>Победитель национального чемпионата «Разработка блокчейн-решений» WorldSkills Russia.</li>
+    <li>Благодарность Губернатора за высокие результаты в финале национального чемпионата.</li>
+    <li>Благодарность Министерства образования за успехи в профессиональном обучении.</li>
+    <li>Участник проектной сессии BRICS.</li>
+  </ul>
+
+  <h2>Образование</h2>
+  <p><strong>2023–2029 (ожидается, высшее, заочно):</strong> Поволжский государственный университет телекоммуникаций и информатики, Самара<br>Факультет кибербезопасности и управления (Факультет №1), 09.03.01 «Информатика и вычислительная техника»</p>
+  <p><strong>2023:</strong> ГАПОУ СО «Самарский государственный колледж», Самара<br>Информационные системы и программирование, квалификация «Разработчик веб и мультимедийных приложений»</p>
+
+  <h2>Языки</h2>
+  <ul>
+    <li>Русский — родной.</li>
+    <li>Английский — B1 (Intermediate): чтение технической документации, переписка.</li>
+  </ul>
+
+  <h2>Дополнительно</h2>
+  <ul>
+    <li>Дата рождения: 14.09.2003 (23 года).</li>
+    <li>Гражданство: РФ. Военный билет: есть. Водительское удостоверение: категория B.</li>
+    <li>Формат: удалённая работа / гибрид (Самара); офис — Самара. Занятость: полная.</li>
+    <li>Переезд и командировки: не готов. Выход на работу: по согласованию.</li>
+    <li>Дополнительный email для международных откликов: jeneksero@gmail.com.</li>
+  </ul>
+
+</div>
+</body>
+</html>
