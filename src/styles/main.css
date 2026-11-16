@@ -1123,3 +1123,38 @@
     position: relative;
     z-index: 1;
 }
+
+/* Live site link on project pages */
+.project-live {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+}
+
+.project-gallery--wide .project-gallery-item {
+    aspect-ratio: 900 / 615;
+}
+
+.project-live .btn {
+    gap: 10px;
+}
+
+.project-live__domain {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: .8rem;
+    letter-spacing: .02em;
+}
+
+@media (max-width: 600px) {
+    .project-live {
+        gap: 10px;
+    }
+
+    .project-live .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
