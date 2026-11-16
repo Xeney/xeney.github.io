@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /node_modules/
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /README.md
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&yclid&gclid /
 
 Sitemap: https://xeney.github.io/sitemap.xml
